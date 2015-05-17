@@ -7,7 +7,7 @@ Create beautiful console messages and impress your users
 console.message code is used in jsblocks and achieves amazing debugging experience for the developers using it.
 Take a look at the gif below:
 
-![console.message example](http://jsblocks.com/img/debugging.gif')
+![console.message example](http://jsblocks.com/img/debugging.gif)
 
 ## Examples
 
