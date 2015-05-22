@@ -10,7 +10,7 @@ console.message code is used in [jsblocks](http://jsblocks.com) and achieves ama
 
 ## Examples
 
-### Arguments missmatch
+### Arguments mismatch
 
 ```javascript
 console.message()

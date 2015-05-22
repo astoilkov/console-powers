@@ -162,6 +162,20 @@
     },
 
     /**
+     * Adds an interactive object tree to the ouput.
+     * @param {*} object - A value to be added to the output.
+     * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
+     */
+    addObject: function (object) {
+      this._currentSpan.children.push({
+        type: 'object',
+        object: object,
+        parent: this._currentSpan
+      });
+      return this;
+    },
+
+    /**
      * Prints the message to the console.
      * Until print() is called there will be no result to the console.
      * @returns {ConsoleMessage} - Returns a new ConsoleMessage instance.
@@ -248,6 +262,9 @@
           message.text += '%o';
           message.args.push(child.element);
           break;
+        case 'object':
+          message.text += '%O';
+          message.args.push(child.object);
         case 'log':
           messages.push(this._newMessage(child.type));
           break;
@@ -345,12 +362,16 @@
       window.console = {};
     }
 
+    /**
+     * Creates a message object.
+     * @returns {ConsoleMessage} - The message object
+     */
     window.console.message = function () {
       return new ConsoleMessage();
     };
 
     /**
-     * Logs
+     * Outputs an image to the console
      * @param {string} url - The url location of the image.
      * @param {number}
      */
@@ -364,6 +385,14 @@
      */
     window.console.element = function (element) {
       new ConsoleMessage().addElement(element).print();
+    };
+
+    /**
+     * Adds an interactive object tree to the ouput.
+     * @param {*} object - A value to be added to the output.
+     */
+    window.console.object = function (object) {
+      new ConsoleMessage().addObject(object).print();
     };
   }
 })();
