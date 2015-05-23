@@ -28,7 +28,7 @@ console.message()
 
 ```javascript
 console.message()
-	.beginGroup()
+	.group()
 	.text('Error occurred while executing code', { color: 'red', fontSize: 24 })
 		.group(false)
 		.text('For more information expand the group', { color: 'green' })
@@ -80,9 +80,9 @@ Starts a span with particular style and all appended text after it will use the 
 
 ```javascript
 console.message()
-	.span({ color: 'red' })
+	.spanStart({ color: 'red' })
 	.text('this is red! ')
-		.span({ color: 'green' })
+		.spanStart({ color: 'green' })
 		.text('this is green! ')
 		.spanEnd()
 	.text('this is again red!')
@@ -90,9 +90,9 @@ console.message()
 	.print();
 ```
 
-![beginSpan() example](https://dl.dropboxusercontent.com/u/4277603/console.message/beginSpan-example.png)
+![spanStart() example](https://dl.dropboxusercontent.com/u/4277603/console.message/spanStat-example.png)
 
-### endSpan()
+### spanEnd()
 
 Ends the current span styles and backs to the previous styles or the root if there are no other parents.
 Take a look at the example above.
@@ -112,7 +112,7 @@ console.message()
 	.print();
 ```
 
-![beginGroup() example](https://dl.dropboxusercontent.com/u/4277603/console.message/beginGroup-example.png)
+![group() example](https://dl.dropboxusercontent.com/u/4277603/console.message/group-example.png)
 
 ### groupEnd()
 
