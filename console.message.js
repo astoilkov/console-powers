@@ -16,11 +16,12 @@
   ConsoleMessage.prototype = {
     /**
      * Begins a group. By default the group is expanded. Provide true if you want the group to be collapsed.
+     * @param {boolean} [expanded = true] -
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    beginGroup: function (collapsed) {
+    group: function (expanded) {
       this._currentSpan.children.push({
-        type: collapsed === true ? 'groupCollapsed' : 'group',
+        type: expanded === false ? 'groupCollapsed' : 'group',
         parent: this._currentSpan
       });
       return this;
@@ -30,7 +31,7 @@
      * Ends the group and returns to writing to the parent message.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    endGroup: function () {
+    groupEnd: function () {
       this._currentSpan.children.push({
         type: 'groupEnd',
         parent: this._currentSpan
@@ -43,10 +44,10 @@
      * @param {Object} styles - The CSS styles to be applied to all text until endSpan() is called
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    beginSpan: function (styles) {
+    span: function (styles) {
       var span = {
         type: 'span',
-        styles: styles,
+        styles: apply(styles || {}, this._currentSpan.styles),
         children: [],
         parent: this._currentSpan
       };
@@ -59,21 +60,8 @@
      * Ends the current span styles and backs to the previous styles or the root if there are no other parents.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    endSpan: function () {
+    spanEnd: function () {
       this._currentSpan = this._currentSpan.parent || this._currentSpan;
-      return this;
-    },
-
-    /**
-     * Appends a text with particular style. Styles is an object containing CSS properties.
-     * @param {string} text - The text to be added.
-     * @param {Object} styles - Object with all styles that will be applied to the text.
-     * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
-     */
-    addSpan: function (text, styles) {
-      this.beginSpan(styles);
-      this.addText(text);
-      this.endSpan();
       return this;
     },
 
@@ -82,20 +70,21 @@
      * @param {string} text - The text to be appended
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    addText: function (text) {
+    text: function (text, styles) {
+      this.span(styles);
       this._currentSpan.children.push({
         type: 'text',
         message: text,
         parent: this._currentSpan
       });
-      return this;
+      return this.spanEnd();
     },
 
     /**
      * Adds a new line to the output.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    newLine: function (type) {
+    line: function (type) {
       this._currentSpan.children.push({
         type: type || 'log',
         parent: this._currentSpan
@@ -106,24 +95,20 @@
     /**
      * Adds an image to the output.
      * @param {string} url - The url location of the image.
-     * @param {number}
+     * @param {Object}
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    addImage: function (url, scale) {
+    image: function (url, styles) {
       var _this = this;
       var image = new Image();
-      var styles = {
+      apply({
         backgroundImage: 'url(' + url + ')',
         backgroundRepeat: 'no-repeat',
         color: 'transparent',
-        fontSize: 1,
-        paddingLeft: 13,
-        marginLeft: 5
-      };
+        fontSize: 1
+      }, styles);
 
-      scale = typeof scale == 'number' ? scale : 1;
-
-      this.addSpan(' ', styles);
+      this.text(' ', styles);
 
       this._wait();
 
@@ -152,7 +137,7 @@
      * @param {HTMLElement} element - The DOM element to be added.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    addElement: function (element) {
+    element: function (element) {
       this._currentSpan.children.push({
         type: 'element',
         element: element,
@@ -166,7 +151,7 @@
      * @param {*} object - A value to be added to the output.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
-    addObject: function (object) {
+    object: function (object) {
       this._currentSpan.children.push({
         type: 'object',
         object: object,
@@ -205,10 +190,9 @@
     },
 
     _onReady: function (callback) {
+      this._readyCallback = callback;
       if (this._waiting === 0) {
-        callback.call(this);
-      } else {
-        this._readyCallback = callback;
+        this._ready();
       }
     },
 
@@ -218,7 +202,8 @@
 
     _ready: function () {
       this._waiting -= 1;
-      if (this._waiting === 0 && this._readyCallback) {
+      if (this._waiting <= 0) {
+        this._waiting = 0;
         this._readyCallback();
       }
     },
@@ -357,6 +342,15 @@
     };
   })();
 
+  function apply(options, object) {
+    for (var key in object) {
+      if (options[key] === undefined) {
+        options[key] = object[key];
+      }
+    }
+    return options;
+  }
+
   if (typeof window != 'undefined') {
     if (!window.console) {
       window.console = {};
@@ -368,31 +362,6 @@
      */
     window.console.message = function () {
       return new ConsoleMessage();
-    };
-
-    /**
-     * Outputs an image to the console
-     * @param {string} url - The url location of the image.
-     * @param {number}
-     */
-    window.console.image = function (url, scale) {
-      new ConsoleMessage().addImage(url, scale).print();
-    };
-
-    /**
-     * Outputs an interactive DOM element.
-     * @param {HTMLElement} element - The DOM element to be outputed.
-     */
-    window.console.element = function (element) {
-      new ConsoleMessage().addElement(element).print();
-    };
-
-    /**
-     * Adds an interactive object tree to the ouput.
-     * @param {*} object - A value to be added to the output.
-     */
-    window.console.object = function (object) {
-      new ConsoleMessage().addObject(object).print();
     };
   }
 })();
