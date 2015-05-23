@@ -63,26 +63,13 @@ console.message()
 
 ### span(styles:Object)
 
-Appends a text with particular style. Styles is an object containing CSS properties.
-
-```javascript
-console.message()
-	.span('This is green!', { color: 'green'})
-	.span('This is red!', { color: 'red'})
-	.print();
-```
-
-![span() example](https://dl.dropboxusercontent.com/u/4277603/console.message/span-example.png)
-
-### spanStart(styles:Object)
-
 Starts a span with particular style and all appended text after it will use the style.
 
 ```javascript
 console.message()
-	.spanStart({ color: 'red' })
+	.span({ color: 'red' })
 	.text('this is red! ')
-		.spanStart({ color: 'green' })
+		.span({ color: 'green' })
 		.text('this is green! ')
 		.spanEnd()
 	.text('this is again red!')
@@ -90,7 +77,7 @@ console.message()
 	.print();
 ```
 
-![spanStart() example](https://dl.dropboxusercontent.com/u/4277603/console.message/spanStat-example.png)
+![spanStart() example](https://dl.dropboxusercontent.com/u/4277603/console.message/span-example.png)
 
 ### spanEnd()
 
