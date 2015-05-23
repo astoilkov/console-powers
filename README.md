@@ -114,7 +114,7 @@ console.message()
 	.print();
 ```
 
-![endGroup() example](https://dl.dropboxusercontent.com/u/4277603/console.message/endGroup-example.png)
+![groupEnd() example](https://dl.dropboxusercontent.com/u/4277603/console.message/groupEnd-example.png)
 
 ### newLine()
 
@@ -128,7 +128,7 @@ console.message()
 	.print();
 ```
 
-![newLine() example](https://dl.dropboxusercontent.com/u/4277603/console.message/newLine-example.png)
+![line() example](https://dl.dropboxusercontent.com/u/4277603/console.message/line-example.png)
 
 ### print()
 
