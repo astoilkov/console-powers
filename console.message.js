@@ -101,12 +101,18 @@
     image: function (url, styles) {
       var _this = this;
       var image = new Image();
-      apply({
+      var scale = 1;
+
+      styles = apply({
         backgroundImage: 'url(' + url + ')',
         backgroundRepeat: 'no-repeat',
         color: 'transparent',
         fontSize: 1
       }, styles);
+
+      if (styles.zoom != null) {
+        scale = parseFloat(styles.zoom) || scale;
+      }
 
       this.text(' ', styles);
 
@@ -147,7 +153,7 @@
     },
 
     /**
-     * Adds an interactive object tree to the ouput.
+     * Adds an interactive object tree to the output.
      * @param {*} object - A value to be added to the output.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
@@ -163,7 +169,6 @@
     /**
      * Prints the message to the console.
      * Until print() is called there will be no result to the console.
-     * @returns {ConsoleMessage} - Returns a new ConsoleMessage instance.
      */
     print: function () {
       if (typeof console == 'undefined') {
@@ -171,8 +176,6 @@
       }
 
       this._onReady(this._print);
-
-      return new ConsoleMessage();
     },
 
     _print: function () {
