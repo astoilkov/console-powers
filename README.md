@@ -2,12 +2,6 @@
 
 Console messages for the cool kids
 
-## Used in [jsblocks](http://jsblocks.com)
-
-console.message code is used in [jsblocks](http://jsblocks.com) and achieves amazing debugging experience for the developers using it
-
-![console.message example](http://jsblocks.com/img/debugging.gif)
-
 ## Examples
 
 ### Cool kids
@@ -22,6 +16,10 @@ console.message().text('Cool kids', {
 ```
 
 ![cool kids example](https://dl.dropboxusercontent.com/u/4277603/console.message/cool-kids-example.png)
+
+### Used in [jsblocks](http://jsblocks.com)
+
+![console.message example](https://dl.dropboxusercontent.com/u/4277603/console.message/jsblocks-example.gif)
 
 ### Arguments mismatch
 

@@ -1,8 +1,5 @@
 (function () {
   function ConsoleMessage() {
-    if (!ConsoleMessage.prototype.isPrototypeOf(this)) {
-      return new ConsoleMessage();
-    }
     this._rootSpan = {
       styles: {},
       children: [],
