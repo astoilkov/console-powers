@@ -1,4 +1,46 @@
 (function () {
+  var GROUP = 'group';
+  var GROUP_END = 'groupEnd';
+  var GROUP_COLLAPSED = 'groupCollapsed';
+  
+  var cssNumbers = {
+    columnCount: true,
+    fillOpacity: true,
+    flexGrow: true,
+    flexShrink: true,
+    fontWeight: true,
+    lineHeight: true,
+    opacity: true,
+    order: true,
+    orphans: true,
+    widows: true,
+    zIndex: true,
+    zoom: true
+  };
+
+  var support = (function () {
+    // Taken from https://github.com/jquery/jquery-migrate/blob/master/src/core.js
+    function uaMatch(ua) {
+      ua = ua.toLowerCase();
+
+      var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+        /(msie) ([\w.]+)/.exec(ua) ||
+        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
+
+      return {
+        browser: match[1] || "",
+        version: match[2] || "0"
+      };
+    }
+    var browserData = uaMatch(navigator.userAgent);
+
+    return {
+      isIE: browserData.browser == 'msie' || (browserData.browser == 'mozilla' && parseInt(browserData.version, 10) == 11)
+    };
+  })();
+  
   function ConsoleMessage() {
     this._rootSpan = {
       styles: {},
@@ -18,7 +60,7 @@
      */
     group: function (expanded) {
       this._currentSpan.children.push({
-        type: expanded === false ? 'groupCollapsed' : 'group',
+        type: expanded === false ? GROUP_COLLAPSED : GROUP,
         parent: this._currentSpan
       });
       return this;
@@ -30,7 +72,7 @@
      */
     groupEnd: function () {
       this._currentSpan.children.push({
-        type: 'groupEnd',
+        type: GROUP_END,
         parent: this._currentSpan
       });
       return this;
@@ -223,14 +265,14 @@
       var message = messages[messages.length - 1];
 
       switch (child.type) {
-        case 'group':
-          messages.push(this._newMessage('group'));
+        case GROUP:
+          messages.push(this._newMessage(GROUP));
           break;
-        case 'groupCollapsed':
-          messages.push(this._newMessage('groupCollapsed'));
+        case GROUP_COLLAPSED:
+          messages.push(this._newMessage(GROUP_COLLAPSED));
           break;
-        case 'groupEnd':
-          message = this._newMessage('groupEnd');
+        case GROUP:
+          message = this._newMessage(GROUP_END);
           message.text = ' ';
           messages.push(message);
           messages.push(this._newMessage())
@@ -257,7 +299,7 @@
     },
 
     _addSpanData: function (span, message) {
-      if (!ConsoleMessage.Support.isIE) {
+      if (!support.isIE) {
         if (message.text.substring(message.text.length - 2) == '%c') {
           message.args[message.args.length - 1] = this._stylesString(span.styles);
         } else {
@@ -283,7 +325,7 @@
       for (key in styles) {
         key = this._fixCssStyleKey(key);
         value = styles[key];
-        if (typeof value === 'number' && !ConsoleMessage.CssNumbers[key]) {
+        if (typeof value === 'number' && !cssNumbers[key]) {
           value += 'px';
         }
         result += this._toDashKey(key) + ':' + value + ';';
@@ -303,44 +345,6 @@
       });
     }
   };
-
-  ConsoleMessage.CssNumbers = {
-    columnCount: true,
-    fillOpacity: true,
-    flexGrow: true,
-    flexShrink: true,
-    fontWeight: true,
-    lineHeight: true,
-    opacity: true,
-    order: true,
-    orphans: true,
-    widows: true,
-    zIndex: true,
-    zoom: true
-  };
-
-  ConsoleMessage.Support = (function () {
-    // Taken from https://github.com/jquery/jquery-migrate/blob/master/src/core.js
-    function uaMatch(ua) {
-      ua = ua.toLowerCase();
-
-      var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-        /(msie) ([\w.]+)/.exec(ua) ||
-        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
-
-      return {
-        browser: match[1] || "",
-        version: match[2] || "0"
-      };
-    }
-    var browserData = uaMatch(navigator.userAgent);
-
-    return {
-      isIE: browserData.browser == 'msie' || (browserData.browser == 'mozilla' && parseInt(browserData.version, 10) == 11)
-    };
-  })();
 
   function apply(options, object) {
     for (var key in object) {
