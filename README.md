@@ -1,6 +1,6 @@
 # console.message
 
-Console messages for the cool kids
+Console messages for cool kids
 
 ## Examples
 
