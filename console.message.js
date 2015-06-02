@@ -1,8 +1,4 @@
 (function () {
-  var GROUP = 'group';
-  var GROUP_END = 'groupEnd';
-  var GROUP_COLLAPSED = 'groupCollapsed';
-  
   var cssNumbers = {
     columnCount: true,
     fillOpacity: true,
@@ -40,7 +36,7 @@
       isIE: browserData.browser == 'msie' || (browserData.browser == 'mozilla' && parseInt(browserData.version, 10) == 11)
     };
   })();
-  
+
   function ConsoleMessage() {
     this._rootSpan = {
       styles: {},
@@ -60,7 +56,7 @@
      */
     group: function (expanded) {
       this._currentSpan.children.push({
-        type: expanded === false ? GROUP_COLLAPSED : GROUP,
+        type: expanded === false ? 'groupCollapsed' : 'group',
         parent: this._currentSpan
       });
       return this;
@@ -72,7 +68,7 @@
      */
     groupEnd: function () {
       this._currentSpan.children.push({
-        type: GROUP_END,
+        type: 'groupEnd',
         parent: this._currentSpan
       });
       return this;
@@ -265,14 +261,14 @@
       var message = messages[messages.length - 1];
 
       switch (child.type) {
-        case GROUP:
-          messages.push(this._newMessage(GROUP));
+        case 'group':
+          messages.push(this._newMessage('group'));
           break;
-        case GROUP_COLLAPSED:
-          messages.push(this._newMessage(GROUP_COLLAPSED));
+        case 'groupCollapsed':
+          messages.push(this._newMessage('groupCollapsed'));
           break;
-        case GROUP:
-          message = this._newMessage(GROUP_END);
+        case 'group':
+          message = this._newMessage('groupEnd');
           message.text = ' ';
           messages.push(message);
           messages.push(this._newMessage())

@@ -53,7 +53,7 @@ console.message()
 ## Browser support
 
 The project supports Chrome, Firefox, Safari, Opera, IE7+.
-However, it will print messages without styles when they are not supported.
+It fallbacks to messages without styles when they are not supported.
 
 ## API
 
