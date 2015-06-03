@@ -50,7 +50,7 @@
 
   ConsoleMessage.prototype = {
     /**
-     * Begins a group. By default the group is expanded. Provide true if you want the group to be collapsed.
+     * Begins a group. By default the group is expanded. Provide false if you want the group to be collapsed.
      * @param {boolean} [expanded = true] -
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
