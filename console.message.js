@@ -33,7 +33,7 @@
     var browserData = uaMatch(navigator.userAgent);
 
     return {
-      isIE: browserData.browser == 'msie' || (browserData.browser == 'mozilla' && parseInt(browserData.version, 10) == 11)
+      isIE: browserData.browser === 'msie' || (browserData.browser === 'mozilla' && parseInt(browserData.version, 10) === 11)
     };
   })();
 
@@ -145,7 +145,7 @@
         fontSize: 1
       }, styles);
 
-      if (styles.zoom != null) {
+      if (styles.zoom !== null) {
         scale = parseFloat(styles.zoom) || scale;
       }
 
@@ -206,7 +206,7 @@
      * Until print() is called there will be no result to the console.
      */
     print: function () {
-      if (typeof console == 'undefined') {
+      if (typeof console === 'undefined') {
         return;
       }
 
@@ -296,7 +296,7 @@
 
     _addSpanData: function (span, message) {
       if (!support.isIE) {
-        if (message.text.substring(message.text.length - 2) == '%c') {
+        if (message.text.substring(message.text.length - 2) === '%c') {
           message.args[message.args.length - 1] = this._stylesString(span.styles);
         } else {
           message.text += '%c';
