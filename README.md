@@ -136,7 +136,7 @@ Take a look at the example above.
 
 ### group(expanded:boolean = true)
 
-Begins a group. By default the group is expanded. Provide true if you want the group to be collapsed.
+Begins a group. By default the group is expanded. Provide false if you want the group to be collapsed.
 
 ```javascript
 console.message()
