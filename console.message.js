@@ -106,6 +106,34 @@
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
      */
     text: function (text, styles) {
+      // so that we can set the default styles if none is given
+      if (typeof styles === 'undefined')
+        styles = {};
+      
+      // use the default colouring for some message types
+      var withoutPunctuation = text
+                                .toLowerCase()
+                                .replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+                                .replace(/\s{2,}/g," ")
+                                .split(" ");
+      // some colours were altered to make the text more readable
+      var badColor = '#FF5C5C'; // light red
+      var warningColor = 'yellow';
+      var goodColor = '#66FF33'; // light green
+      var defaultMessageColor = {
+        error: badColor,
+        fail: badColor,
+        
+        warning: warningColor,
+        
+        ok: goodColor,
+        success: goodColor
+      };
+      if (!styles.hasOwnProperty(['background']))
+        for (var messageType in defaultMessageColor)
+          if (withoutPunctuation.indexOf(messageType) !== -1)
+            styles['background'] = defaultMessageColor[messageType];
+      
       this.span(styles);
       this._currentSpan.children.push({
         type: 'text',
