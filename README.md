@@ -21,19 +21,20 @@ console.message().text('Cool kids', {
 
 ![console.message example](https://dl.dropboxusercontent.com/u/4277603/console.message/jsblocks-example.gif)
 
-### Arguments mismatch
-
 ```javascript
 console.message()
-	.text('Arguments mismatch:', { background: 'yellow' })
-	.text(' ')
-	.text('addTodo()', { background: '#ccc' })
-	.text(' - ')
-	.text('less arguments than the required specified', { color: 'red' })
-	.print();
+    .span({ fontWeight: 'bold'})
+    .text('Arguments mismatch:', { background: 'yellow' })
+    .text(' ')
+    .span({ background: '#eee' })
+    .text('addTodo(')
+    .text(' ? ', { background: 'red', color: 'white' })
+    .text(')')
+    .spanEnd()
+    .text(' - ')
+    .text('less arguments than the required specified', { color: 'red' })
+    .print();
 ```
-
-![arguments mismatch example](https://dl.dropboxusercontent.com/u/4277603/console.message/arguments-mismatch-example.png)
 
 ### Grouping awesomeness
 
