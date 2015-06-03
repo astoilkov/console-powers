@@ -19,8 +19,6 @@ console.message().text('Cool kids', {
 
 ### Used in [jsblocks](http://jsblocks.com)
 
-![console.message example](https://dl.dropboxusercontent.com/u/4277603/console.message/jsblocks-example.gif)
-
 ```javascript
 console.message()
     .span({ fontWeight: 'bold'})
@@ -35,6 +33,8 @@ console.message()
     .text('less arguments than the required specified', { color: 'red' })
     .print();
 ```
+
+![console.message example](https://dl.dropboxusercontent.com/u/4277603/console.message/jsblocks-example.gif)
 
 ### Grouping awesomeness
 
