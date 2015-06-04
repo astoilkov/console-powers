@@ -1,0 +1,18 @@
+{
+  "name": "console.message",
+  "main": "console.message.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/astoilkov/console.message.git",
+  "description": "Console messages for cool kids",
+  "keywords": [
+    "console"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
