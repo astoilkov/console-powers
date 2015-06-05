@@ -183,7 +183,7 @@ console.message()
 ### print()
 
 Prints the message to the console.
-Every message chaining should end with print. No print() call no message.
+Every message chaining should end with `print`. No `print()` call no message.
 
 ```javascript
 console.message().text('just text').print();
