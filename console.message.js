@@ -207,10 +207,12 @@
      */
     print: function () {
       if (typeof console == 'undefined') {
-        return;
+        return new ConsoleMessage();
       }
 
       this._onReady(this._print);
+      
+      return new ConsoleMessage();
     },
 
     _print: function () {
