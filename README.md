@@ -144,7 +144,7 @@ console.message()
 	.group()
 	.text('The group header text')
 	.line()
-	.line('The group content')
+	.text('The group content')
 	.groupEnd()
 	.print();
 ```
