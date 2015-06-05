@@ -267,11 +267,11 @@
         case 'groupCollapsed':
           messages.push(this._newMessage('groupCollapsed'));
           break;
-        case 'group':
+        case 'groupEnd':
           message = this._newMessage('groupEnd');
           message.text = ' ';
           messages.push(message);
-          messages.push(this._newMessage())
+          messages.push(this._newMessage());
           break;
         case 'span':
           this._printSpan(child, messages);
