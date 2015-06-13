@@ -206,12 +206,10 @@
      * Until print() is called there will be no result to the console.
      */
     print: function () {
-      if (typeof console == 'undefined') {
-        return new ConsoleMessage();
+      if (typeof console != 'undefined') {
+        this._onReady(this._print);
       }
 
-      this._onReady(this._print);
-      
       return new ConsoleMessage();
     },
 
