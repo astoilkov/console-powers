@@ -288,6 +288,7 @@
         case 'object':
           message.text += '%O';
           message.args.push(child.object);
+          break;
         case 'log':
           messages.push(this._newMessage(child.type));
           break;
