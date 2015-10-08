@@ -222,9 +222,17 @@
       for (var i = 0; i < messages.length; i++) {
         message = messages[i];
         if (message.text && message.text != '%c' && console[message.type]) {
-          Function.prototype.apply.call(console[message.type], console, [message.text].concat(message.args));
+          this._printMessage(message);
         }
       }
+    },
+
+    _printMessage: function (message) {
+      Function.prototype.apply.call(
+        console[message.type],
+        console,
+        [message.text].concat(message.args)
+      );
     },
 
     _onReady: function (callback) {
@@ -320,13 +328,15 @@
       var key;
 
       for (key in styles) {
-        key = this._fixCssStyleKey(key);
         value = styles[key];
+        key = this._fixCssStyleKey(key);
+
         if (typeof value === 'number' && !cssNumbers[key]) {
           value += 'px';
         }
         result += this._toDashKey(key) + ':' + value + ';';
       }
+
       return result;
     },
 
