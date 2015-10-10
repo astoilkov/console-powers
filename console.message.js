@@ -38,6 +38,9 @@
   })();
 
   function ConsoleMessage() {
+    if (!ConsoleMessage.prototype.isPrototypeOf(this)) {
+      return new ConsoleMessage();
+    }
     this._rootSpan = {
       styles: {},
       children: [],
@@ -371,8 +374,6 @@
      * Creates a message object.
      * @returns {ConsoleMessage} - The message object
      */
-    window.console.message = function () {
-      return new ConsoleMessage();
-    };
+    window.console.message = ConsoleMessage;
   }
 })();
