@@ -2,6 +2,8 @@
 
 Console messages for cool kids
 
+> I am also working on a [Markdown Editor](http://caret.io). I will appreciate it if you check it out and [tell me](mailto:antonio.stoilkov@gmail.com) what you think.
+
 ## Examples
 
 ### Cool kids
