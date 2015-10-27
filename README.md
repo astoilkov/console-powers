@@ -1,4 +1,4 @@
-> I am also working on a [Markdown Editor](http://caret.io). I will appreciate it if you check it out and [tell me](mailto:antonio.stoilkov@gmail.com) what you think.
+> I am also working on a [Markdown Editor](http://caret.io?ref=console_message). I will appreciate it if you check it out and [tell me](mailto:antonio.stoilkov@gmail.com) what you think.
 
 # console.message
 
