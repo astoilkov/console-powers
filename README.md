@@ -75,18 +75,6 @@ console.message()
 
 ![text() example](https://dl.dropboxusercontent.com/u/4277603/console.message/text-example.png)
 
-### image(url:string, [styles:Object])
-
-Adds an image to the output.
-
-```javascript
-console.message()
-	.image('http://i.stack.imgur.com/FBVKH.jpg', { zoom: 0.7 })
-	.print();
-```
-
-![image() example](https://dl.dropboxusercontent.com/u/4277603/console.message/image-example.png)
-
 ### element(element:HTMLElement)
 
 Adds an interactive DOM element to the output.

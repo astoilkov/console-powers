@@ -131,52 +131,6 @@
     },
 
     /**
-     * Adds an image to the output.
-     * @param {string} url - The url location of the image.
-     * @param {Object}
-     * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
-     */
-    image: function (url, styles) {
-      var _this = this;
-      var image = new Image();
-      var scale = 1;
-
-      styles = apply({
-        backgroundImage: 'url(' + url + ')',
-        backgroundRepeat: 'no-repeat',
-        color: 'transparent',
-        fontSize: 1
-      }, styles);
-
-      if (styles.zoom != null) {
-        scale = parseFloat(styles.zoom) || scale;
-      }
-
-      this.text(' ', styles);
-
-      this._wait();
-
-      image.onload = function () {
-        var width = this.width * scale;
-        var height = this.height * scale;
-
-        styles.backgroundSize = (width + 'px') + ' ' + (height + 'px');
-        styles.padding = (height / 2) + 'px ' + (width / 2) + 'px';
-        styles.lineHeight = height;
-
-        _this._ready();
-      };
-
-      image.onerror = function () {
-        _this._ready();
-      };
-
-      image.src = url;
-
-      return this;
-    },
-
-    /**
      * Adds an interactive DOM element to the output.
      * @param {HTMLElement} element - The DOM element to be added.
      * @returns {ConsoleMessage} - Returns the message object itself to allow chaining.
@@ -210,24 +164,20 @@
      */
     print: function () {
       if (typeof console != 'undefined') {
-        this._onReady(this._print);
+        var messages = [this._newMessage()];
+        var message;
+
+        this._printSpan(this._rootSpan, messages);
+
+        for (var i = 0; i < messages.length; i++) {
+          message = messages[i];
+          if (message.text && message.text != '%c' && console[message.type]) {
+            this._printMessage(message);
+          }
+        }
       }
 
       return new ConsoleMessage();
-    },
-
-    _print: function () {
-      var messages = [this._newMessage()];
-      var message;
-
-      this._printSpan(this._rootSpan, messages);
-
-      for (var i = 0; i < messages.length; i++) {
-        message = messages[i];
-        if (message.text && message.text != '%c' && console[message.type]) {
-          this._printMessage(message);
-        }
-      }
     },
 
     _printMessage: function (message) {
@@ -236,25 +186,6 @@
         console,
         [message.text].concat(message.args)
       );
-    },
-
-    _onReady: function (callback) {
-      this._readyCallback = callback;
-      if (this._waiting === 0) {
-        this._ready();
-      }
-    },
-
-    _wait: function () {
-      this._waiting += 1;
-    },
-
-    _ready: function () {
-      this._waiting -= 1;
-      if (this._waiting <= 0) {
-        this._waiting = 0;
-        this._readyCallback();
-      }
     },
 
     _printSpan: function (span, messages) {
