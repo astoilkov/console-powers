@@ -15,8 +15,6 @@ console.message().text('Cool kids', {
 }).print();
 ```
 
-![cool kids example](https://dl.dropboxusercontent.com/u/4277603/console.message/cool-kids-example.png)
-
 ### Used in [jsblocks](http://jsblocks.com)
 
 ```javascript
@@ -34,8 +32,6 @@ console.message()
     .print();
 ```
 
-![console.message example](https://dl.dropboxusercontent.com/u/4277603/console.message/jsblocks-example.gif)
-
 ### Grouping awesomeness
 
 ```javascript
@@ -48,8 +44,6 @@ console.message()
 		.text('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.')
 		.print();
 ```
-
-![grouping awesomeness example](https://dl.dropboxusercontent.com/u/4277603/console.message/grouping-awesomeness-example.png)
 
 ## Browser support
 
@@ -71,8 +65,6 @@ console.message()
 	.print();
 ```
 
-![text() example](https://dl.dropboxusercontent.com/u/4277603/console.message/text-example.png)
-
 ### element(element:HTMLElement)
 
 Adds an interactive DOM element to the output.
@@ -84,8 +76,6 @@ console.message()
 	.print();
 ```
 
-![element() example](https://dl.dropboxusercontent.com/u/4277603/console.message/element-example.png)
-
 ### object(object:Object)
 
 Adds an interactive object tree to the output.
@@ -96,8 +86,6 @@ console.message()
 	.object({ firstName: 'John', lastName: 'Doe' })
 	.print();
 ```
-
-![object() example](https://dl.dropboxusercontent.com/u/4277603/console.message/object-example.png)
 
 ### span(styles:Object)
 
@@ -114,8 +102,6 @@ console.message()
 	.spanEnd()
 	.print();
 ```
-
-![span() example](https://dl.dropboxusercontent.com/u/4277603/console.message/span-example.png)
 
 ### spanEnd()
 
@@ -137,8 +123,6 @@ console.message()
 	.print();
 ```
 
-![group() example](https://dl.dropboxusercontent.com/u/4277603/console.message/group-example.png)
-
 ### groupEnd()
 
 Ends the group and returns to writing to the parent message.
@@ -152,8 +136,6 @@ console.message()
 	.print();
 ```
 
-![groupEnd() example](https://dl.dropboxusercontent.com/u/4277603/console.message/groupEnd-example.png)
-
 ### line()
 
 Adds a new line to the output.
@@ -165,8 +147,6 @@ console.message()
 	.text('second line')
 	.print();
 ```
-
-![line() example](https://dl.dropboxusercontent.com/u/4277603/console.message/line-example.png)
 
 ### print()
 
