@@ -10,7 +10,6 @@ export function consoleText(
     text: string,
     style?: Partial<ConsoleStyle>,
 ): ConsoleText {
-    console.log(style)
     return {
         type: "text",
         text,
