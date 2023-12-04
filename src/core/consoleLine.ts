@@ -1,7 +1,7 @@
 export interface ConsoleLine {
-  type: 'line'
+    type: "line";
 }
 
 export function consoleLine(): ConsoleLine {
-  return { type: 'line' }
+    return { type: "line" };
 }

@@ -1,8 +1,8 @@
 export interface ConsoleObject {
-  type: 'object'
-  object: object
+    type: "object";
+    object: object;
 }
 
 export function consoleObject(object: object): ConsoleObject {
-  return { type: 'object', object }
+    return { type: "object", object };
 }
