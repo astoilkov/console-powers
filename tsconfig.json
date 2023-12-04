@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+
+        // previously "CommonJS", we now use "ES2015" to transpile TypeScript to "export default"
+        // instead of "exports.default ="
+        "module": "ES2020",
+
+        "esModuleInterop": true,
+
+        // From what I understand while reading the docs "classic" was introduced first and "classic" is by
+        // default(except when "module": "commonjs") because of backwards compatibility.
+        //
+        // From the docs: "node module resolution is the most-commonly used in the TypeScript community and is
+        // recommended for most projects."
+        "moduleResolution": "node",
+
+        // the npm package include ".js" files only so we need ".d.ts" files to be generated
+        "declaration": true,
+
+        // - ℹ️ https://www.typescriptlang.org/tsconfig#isolatedModules
+        // - 😃 Deno requires "isolatedModules" to be set to `true`
+        // - 😃 the stricter version - I always prefer the stricter version
+        // - 😃 probably the future
+        "isolatedModules": true,
+
+        // strict options ensuring more stable code
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowUnreachableCode": false,
+        "noUncheckedIndexedAccess": true,
+        "noFallthroughCasesInSwitch": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["index.ts"]
+}

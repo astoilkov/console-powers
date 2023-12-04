@@ -1,3 +1,8 @@
-/node_modules
-/.settings
-/examples
+node_modules/
+coverage/
+
+# as Sindre Sorhus
+yarn.lock
+
+*.js
+*.d.ts

@@ -1,0 +1,45 @@
+{
+    "name": "console-powers",
+    "version": "0.1.0",
+    "description": "Console messages for cool kids",
+    "license": "MIT",
+    "repository": "astoilkov/console-powers",
+    "funding": "https://github.com/sponsors/astoilkov",
+    "author": {
+        "name": "Antonio Stoilkov",
+        "email": "hello@astoilkov.com",
+        "url": "https://astoilkov.com"
+    },
+    "keywords": [
+        "Console",
+        "DevTools"
+    ],
+    "type": "module",
+    "exports": {
+        "types": "./index.d.ts",
+        "default": "./index.js"
+    },
+    "sideEffects": false,
+    "engines": {
+        "node": ">=16"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "yarn run build && vitest run --coverage",
+        "release": "np"
+    },
+    "files": [
+        "index.js",
+        "index.d.ts",
+        "src/*.js",
+        "src/*.d.ts"
+    ],
+    "devDependencies": {
+        "@vitest/coverage-v8": "^0.33.0",
+        "jsdom": "^22.1.0",
+        "np": "^8.0.4",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2",
+        "vitest": "^0.34.6"
+    }
+}
