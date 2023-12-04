@@ -1,5 +1,6 @@
 import ConsoleMessage from "./ConsoleMessage";
 import { ConsoleText } from "./consoleText";
+import { ConsoleStyle } from "./ConsoleStyle";
 
 export default function consolePrint(messages: ConsoleMessage[]): void {
     let logBuffer: LogBuffer = {
@@ -10,7 +11,7 @@ export default function consolePrint(messages: ConsoleMessage[]): void {
     for (const message of messages) {
         if (message.type === "text") {
             logBuffer.text += `%c${message.text}%c`;
-            logBuffer.rest.push(message.style);
+            logBuffer.rest.push(consoleStyleToString(message.style));
             logBuffer.rest.push("");
         } else if (message.type === "object") {
             logBuffer.text += "%o";
@@ -56,8 +57,19 @@ function mergeText(messages: ConsoleText[]): LogBuffer {
     };
     for (const message of messages) {
         merged.text += `%c${message.text}%c`;
-        merged.rest.push(message.style);
+        merged.rest.push(consoleStyleToString(message.style));
         merged.rest.push("");
     }
     return merged;
+}
+
+function consoleStyleToString(style: Partial<ConsoleStyle>): string {
+    return Object.entries(style)
+        .map(
+            ([key, value]) =>
+                `${key.replace(/[A-Z]/g, function (match) {
+                    return "-" + match.toLowerCase();
+                })}:${value}`,
+        )
+        .join(";");
 }

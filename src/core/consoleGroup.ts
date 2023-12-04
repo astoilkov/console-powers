@@ -23,7 +23,10 @@ export function consoleGroup({
         header:
             header?.map((message) => ({
                 ...message,
-                style: `font-weight:normal;${message.style}`,
+                style: {
+                    fontWeight: "normal",
+                    ...message.style,
+                },
             })) ?? [],
         body: body ?? [],
     };
