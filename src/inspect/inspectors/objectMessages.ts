@@ -1,7 +1,7 @@
-import { consoleText } from "../../core/consoleText";
-import ConsoleMessage from "../../core/ConsoleMessage";
 import valueMessages from "./valueMessages";
 import consoleStyles from "../consoleStyles";
+import { consoleText } from "../../core/consoleText";
+import ConsoleMessage from "../../core/ConsoleMessage";
 
 export default function objectMessages(value: object): ConsoleMessage[] {
     const messages: ConsoleMessage[] = [consoleText("{ ")];
