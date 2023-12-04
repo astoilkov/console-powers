@@ -28,6 +28,8 @@ npm install {{data.name}}
 ## Examples
 
 ```ts
+import { consolePrint, consoleText } from 'console-powers'
+
 consolePrint(
     consoleText('Cool kids', {
         fontSize: 200,
@@ -38,6 +40,8 @@ consolePrint(
 ```
 
 ```ts
+import { consolePrint, consoleText } from 'console-powers'
+
 consolePrint([
     //
     consoleText("Arguments mismatch:", { background: "yellow" }),
