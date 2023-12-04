@@ -23,7 +23,9 @@ npm install {{data.name}}
 
 ## Related
 
-## Example
+-->
+
+## Examples
 
 ```ts
 consolePrint(
@@ -36,19 +38,16 @@ consolePrint(
 ```
 
 ```ts
-consolePrint(consoleText('Arguments mismatch:'))
-console.message()
-    .span({ fontWeight: 'bold'})
-    .text('Arguments mismatch:', { background: 'yellow' })
-    .text(' ')
-    .span({ background: '#eee' })
-    .text('addTodo(')
-    .text(' ? ', { background: 'red', color: 'white' })
-    .text(')')
-    .spanEnd()
-    .text(' - ')
-    .text('less arguments than the required specified', { color: 'red' })
-    .print();
+consolePrint([
+    //
+    consoleText("Arguments mismatch:", { background: "yellow" }),
+    consoleText(" "),
+    consoleText("addTodo(", { background: "#eee" }),
+    consoleText(" ? ", { background: "red", color: "white" }),
+    consoleText(")", { background: "#eee" }),
+    consoleText(" - "),
+    consoleText("less arguments than the required specified", {
+        color: "red",
+    }),
+]);
 ```
-
--->

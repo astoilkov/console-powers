@@ -49,8 +49,9 @@ consolePrint([
     ]),
 ]);
 
+// example 1
 consolePrint([
-    consoleText("hello", {
+    consoleText("cool kids", {
         color: "hsl(330, 100%, 50%)",
         fontSize: "200px",
         textShadow: [
@@ -72,5 +73,19 @@ consolePrint([
             "0 17px 0 hsl(90, 100%, 25%)",
             "0 17px 2px hsla(90, 100%, 15%, 0.5)",
         ].join(", "),
+    }),
+]);
+
+// example 2
+consolePrint([
+    //
+    consoleText("Arguments mismatch:", { background: "yellow" }),
+    consoleText(" "),
+    consoleText("addTodo(", { background: "#eee" }),
+    consoleText(" ? ", { background: "red", color: "white" }),
+    consoleText(")", { background: "#eee" }),
+    consoleText(" - "),
+    consoleText("less arguments than the required specified", {
+        color: "red",
     }),
 ]);
