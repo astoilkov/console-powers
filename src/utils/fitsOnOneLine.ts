@@ -1,5 +1,4 @@
 import { ConsoleText } from "../core/consoleText";
-import mathSum from "../../../math-extras/mathSum";
 
 // - if a window is 1400px wide, a DevTools window positioned horizontally
 //   will have around 1150 space for printing characters on one line. note
@@ -14,6 +13,9 @@ const DEV_TOOLS_MAX_CHARS_PER_LINE = 174;
 // devTools horizontal
 // max 1150 width in the console containing 174 characters with an average with of 6.6px
 export default function fitsOnOneLine(messages: ConsoleText[]): boolean {
-    const charsCount = mathSum(messages.map((message) => message.text.length));
+    let charsCount = 0;
+    for (const message of messages) {
+        charsCount += message.text.length;
+    }
     return charsCount <= DEV_TOOLS_MAX_CHARS_PER_LINE;
 }

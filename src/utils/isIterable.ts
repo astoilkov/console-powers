@@ -1,10 +1,7 @@
-import hasOwnProperty from "has-own-prop";
-
-export default function isIterable(value: unknown): boolean {
+export default function isIterable<T>(value: unknown): value is Iterable<T> {
     return (
         value !== null &&
         typeof value === "object" &&
-        hasOwnProperty(value, Symbol.iterator) &&
-        typeof value[Symbol.iterator] === "function"
+        typeof (value as any)[Symbol.iterator] === "function"
     );
 }
