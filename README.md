@@ -67,7 +67,7 @@ Prints the provided messages to the console.
 
 An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
 
-### `consoleGroup({ expanded?: boolean, header?: (string | ConsoleText)[], body?: ConsoleMessage[]})`
+### `consoleGroup(options)`
 
 ```ts
 consolePrint(consoleGroup({
