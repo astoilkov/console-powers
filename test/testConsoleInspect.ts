@@ -78,7 +78,6 @@ consolePrint([
 
 // example 2
 consolePrint([
-    //
     consoleText("Arguments mismatch:", { background: "yellow" }),
     consoleText(" "),
     consoleText("addTodo(", { background: "#eee" }),
