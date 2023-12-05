@@ -63,11 +63,11 @@ Prints the provided messages to the console.
 
 #### `consoleText(text: string, style?: ConsoleStyle)`
 
-### `consoleObject(object: object)`
+#### `consoleObject(object: object)`
 
 An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
 
-### `consoleGroup(options)`
+#### `consoleGroup(options)`
 
 ```ts
 consolePrint(consoleGroup({
@@ -77,7 +77,7 @@ consolePrint(consoleGroup({
 }))
 ```
 
-### `consoleLine()`
+#### `consoleLine()`
 
 Flushes everything up until now and starts a new `console.log()` line.
 
