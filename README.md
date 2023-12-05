@@ -54,3 +54,50 @@ consolePrint([
     }),
 ]);
 ```
+
+## API
+
+#### `consolePrint(messages: ConsoleMessage[])`
+
+Prints the provided messages to the console.
+
+#### `consoleText(text: string, style?: ConsoleStyle)`
+
+### `consoleObject(object: object)`
+
+An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
+
+### `consoleGroup({ expanded?: boolean, header?: (string | ConsoleText)[], body?: ConsoleMessage[]})`
+
+```ts
+consolePrint(consoleGroup({
+    expanded: false, // default "false"
+    header: 'Expand me',
+    body: 'Here I am'
+}))
+```
+
+### `consoleLine()`
+
+Flushes everything up until now and starts a new `console.log()` line.
+
+#### `ConsoleStyle`
+
+- [`background`](https://developer.mozilla.org/en-US/docs/Web/CSS/background) and its longhand equivalents
+- [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border) and its longhand equivalents
+- [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
+- [`box-decoration-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break)
+- [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
+- [`clear`](https://developer.mozilla.org/en-US/docs/Web/CSS/clear) and [`float`](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
+- [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
+- [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
+- [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
+- [`font`](https://developer.mozilla.org/en-US/docs/Web/CSS/font) and its longhand equivalents
+- [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
+- [`margin`](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
+- [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline) and its longhand equivalents
+- [`padding`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- `text-*` properties such as [`text-transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)
+- [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
+- [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
+- [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
