@@ -5,10 +5,11 @@ export default function consoleQuote(
     text: string | ConsoleText,
     author?: string | ConsoleText,
 ): ConsoleText[] {
-    const quoteLine = consoleText(
-        " ",
-        "border-left: 4px solid #E9E9E9;font-size:1.1em;line-height:24px;",
-    );
+    const quoteLine = consoleText(" ", {
+        fontSize: "1.1em",
+        lineHeight: "24px",
+        borderLeft: "4px solid #E9E9E9",
+    });
     const line1 = [
         quoteLine,
         consoleText("“"),
