@@ -26,6 +26,7 @@
     "scripts": {
         "build": "tsc",
         "test": "yarn run build && vitest run --coverage",
+        "test-ui": "vite ./test --open",
         "release": "np"
     },
     "files": [
