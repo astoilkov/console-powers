@@ -9,9 +9,6 @@ import { ConsoleText } from "../core/consoleText";
 // - this means that you can print around 174 characters per line
 const DEV_TOOLS_MAX_CHARS_PER_LINE = 174;
 
-// 1400px window
-// devTools horizontal
-// max 1150 width in the console containing 174 characters with an average with of 6.6px
 export default function fitsOnOneLine(messages: ConsoleText[]): boolean {
     let charsCount = 0;
     for (const message of messages) {
