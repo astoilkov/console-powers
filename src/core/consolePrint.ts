@@ -1,6 +1,6 @@
 import ConsoleMessage from "./ConsoleMessage";
 import { ConsoleText } from "./consoleText";
-import { ConsoleStyle } from "./ConsoleStyle";
+import ConsoleStyle from "./ConsoleStyle";
 
 export default function consolePrint(messages: ConsoleMessage[]): void {
     let logBuffer: LogBuffer = {
@@ -63,7 +63,7 @@ function mergeText(messages: ConsoleText[]): LogBuffer {
     return merged;
 }
 
-function consoleStyleToString(style: Partial<ConsoleStyle>): string {
+function consoleStyleToString(style: ConsoleStyle): string {
     return Object.entries(style)
         .map(
             ([key, value]) =>

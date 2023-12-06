@@ -1,15 +1,12 @@
-import { ConsoleStyle } from "./ConsoleStyle";
+import ConsoleStyle from "./ConsoleStyle";
 
 export interface ConsoleText {
     type: "text";
     text: string;
-    style: Partial<ConsoleStyle>;
+    style: ConsoleStyle;
 }
 
-export function consoleText(
-    text: string,
-    style?: Partial<ConsoleStyle>,
-): ConsoleText {
+export function consoleText(text: string, style?: ConsoleStyle): ConsoleText {
     return {
         type: "text",
         text,
