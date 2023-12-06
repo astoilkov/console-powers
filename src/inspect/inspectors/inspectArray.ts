@@ -1,13 +1,13 @@
 import { Primitive } from "type-fest";
 import { consoleGroup } from "../../core/consoleGroup";
 import { consoleText } from "../../core/consoleText";
-import getPrimitiveMessage from "./primitiveMessage";
+import getPrimitiveMessage from "./inspectPrimitive";
 import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
-import valueMessages from "./valueMessages";
+import inspectAny from "./inspectAny";
 import consoleStyles from "../consoleStyles";
 
-export default function arrayMessages(array: unknown[]): ConsoleMessage[] {
+export default function inspectArray(array: unknown[]): ConsoleMessage[] {
     return array.every(isPrimitive)
         ? //
           singleLineArrayMessages(array)
@@ -36,7 +36,7 @@ function singleLineArrayMessages(array: Primitive[]): ConsoleMessage[] {
 function multiLineArrayMessages(array: unknown[]): ConsoleMessage[] {
     return array.flatMap((value, i) => [
         consoleText(`[${i}]: `, consoleStyles.expandedKey),
-        ...valueMessages(value),
+        ...inspectAny(value),
         consoleText("\n"),
     ]);
 }

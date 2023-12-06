@@ -2,7 +2,7 @@ import ConsoleStyle from "../core/ConsoleStyle";
 import ConsoleMessage from "../core/ConsoleMessage";
 import { ConsoleText, consoleText } from "../core/consoleText";
 import isPrimitive from "../utils/isPrimitive";
-import primitiveMessage from "../inspect/inspectors/primitiveMessage";
+import inspectPrimitive from "../inspect/inspectors/inspectPrimitive";
 
 const firstRowStyle = {
     left: {
@@ -111,7 +111,7 @@ function tableRow(
 
 function cellText(value: unknown): ConsoleText {
     return isPrimitive(value)
-        ? primitiveMessage(value)
+        ? inspectPrimitive(value)
         : consoleText(String(value));
 }
 

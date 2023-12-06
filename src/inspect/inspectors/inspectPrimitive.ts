@@ -2,7 +2,7 @@ import { ConsoleText, consoleText } from "../../core/consoleText";
 import { Primitive } from "type-fest";
 import consoleStyles from "../consoleStyles";
 
-export default function primitiveMessage(value: Primitive): ConsoleText {
+export default function inspectPrimitive(value: Primitive): ConsoleText {
     const type = typeof value;
     if (value === undefined || value === null) {
         return consoleText(String(value), consoleStyles.undefinedNull);

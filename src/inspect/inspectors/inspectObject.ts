@@ -1,7 +1,7 @@
 import ConsoleMessage from "../../core/ConsoleMessage";
 import consoleTable from "../../extras/consoleTable";
 
-export default function objectMessages(value: object): ConsoleMessage[] {
+export default function inspectObject(value: object): ConsoleMessage[] {
     return consoleTable(value);
 }
 

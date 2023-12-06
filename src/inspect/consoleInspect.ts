@@ -1,5 +1,5 @@
 import consolePrint from "../core/consolePrint";
-import valueMessages from "./inspectors/valueMessages";
+import inspectAny from "./inspectors/inspectAny";
 
 // export type ConsoleInspectOptions = {
 //   preferMultiLine?: boolean
@@ -14,5 +14,5 @@ import valueMessages from "./inspectors/valueMessages";
 //   - prettyLog
 //   - fullLog
 export default function consoleInspect(value: unknown): void {
-    consolePrint(valueMessages(value));
+    consolePrint(inspectAny(value));
 }
