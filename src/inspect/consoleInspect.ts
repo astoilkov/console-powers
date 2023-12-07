@@ -1,5 +1,6 @@
 import consolePrint from "../core/consolePrint";
 import inspectAny from "./inspectors/inspectAny";
+import consoleApply from "../core/consoleApply";
 
 export interface InspectionContext {
     left: number;
@@ -29,16 +30,21 @@ export default function consoleInspect(
     options?: InspectionOptions,
 ): void {
     consolePrint(
-        inspectAny(
-            value,
+        consoleApply(
+            inspectAny(
+                value,
+                {
+                    expandDepth: 2,
+                    indent: 4,
+                    ...options,
+                },
+                {
+                    depth: 0,
+                    left: 0,
+                },
+            ),
             {
-                expandDepth: 2,
-                indent: 4,
-                ...options,
-            },
-            {
-                depth: 0,
-                left: 0,
+                lineHeight: "1.6",
             },
         ),
     );

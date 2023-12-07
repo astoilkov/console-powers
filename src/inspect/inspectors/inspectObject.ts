@@ -65,7 +65,13 @@ function multiLineObject(
         }
         isFirst = false;
 
-        messages.push(consoleText(" ".repeat(context.left)));
+        messages.push(consoleText(" ".repeat(context.left - 1)));
+        messages.push(
+            consoleText(" ", {
+                marginLeft: "0.22em",
+                borderLeft: `1.8px solid ${consoleStyles.expandedKey.color}`,
+            }),
+        );
         messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
         messages.push(consoleText(": "));
         messages.push(consoleText(" ".repeat(maxLength - key.length)));
