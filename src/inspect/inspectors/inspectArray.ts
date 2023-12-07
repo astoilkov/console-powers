@@ -5,17 +5,22 @@ import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../consoleStyles";
-import { InspectionContext } from "../consoleInspect";
+import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 
 export default function inspectArray(
     array: unknown[],
+    options: Required<InspectionOptions>,
     context: InspectionContext,
 ): ConsoleMessage[] {
+    if (context.depth >= options.expandDepth) {
+        return [consoleText("[…]")];
+    }
+
     return array.every(isPrimitive)
         ? //
           singleLineArray(array)
-        : multiLineArray(array, context);
+        : multiLineArray(array, options, context);
 }
 
 function singleLineArray(array: Primitive[]): ConsoleMessage[] {
@@ -40,17 +45,25 @@ function singleLineArray(array: Primitive[]): ConsoleMessage[] {
 
 function multiLineArray(
     array: unknown[],
+    options: Required<InspectionOptions>,
     context: InspectionContext,
 ): ConsoleMessage[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;
+        console.log(context.depth, options.expandDepth)
         const valueMessages =
-            isPrimitive(value) || hasOnlyPrimitives(value)
-                ? inspectAny(value, { left: 0 })
+            isPrimitive(value) ||
+            hasOnlyPrimitives(value) ||
+            context.depth + 1 >= options.expandDepth
+                ? inspectAny(value, options, {
+                      left: 0,
+                      depth: context.depth + 1,
+                  })
                 : [
                       consoleText("\n"),
-                      ...inspectAny(value, {
+                      ...inspectAny(value, options, {
                           left: context.left + 2,
+                          depth: context.depth + 1,
                       }),
                   ];
         return [

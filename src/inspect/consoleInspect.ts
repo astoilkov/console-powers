@@ -3,6 +3,11 @@ import inspectAny from "./inspectors/inspectAny";
 
 export interface InspectionContext {
     left: number;
+    depth: number;
+}
+
+export interface InspectionOptions {
+    expandDepth?: number;
 }
 
 // export type ConsoleInspectOptions = {
@@ -18,6 +23,21 @@ export interface InspectionContext {
 //   - inspect
 //   - prettyLog
 //   - fullLog
-export default function consoleInspect(value: unknown): void {
-    consolePrint(inspectAny(value, { left: 0 }));
+export default function consoleInspect(
+    value: unknown,
+    options: InspectionOptions,
+): void {
+    consolePrint(
+        inspectAny(
+            value,
+            {
+                expandDepth: Number.MAX_SAFE_INTEGER,
+                ...options,
+            },
+            {
+                depth: 0,
+                left: 0,
+            },
+        ),
+    );
 }

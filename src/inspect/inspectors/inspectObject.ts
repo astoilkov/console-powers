@@ -3,15 +3,20 @@ import { consoleText } from "../../core/consoleText";
 import consoleStyles from "../consoleStyles";
 import inspectAny from "./inspectAny";
 import isPrimitive from "../../utils/isPrimitive";
-import { InspectionContext } from "../consoleInspect";
+import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 
 export default function inspectObject(
     value: object,
+    options: Required<InspectionOptions>,
     context: InspectionContext,
 ): ConsoleMessage[] {
+    if (context.depth >= options.expandDepth) {
+        return [consoleText("{…}")];
+    }
+
     return Object.values(value).every(isPrimitive)
         ? [
               consoleText(" ".repeat(context.left)),
@@ -19,7 +24,7 @@ export default function inspectObject(
                   value as Record<string | number | symbol, Primitive>,
               ),
           ]
-        : multiLineObject(value, context);
+        : multiLineObject(value, options, context);
 }
 
 function singleLineObject(
@@ -46,6 +51,7 @@ function singleLineObject(
 
 function multiLineObject(
     object: object,
+    options: Required<InspectionOptions>,
     context: InspectionContext,
 ): ConsoleMessage[] {
     const maxLength = maxKeyLength(object);
@@ -64,11 +70,23 @@ function multiLineObject(
         messages.push(consoleText(" ".repeat(maxLength - key.length)));
 
         const value = object[key as keyof typeof object];
-        if (isPrimitive(value) || hasOnlyPrimitives(value)) {
-            messages.push(...inspectAny(value, context));
+        if (
+            isPrimitive(value) ||
+            hasOnlyPrimitives(value) ||
+            context.depth + 1 >= options.expandDepth
+        ) {
+            messages.push(...inspectAny(value, options, {
+                left: context.left,
+                depth: context.depth + 1,
+            }));
         } else {
             messages.push(consoleText("\n"));
-            messages.push(...inspectAny(value, { left: context.left + 2 }));
+            messages.push(
+                ...inspectAny(value, options, {
+                    left: context.left + 2,
+                    depth: context.depth + 1,
+                }),
+            );
         }
     }
     return messages;
