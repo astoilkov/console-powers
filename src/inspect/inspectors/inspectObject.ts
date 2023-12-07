@@ -59,7 +59,7 @@ function multiLineObject(
     const messages: ConsoleMessage[] = [];
 
     let isFirst = true;
-    for (const key of sortPrimitiveKeysFirst(object)) {
+    for (const key of sortKeys(object)) {
         if (!isFirst) {
             messages.push(consoleText("\n"));
         }
@@ -103,13 +103,26 @@ function maxKeyLength(object: object): number {
     return max;
 }
 
-function sortPrimitiveKeysFirst(object: object): string[] {
+// - primitives first
+// - array/object with only primitives second
+// - array/object with non-primitives third
+function sortKeys(object: object): string[] {
     return Object.keys(object).sort((a, b) => {
         const aIsPrimitive = isPrimitive(object[a as keyof typeof object]);
         const bIsPrimitive = isPrimitive(object[b as keyof typeof object]);
+        const aHasOnlyPrimitives = hasOnlyPrimitives(
+            object[a as keyof typeof object],
+        );
+        const bHasOnlyPrimitives = hasOnlyPrimitives(
+            object[b as keyof typeof object],
+        );
         if (aIsPrimitive && !bIsPrimitive) {
             return -1;
         } else if (!aIsPrimitive && bIsPrimitive) {
+            return 1;
+        } else if (aHasOnlyPrimitives && !bHasOnlyPrimitives) {
+            return -1;
+        } else if (!aHasOnlyPrimitives && bHasOnlyPrimitives) {
             return 1;
         } else {
             return 0;
