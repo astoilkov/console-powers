@@ -1,11 +1,16 @@
 import consolePrint from "../core/consolePrint";
 import inspectAny from "./inspectors/inspectAny";
 
+export interface InspectionContext {
+    left: number;
+}
+
 // export type ConsoleInspectOptions = {
 //   preferMultiLine?: boolean
 //   preferSingleLine?: boolean
 //   preferTables?: boolean
 //   preferExpanded?: boolean / preferCollapsed?: boolean
+//   expandedDepth?: number
 // }
 
 // - when it's an iterable, iterate over it
@@ -14,5 +19,5 @@ import inspectAny from "./inspectors/inspectAny";
 //   - prettyLog
 //   - fullLog
 export default function consoleInspect(value: unknown): void {
-    consolePrint(inspectAny(value));
+    consolePrint(inspectAny(value, { left: 0 }));
 }

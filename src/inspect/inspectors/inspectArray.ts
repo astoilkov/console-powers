@@ -1,20 +1,24 @@
 import { Primitive } from "type-fest";
-import { consoleGroup } from "../../core/consoleGroup";
 import { consoleText } from "../../core/consoleText";
 import getPrimitiveMessage from "./inspectPrimitive";
 import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../consoleStyles";
+import { InspectionContext } from "../consoleInspect";
+import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 
-export default function inspectArray(array: unknown[]): ConsoleMessage[] {
+export default function inspectArray(
+    array: unknown[],
+    context: InspectionContext,
+): ConsoleMessage[] {
     return array.every(isPrimitive)
         ? //
-          singleLineArrayMessages(array)
-        : multiLineArrayMessages(array);
+          singleLineArray(array)
+        : multiLineArray(array, context);
 }
 
-function singleLineArrayMessages(array: Primitive[]): ConsoleMessage[] {
+function singleLineArray(array: Primitive[]): ConsoleMessage[] {
     const header = [
         consoleText("["),
         ...array.flatMap((value, i) => {
@@ -25,18 +29,35 @@ function singleLineArrayMessages(array: Primitive[]): ConsoleMessage[] {
         consoleText("]"),
     ];
 
-    return [
-        consoleGroup({
-            header,
-            body: multiLineArrayMessages(array),
-        }),
-    ];
+    return header;
+    // return [
+    //     consoleGroup({
+    //         header,
+    //         body: multiLineArrayMessages(array),
+    //     }),
+    // ];
 }
 
-function multiLineArrayMessages(array: unknown[]): ConsoleMessage[] {
-    return array.flatMap((value, i) => [
-        consoleText(`[${i}]: `, consoleStyles.expandedKey),
-        ...inspectAny(value),
-        consoleText("\n"),
-    ]);
+function multiLineArray(
+    array: unknown[],
+    context: InspectionContext,
+): ConsoleMessage[] {
+    return array.flatMap((value, i) => {
+        const indexText = `[${i}]: `;
+        const valueMessages =
+            isPrimitive(value) || hasOnlyPrimitives(value)
+                ? inspectAny(value, { left: 0 })
+                : [
+                      consoleText("\n"),
+                      ...inspectAny(value, {
+                          left: context.left + 2,
+                      }),
+                  ];
+        return [
+            ...(i === 0 ? [] : [consoleText("\n")]),
+            consoleText(" ".repeat(context.left)),
+            consoleText(indexText, consoleStyles.expandedKey),
+            ...valueMessages,
+        ];
+    });
 }
