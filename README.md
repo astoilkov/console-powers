@@ -90,7 +90,7 @@ Flushes everything up until now and starts a new `console.log()` line.
 - [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
 - [`clear`](https://developer.mozilla.org/en-US/docs/Web/CSS/clear) and [`float`](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
 - [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
-- [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
+<!-- - [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) -->
 - [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
 - [`font`](https://developer.mozilla.org/en-US/docs/Web/CSS/font) and its longhand equivalents
 - [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)

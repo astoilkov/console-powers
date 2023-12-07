@@ -1,4 +1,10 @@
 export default interface ConsoleStyle {
+    // removed because:
+    // - it doesn't work in Chrome DevTools (don't know about other browsers)
+    // - it doesn't make sense to change the cursor
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/cursor) */
+    // cursor?: string
+
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-radius) */
     borderRadius?: string;
 
