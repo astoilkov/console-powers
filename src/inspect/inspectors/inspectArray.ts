@@ -50,7 +50,6 @@ function multiLineArray(
 ): ConsoleMessage[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;
-        console.log(context.depth, options.expandDepth)
         const valueMessages =
             isPrimitive(value) ||
             hasOnlyPrimitives(value) ||
