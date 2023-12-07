@@ -25,7 +25,7 @@ export interface InspectionOptions {
 //   - fullLog
 export default function consoleInspect(
     value: unknown,
-    options: InspectionOptions,
+    options?: InspectionOptions,
 ): void {
     consolePrint(
         inspectAny(
