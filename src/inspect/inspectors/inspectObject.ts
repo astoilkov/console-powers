@@ -86,7 +86,7 @@ function multiLineObject(
             messages.push(consoleText("\n"));
             messages.push(
                 ...inspectAny(value, options, {
-                    left: context.left + 2,
+                    left: context.left + options.indent,
                     depth: context.depth + 1,
                 }),
             );

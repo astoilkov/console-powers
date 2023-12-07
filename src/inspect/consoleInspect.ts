@@ -7,6 +7,7 @@ export interface InspectionContext {
 }
 
 export interface InspectionOptions {
+    indent?: number;
     expandDepth?: number;
 }
 
@@ -15,7 +16,7 @@ export interface InspectionOptions {
 //   preferSingleLine?: boolean
 //   preferTables?: boolean
 //   preferExpanded?: boolean / preferCollapsed?: boolean
-//   expandedDepth?: number
+//   expandDepth?: number
 // }
 
 // - when it's an iterable, iterate over it
@@ -32,6 +33,7 @@ export default function consoleInspect(
             value,
             {
                 expandDepth: 2,
+                indent: 4,
                 ...options,
             },
             {
