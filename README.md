@@ -90,7 +90,6 @@ Flushes everything up until now and starts a new `console.log()` line.
 - [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
 - [`clear`](https://developer.mozilla.org/en-US/docs/Web/CSS/clear) and [`float`](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
 - [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
-<!-- - [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) -->
 - [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
 - [`font`](https://developer.mozilla.org/en-US/docs/Web/CSS/font) and its longhand equivalents
 - [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
@@ -101,3 +100,5 @@ Flushes everything up until now and starts a new `console.log()` line.
 - [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
 - [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
 - [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
+
+<!-- - [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) -->
