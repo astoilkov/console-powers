@@ -7,24 +7,25 @@ import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
+import { consoleObject } from "../../core/consoleObject";
 
 export default function inspectObject(
-    value: object,
+    object: object,
     options: Required<InspectionOptions>,
     context: InspectionContext,
 ): ConsoleMessage[] {
     if (context.depth >= options.expandDepth) {
-        return [consoleText("{…}")];
+        return [consoleObject(object)];
     }
 
-    return Object.values(value).every(isPrimitive)
+    return Object.values(object).every(isPrimitive)
         ? [
               consoleText(" ".repeat(context.left)),
               ...singleLineObject(
-                  value as Record<string | number | symbol, Primitive>,
+                  object as Record<string | number | symbol, Primitive>,
               ),
           ]
-        : multiLineObject(value, options, context);
+        : multiLineObject(object, options, context);
 }
 
 function singleLineObject(
@@ -75,10 +76,12 @@ function multiLineObject(
             hasOnlyPrimitives(value) ||
             context.depth + 1 >= options.expandDepth
         ) {
-            messages.push(...inspectAny(value, options, {
-                left: context.left,
-                depth: context.depth + 1,
-            }));
+            messages.push(
+                ...inspectAny(value, options, {
+                    left: context.left,
+                    depth: context.depth + 1,
+                }),
+            );
         } else {
             messages.push(consoleText("\n"));
             messages.push(

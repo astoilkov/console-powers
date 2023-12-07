@@ -1,12 +1,13 @@
 import { Primitive } from "type-fest";
 import { consoleText } from "../../core/consoleText";
-import getPrimitiveMessage from "./inspectPrimitive";
+import inspectPrimitive from "./inspectPrimitive";
 import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../consoleStyles";
 import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
+import { consoleObject } from "../../core/consoleObject";
 
 export default function inspectArray(
     array: unknown[],
@@ -14,7 +15,7 @@ export default function inspectArray(
     context: InspectionContext,
 ): ConsoleMessage[] {
     if (context.depth >= options.expandDepth) {
-        return [consoleText("[…]")];
+        return [consoleObject(array)];
     }
 
     return array.every(isPrimitive)
@@ -28,8 +29,8 @@ function singleLineArray(array: Primitive[]): ConsoleMessage[] {
         consoleText("["),
         ...array.flatMap((value, i) => {
             return i === 0
-                ? [getPrimitiveMessage(value)]
-                : [consoleText(", "), getPrimitiveMessage(value)];
+                ? [inspectPrimitive(value)]
+                : [consoleText(", "), inspectPrimitive(value)];
         }),
         consoleText("]"),
     ];

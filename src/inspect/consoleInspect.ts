@@ -31,7 +31,7 @@ export default function consoleInspect(
         inspectAny(
             value,
             {
-                expandDepth: Number.MAX_SAFE_INTEGER,
+                expandDepth: 2,
                 ...options,
             },
             {
