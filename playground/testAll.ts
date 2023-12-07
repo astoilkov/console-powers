@@ -3,6 +3,8 @@ import consolePrint from "../src/core/consolePrint";
 import consoleQuote from "../src/extras/consoleQuote";
 import consoleUnorderedList from "../src/extras/consoleUnorderedList";
 import { consoleText } from "../src/core/consoleText";
+import consoleTable from "../src/extras/consoleTable";
+import slicedownResult from "./fixtures/slicedownResult";
 
 function inspect(value: unknown): unknown {
     console.log(value);
@@ -34,9 +36,23 @@ inspect([
 ]);
 // )
 
-consoleInspect({
+consoleInspect(slicedownResult);
+
+// array of arrays
+const obj1 = { start: 7, end: 23 };
+consoleInspect(
+    [
+        [obj1, obj1],
+        [obj1, obj1],
+    ],
+    {
+        expandDepth: 2,
+    },
+);
+
+const nestedObject1 = {
     items: [{ type: "delimiter" }, { type: "new" }],
-    loc: {
+    location: {
         start: {
             line: 1,
             column: 1,
@@ -48,7 +64,9 @@ consoleInspect({
     },
     priorities: [3, 7],
     type: "group",
-});
+};
+consoleInspect(nestedObject1);
+consolePrint(consoleTable(nestedObject1));
 
 consolePrint([
     ...consoleQuote(

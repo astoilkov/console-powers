@@ -1,5 +1,3 @@
-import { consoleInspect } from "../index";
-
 const slicedownResult = [
     {
         level: 1,
@@ -165,5 +163,4 @@ const slicedownResult = [
     },
 ];
 
-console.log(slicedownResult)
-consoleInspect(slicedownResult);
+export default slicedownResult;
