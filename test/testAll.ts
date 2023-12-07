@@ -34,6 +34,22 @@ inspect([
 ]);
 // )
 
+consoleInspect({
+    items: [{ type: "delimiter" }, { type: "new" }],
+    loc: {
+        start: {
+            line: 1,
+            column: 1,
+        },
+        end: {
+            line: 1,
+            column: 1,
+        },
+    },
+    priorities: [3, 7],
+    type: "group",
+});
+
 consolePrint([
     ...consoleQuote(
         "This is really what it means to love which is to be generous in the interpretation of the behavior of another person",
