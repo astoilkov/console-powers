@@ -1,6 +1,6 @@
-import { consoleText, ConsoleText } from "../core/consoleText";
+import { consoleText, ConsoleText } from "../../core/consoleText";
 import consoleStyles from "./consoleStyles";
-import { InspectionContext, InspectionOptions } from "./consoleInspect";
+import { InspectionContext, InspectionOptions } from "../consoleInspect";
 
 const LINE_AT_FIRST_LEVEL = false;
 

@@ -1,6 +1,6 @@
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import { Primitive } from "type-fest";
-import consoleStyles from "../consoleStyles";
+import consoleStyles from "../utils/consoleStyles";
 
 export default function inspectPrimitive(value: Primitive): ConsoleText {
     const type = typeof value;

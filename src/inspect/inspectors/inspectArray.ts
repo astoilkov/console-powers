@@ -4,11 +4,11 @@ import inspectPrimitive from "./inspectPrimitive";
 import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
-import consoleStyles from "../consoleStyles";
+import consoleStyles from "../utils/consoleStyles";
 import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
-import createIndent from "../createIndent";
+import createIndent from "../utils/createIndent";
 
 export default function inspectArray(
     array: unknown[],

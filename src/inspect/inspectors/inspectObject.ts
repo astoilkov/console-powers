@@ -1,6 +1,6 @@
 import ConsoleMessage from "../../core/ConsoleMessage";
 import { consoleText } from "../../core/consoleText";
-import consoleStyles from "../consoleStyles";
+import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
 import isPrimitive from "../../utils/isPrimitive";
 import { InspectionContext, InspectionOptions } from "../consoleInspect";
@@ -8,7 +8,7 @@ import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
-import createIndent from "../createIndent";
+import createIndent from "../utils/createIndent";
 
 export default function inspectObject(
     object: object,
