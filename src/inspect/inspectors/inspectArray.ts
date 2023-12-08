@@ -8,6 +8,7 @@ import consoleStyles from "../consoleStyles";
 import { InspectionContext, InspectionOptions } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
+import createIndent from "../createIndent";
 
 export default function inspectArray(
     array: unknown[],
@@ -68,7 +69,7 @@ function multiLineArray(
                   ];
         return [
             ...(i === 0 ? [] : [consoleText("\n")]),
-            consoleText(" ".repeat(context.indent)),
+            ...createIndent(context, options),
             consoleText(indexText, consoleStyles.expandedKey),
             ...valueMessages,
         ];

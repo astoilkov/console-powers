@@ -8,6 +8,7 @@ import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
+import createIndent from "../createIndent";
 
 export default function inspectObject(
     object: object,
@@ -65,13 +66,7 @@ function multiLineObject(
         }
         isFirst = false;
 
-        messages.push(consoleText(" ".repeat(context.indent - 1)));
-        messages.push(
-            consoleText(" ", {
-                marginLeft: "0.22em",
-                borderLeft: `1.8px solid ${consoleStyles.expandedKey.color}`,
-            }),
-        );
+        messages.push(...createIndent(context, options))
         messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
         messages.push(consoleText(": "));
         messages.push(consoleText(" ".repeat(maxLength - key.length)));

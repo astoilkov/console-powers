@@ -8,6 +8,7 @@ export interface InspectionContext {
 }
 
 export interface InspectionOptions {
+    line?: boolean;
     indent?: number;
     expandDepth?: number;
 }
@@ -36,6 +37,7 @@ export default function consoleInspect(
                 {
                     expandDepth: 2,
                     indent: 4,
+                    line: true,
                     ...options,
                 },
                 {

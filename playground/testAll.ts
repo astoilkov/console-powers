@@ -12,77 +12,6 @@ function inspect(value: unknown): unknown {
     return value;
 }
 
-// array (primitive values)
-inspect([1, 2, 3, "first", "second", "third", undefined, null, Symbol("test")]);
-
-// array (length 102)
-inspect(new Array(102).fill(0));
-
-// primitive object
-inspect({
-    a: 1,
-    b: "two",
-    c: true,
-    d: undefined,
-    e: null,
-    f: Symbol("test"),
-});
-
-// array (objects)
-// console.table(
-inspect([
-    { value: "how to", index: 1 },
-    { value: "tell me", index: 0 },
-]);
-// )
-
-consoleInspect(slicedownResult);
-
-// array of arrays
-const obj1 = { start: 7, end: 23 };
-consoleInspect(
-    [
-        [obj1, obj1],
-        [obj1, obj1],
-    ],
-    {
-        expandDepth: 2,
-    },
-);
-
-const nestedObject1 = {
-    items: [{ type: "delimiter" }, { type: "new" }],
-    location: {
-        start: {
-            line: 1,
-            column: 1,
-        },
-        end: {
-            line: 1,
-            column: 1,
-        },
-    },
-    priorities: [3, 7],
-    type: "group",
-};
-consoleInspect(nestedObject1);
-consolePrint(consoleTable(nestedObject1));
-
-consolePrint([
-    ...consoleQuote(
-        "This is really what it means to love which is to be generous in the interpretation of the behavior of another person",
-        "Alain De Botton",
-    ),
-    consoleText("\n\n"),
-    ...consoleUnorderedList([
-        //
-        "🥑 avocado",
-        "🍌 banana",
-        "🍍 pineapple",
-        "🍓 strawberry",
-    ]),
-]);
-
 // example 1
 consolePrint([
     consoleText("cool kids", {
@@ -122,3 +51,78 @@ consolePrint([
         color: "red",
     }),
 ]);
+
+// array (primitive values)
+inspect([1, 2, 3, "first", "second", "third", undefined, null, Symbol("test")]);
+
+// array (length 102)
+inspect(new Array(102).fill(0));
+
+// primitive object
+inspect({
+    a: 1,
+    b: "two",
+    c: true,
+    d: undefined,
+    e: null,
+    f: Symbol("test"),
+});
+
+// array (objects)
+// console.table(
+inspect([
+    { value: "how to", index: 1 },
+    { value: "tell me", index: 0 },
+]);
+// )
+
+consolePrint([
+    ...consoleQuote(
+        "This is really what it means to love which is to be generous in the interpretation of the behavior of another person",
+        "Alain De Botton",
+    ),
+    consoleText("\n\n"),
+    ...consoleUnorderedList([
+        //
+        "🥑 avocado",
+        "🍌 banana",
+        "🍍 pineapple",
+        "🍓 strawberry",
+    ]),
+]);
+
+consoleInspect(slicedownResult);
+
+// array of arrays
+const obj1 = { start: 7, end: 23 };
+consoleInspect(
+    [
+        [obj1, obj1],
+        [obj1, obj1],
+    ],
+    {
+        expandDepth: 2,
+    },
+);
+
+const nestedObject1 = {
+    items: [{ type: "delimiter" }, { type: "new" }],
+    location: {
+        start: {
+            line: {},
+            column: 1,
+        },
+        end: {
+            line: {},
+            column: 1,
+        },
+    },
+    priorities: [3, 7],
+    type: "group",
+};
+consoleInspect(nestedObject1);
+consoleInspect(nestedObject1, {
+    expandDepth: 3,
+    indent: 4
+})
+consolePrint(consoleTable(nestedObject1));
