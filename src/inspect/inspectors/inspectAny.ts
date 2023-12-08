@@ -6,12 +6,12 @@ import inspectPrimitive from "./inspectPrimitive";
 import { consoleText } from "../../core/consoleText";
 import ConsoleMessage from "../../core/ConsoleMessage";
 import { consoleObject } from "../../core/consoleObject";
-import { InspectionContext, InspectionOptions } from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 
 export default function inspectAny(
     value: unknown,
-    options: Required<InspectionOptions>,
-    context: InspectionContext,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): ConsoleMessage[] {
     if (isPrimitive(value)) {
         return [inspectPrimitive(value)];

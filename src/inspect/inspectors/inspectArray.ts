@@ -5,15 +5,15 @@ import ConsoleMessage from "../../core/ConsoleMessage";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
-import { InspectionContext, InspectionOptions } from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 
 export default function inspectArray(
     array: unknown[],
-    options: Required<InspectionOptions>,
-    context: InspectionContext,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): ConsoleMessage[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(array)];
@@ -47,8 +47,8 @@ function singleLineArray(array: Primitive[]): ConsoleMessage[] {
 
 function multiLineArray(
     array: unknown[],
-    options: Required<InspectionOptions>,
-    context: InspectionContext,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): ConsoleMessage[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;

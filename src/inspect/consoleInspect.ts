@@ -2,15 +2,15 @@ import consolePrint from "../core/consolePrint";
 import inspectAny from "./inspectors/inspectAny";
 import consoleApply from "../core/consoleApply";
 
-export interface InspectionContext {
-    indent: number;
-    depth: number;
-}
-
-export interface InspectionOptions {
+export interface ConsoleInspectOptions {
     line?: boolean;
     indent?: number;
     expandDepth?: number;
+}
+
+export interface ConsoleInspectContext {
+    indent: number;
+    depth: number;
 }
 
 // export type ConsoleInspectOptions = {
@@ -28,7 +28,7 @@ export interface InspectionOptions {
 //   - fullLog
 export default function consoleInspect(
     value: unknown,
-    options?: InspectionOptions,
+    options?: ConsoleInspectOptions,
 ): void {
     consolePrint(
         consoleApply(

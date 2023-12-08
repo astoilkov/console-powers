@@ -3,7 +3,7 @@ import { consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
 import isPrimitive from "../../utils/isPrimitive";
-import { InspectionContext, InspectionOptions } from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
@@ -12,8 +12,8 @@ import createIndent from "../utils/createIndent";
 
 export default function inspectObject(
     object: object,
-    options: Required<InspectionOptions>,
-    context: InspectionContext,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): ConsoleMessage[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(object)];
@@ -53,8 +53,8 @@ function singleLineObject(
 
 function multiLineObject(
     object: object,
-    options: Required<InspectionOptions>,
-    context: InspectionContext,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): ConsoleMessage[] {
     const maxLength = maxKeyLength(object);
     const messages: ConsoleMessage[] = [];

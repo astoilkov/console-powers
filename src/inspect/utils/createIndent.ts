@@ -1,12 +1,12 @@
 import { consoleText, ConsoleText } from "../../core/consoleText";
 import consoleStyles from "./consoleStyles";
-import { InspectionContext, InspectionOptions } from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 
 const LINE_AT_FIRST_LEVEL = false;
 
 export default function createIndent(
-    context: InspectionContext,
-    options: Required<InspectionOptions>,
+    context: ConsoleInspectContext,
+    options: Required<ConsoleInspectOptions>,
 ): ConsoleText[] {
     if (!options.line) {
         return [consoleText(" ".repeat(context.indent))];
