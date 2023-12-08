@@ -37,7 +37,7 @@ export default function consoleInspect(
                 {
                     expandDepth: 2,
                     indent: 4,
-                    line: true,
+                    line: false,
                     ...options,
                 },
                 {
