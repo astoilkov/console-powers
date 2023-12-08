@@ -1,8 +1,7 @@
 import ConsoleStyle from "../core/ConsoleStyle";
 import ConsoleMessage from "../core/ConsoleMessage";
 import { ConsoleText, consoleText } from "../core/consoleText";
-import isPrimitive from "../utils/isPrimitive";
-import inspectPrimitive from "../inspect/inspectors/inspectPrimitive";
+import consoleInline from "../utils/consoleInline";
 
 const firstRowStyle = {
     left: {
@@ -50,11 +49,14 @@ const lastRowStyle = {
 export default function consoleTable(object: object): ConsoleMessage[] {
     const messages: ConsoleMessage[] = [];
     const keyPad =
-        maxLength(Object.keys(object).map((key) => cellText(key).text.length)) +
-        2;
+        maxLength(
+            Object.keys(object).map((key) => consoleInline(key).text.length),
+        ) + 2;
     const valuePad =
         maxLength(
-            Object.values(object).map((value) => cellText(value).text.length),
+            Object.values(object).map(
+                (value) => consoleInline(value).text.length,
+            ),
         ) + 2;
 
     // messages.push(
@@ -97,7 +99,7 @@ function tableRow(
                 : i === values.length - 1
                   ? styles.right
                   : styles.middle;
-        const cell = cellText(values[i]);
+        const cell = consoleInline(values[i]);
         cell.text = "  " + cell.text.padEnd(pad[i] ?? 0);
         cell.style = {
             ...cell.style,
@@ -107,12 +109,6 @@ function tableRow(
         messages.push(cell);
     }
     return messages;
-}
-
-function cellText(value: unknown): ConsoleText {
-    return isPrimitive(value)
-        ? inspectPrimitive(value)
-        : consoleText(String(value));
 }
 
 function maxLength(values: number[]): number {
