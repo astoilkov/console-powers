@@ -8,3 +8,5 @@ export type { ConsoleObject } from "./src/core/consoleObject";
 export { consoleLine } from "./src/core/consoleLine";
 export { consoleGroup } from "./src/core/consoleGroup";
 export type { ConsoleGroup } from "./src/core/consoleGroup";
+
+export { default as consoleInspect } from "./src/inspect/consoleInspect";
