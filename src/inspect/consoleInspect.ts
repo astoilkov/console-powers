@@ -3,7 +3,7 @@ import inspectAny from "./inspectors/inspectAny";
 import consoleApply from "../core/consoleApply";
 
 export interface InspectionContext {
-    left: number;
+    indent: number;
     depth: number;
 }
 
@@ -40,7 +40,7 @@ export default function consoleInspect(
                 },
                 {
                     depth: 0,
-                    left: 0,
+                    indent: 0,
                 },
             ),
             {

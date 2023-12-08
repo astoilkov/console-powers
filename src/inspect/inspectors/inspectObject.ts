@@ -20,7 +20,7 @@ export default function inspectObject(
 
     return Object.values(object).every(isPrimitive)
         ? [
-              consoleText(" ".repeat(context.left)),
+              consoleText(" ".repeat(context.indent)),
               ...singleLineObject(
                   object as Record<string | number | symbol, Primitive>,
               ),
@@ -65,7 +65,7 @@ function multiLineObject(
         }
         isFirst = false;
 
-        messages.push(consoleText(" ".repeat(context.left - 1)));
+        messages.push(consoleText(" ".repeat(context.indent - 1)));
         messages.push(
             consoleText(" ", {
                 marginLeft: "0.22em",
@@ -84,7 +84,7 @@ function multiLineObject(
         ) {
             messages.push(
                 ...inspectAny(value, options, {
-                    left: context.left,
+                    indent: context.indent,
                     depth: context.depth + 1,
                 }),
             );
@@ -92,7 +92,7 @@ function multiLineObject(
             messages.push(consoleText("\n"));
             messages.push(
                 ...inspectAny(value, options, {
-                    left: context.left + options.indent,
+                    indent: context.indent + options.indent,
                     depth: context.depth + 1,
                 }),
             );

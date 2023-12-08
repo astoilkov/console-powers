@@ -56,19 +56,19 @@ function multiLineArray(
             hasOnlyPrimitives(value) ||
             context.depth + 1 >= options.expandDepth
                 ? inspectAny(value, options, {
-                      left: 0,
+                      indent: 0,
                       depth: context.depth + 1,
                   })
                 : [
                       consoleText("\n"),
                       ...inspectAny(value, options, {
-                          left: context.left + options.indent,
+                          indent: context.indent + options.indent,
                           depth: context.depth + 1,
                       }),
                   ];
         return [
             ...(i === 0 ? [] : [consoleText("\n")]),
-            consoleText(" ".repeat(context.left)),
+            consoleText(" ".repeat(context.indent)),
             consoleText(indexText, consoleStyles.expandedKey),
             ...valueMessages,
         ];
