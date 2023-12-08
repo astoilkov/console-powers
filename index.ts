@@ -9,4 +9,6 @@ export { consoleLine } from "./src/core/consoleLine";
 export { consoleGroup } from "./src/core/consoleGroup";
 export type { ConsoleGroup } from "./src/core/consoleGroup";
 
+// inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
+export type { ConsoleInspectOptions } from "./src/inspect/consoleInspect";
