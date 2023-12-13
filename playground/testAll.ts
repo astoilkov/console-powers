@@ -14,7 +14,7 @@ function inspect(value: unknown): unknown {
 
 // example 1
 consolePrint([
-    consoleText("cool kids", {
+    consoleText("9Os", {
         color: "hsl(330, 100%, 50%)",
         fontSize: "200px",
         textShadow: [
@@ -123,6 +123,6 @@ const nestedObject1 = {
 consoleInspect(nestedObject1);
 consoleInspect(nestedObject1, {
     expandDepth: 3,
-    indent: 4
-})
+    indent: 4,
+});
 consolePrint(consoleTable(nestedObject1));
