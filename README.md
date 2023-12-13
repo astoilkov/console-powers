@@ -27,22 +27,46 @@ npm install {{data.name}}
 
 ## Usage
 
-### Printing using `consolePrint()`
+### `consolePrint()`
 
 ```ts
-import { consolePrint, consoleText } from 'console-powers'
+import { consolePrint, consoleText } from "console-powers"
 
 consolePrint(
-    consoleText('90s', {
+    consoleText("90s", {
         fontSize: "200px",
-    	color: 'hsl(330, 100%, 50%)',
-    	textShadow: '0 2px 0 hsl(330, 100%, 25%), 0 3px 2px hsla(330, 100%, 15%, 0.5), /* next */ 0 3px 0 hsl(350, 100%, 50%), 0 5px 0 hsl(350, 100%, 25%), 0 6px 2px hsla(350, 100%, 15%, 0.5), /* next */ 0 6px 0 hsl(20, 100%, 50%), 0 8px 0 hsl(20, 100%, 25%), 0 9px 2px hsla(20, 100%, 15%, 0.5), /* next */ 0 9px 0 hsl(50, 100%, 50%), 0 11px 0 hsl(50, 100%, 25%), 0 12px 2px hsla(50, 100%, 15%, 0.5), /* next */ 0 12px 0 hsl(70, 100%, 50%), 0 14px 0 hsl(70, 100%, 25%), 0 15px 2px hsla(70, 100%, 15%, 0.5), /* next */ 0 15px 0 hsl(90, 100%, 50%), 0 17px 0 hsl(90, 100%, 25%), 0 17px 2px hsla(90, 100%, 15%, 0.5)',
+    	color: "hsl(330, 100%, 50%)",
+    	textShadow: "0 2px 0 hsl(330, 100%, 25%), 0 3px 2px hsla(330, 100%, 15%, 0.5), /* next */ 0 3px 0 hsl(350, 100%, 50%), 0 5px 0 hsl(350, 100%, 25%), 0 6px 2px hsla(350, 100%, 15%, 0.5), /* next */ 0 6px 0 hsl(20, 100%, 50%), 0 8px 0 hsl(20, 100%, 25%), 0 9px 2px hsla(20, 100%, 15%, 0.5), /* next */ 0 9px 0 hsl(50, 100%, 50%), 0 11px 0 hsl(50, 100%, 25%), 0 12px 2px hsla(50, 100%, 15%, 0.5), /* next */ 0 12px 0 hsl(70, 100%, 50%), 0 14px 0 hsl(70, 100%, 25%), 0 15px 2px hsla(70, 100%, 15%, 0.5), /* next */ 0 15px 0 hsl(90, 100%, 50%), 0 17px 0 hsl(90, 100%, 25%), 0 17px 2px hsla(90, 100%, 15%, 0.5)",
     })
 )
 ```
 
+### `consoleInspect()`
+
+```ts
+import { consoleInspect } from "console-powers"
+
+consoleInspect({
+    type: "group",
+    priority: 1,
+    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+    location: {
+        start: {
+            line: 1,
+            column: 0,
+        },
+        end: {
+            line: 4,
+            column: 10,
+        },
+    },
+})
+```
+
+## API
+
 <details>
-    <summary><h4>API</h4></summary>
+<summary><code>consolePrint()</code> and constructing methods</summary>
 
 #### `consolePrint(messages: ConsoleMessage[])`
 
@@ -92,27 +116,12 @@ Flushes everything up until now and starts a new `console.log()` line.
 
 </details>
 
-### Inspecting data with `consoleInspect()`
+<details>
+<summary><code>consoleInspect()</code></summary>
 
-```ts
-import { consoleInspect } from "console-powers"
+#### `consoleInspect(value: unknown)`
 
-consoleInspect({
-    type: "group",
-    priority: 1,
-    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-    location: {
-        start: {
-            line: 1,
-            column: 0,
-        },
-        end: {
-            line: 4,
-            column: 10,
-        },
-    },
-})
-```
+</details>
 
 <!--
 ```ts
