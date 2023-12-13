@@ -66,7 +66,7 @@ consoleInspect({
 ## API
 
 <details>
-<summary><code>consolePrint()</code> and constructing methods</summary>
+<summary><code>consolePrint()</code> & constructing methods</summary>
 
 #### `consolePrint(messages: ConsoleMessage[])`
 
