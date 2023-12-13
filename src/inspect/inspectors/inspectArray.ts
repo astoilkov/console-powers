@@ -1,7 +1,7 @@
 import { Primitive } from "type-fest";
 import { consoleText } from "../../core/consoleText";
 import inspectPrimitive from "./inspectPrimitive";
-import ConsoleMessage from "../../core/ConsoleMessage";
+import ConsoleItem from "../../core/ConsoleItem";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
@@ -14,7 +14,7 @@ export default function inspectArray(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleMessage[] {
+): ConsoleItem[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(array)];
     }
@@ -25,7 +25,7 @@ export default function inspectArray(
         : multiLineArray(array, options, context);
 }
 
-function singleLineArray(array: Primitive[]): ConsoleMessage[] {
+function singleLineArray(array: Primitive[]): ConsoleItem[] {
     const header = [
         consoleText("["),
         ...array.flatMap((value, i) => {
@@ -49,7 +49,7 @@ function multiLineArray(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleMessage[] {
+): ConsoleItem[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;
         const valueMessages =

@@ -1,6 +1,6 @@
 # `console-powers`
 
-> Console messages for cool kinds
+> Style the browser console & inspect data
 
 <!--
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/{{data.name}})](https://bundlephobia.com/result?p={{data.name}})
@@ -25,7 +25,9 @@ npm install {{data.name}}
 
 -->
 
-## Examples
+## Usage
+
+### Printing using `consolePrint()`
 
 ```ts
 import { consolePrint, consoleText } from 'console-powers'
@@ -39,23 +41,8 @@ consolePrint(
 )
 ```
 
-```ts
-import { consolePrint, consoleText } from 'console-powers'
-
-consolePrint([
-    consoleText("Arguments mismatch:", { background: "yellow" }),
-    consoleText(" "),
-    consoleText("addTodo(", { background: "#eee" }),
-    consoleText(" ? ", { background: "red", color: "white" }),
-    consoleText(")", { background: "#eee" }),
-    consoleText(" - "),
-    consoleText("less arguments than the required specified", {
-        color: "red",
-    }),
-]);
-```
-
-## API
+<details>
+    <summary><h4>API</h4></summary>
 
 #### `consolePrint(messages: ConsoleMessage[])`
 
@@ -76,6 +63,8 @@ consolePrint(consoleGroup({
     body: 'Here I am'
 }))
 ```
+
+_Note: The method calls `consoleLine()` and flushes everything up until now before starting a new group._
 
 #### `consoleLine()`
 
@@ -100,5 +89,49 @@ Flushes everything up until now and starts a new `console.log()` line.
 - [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
 - [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
 - [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
+
+</details>
+
+### Inspecting data with `consoleInspect()`
+
+```ts
+import { consoleInspect } from "console-powers"
+
+consoleInspect({
+    type: "group",
+    priority: 1,
+    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+    location: {
+        start: {
+            line: 1,
+            column: 0,
+        },
+        end: {
+            line: 4,
+            column: 10,
+        },
+    },
+})
+```
+
+<!--
+```ts
+import { consolePrint, consoleText } from 'console-powers'
+
+consolePrint([
+    consoleText("Arguments mismatch:", { background: "yellow" }),
+    consoleText(" "),
+    consoleText("addTodo(", { background: "#eee" }),
+    consoleText(" ? ", { background: "red", color: "white" }),
+    consoleText(")", { background: "#eee" }),
+    consoleText(" - "),
+    consoleText("less arguments than the required specified", {
+        color: "red",
+    }),
+]);
+```
+-->
+
+
 
 <!-- - [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) -->

@@ -11,8 +11,9 @@
         "url": "https://astoilkov.com"
     },
     "keywords": [
-        "Console",
-        "DevTools"
+        "console",
+        "DevTools",
+        "inspect"
     ],
     "type": "module",
     "exports": {

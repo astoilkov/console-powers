@@ -1,34 +1,34 @@
-import ConsoleMessage from "./ConsoleMessage";
+import ConsoleItem from "./ConsoleItem";
 import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
 
-export default function consolePrint(messages: ConsoleMessage[]): void {
+export default function consolePrint(items: ConsoleItem[]): void {
     let logBuffer: LogBuffer = {
         text: "",
         rest: [],
     };
 
-    for (const message of messages) {
-        if (message.type === "text") {
-            logBuffer.text += `%c${message.text}%c`;
-            logBuffer.rest.push(consoleStyleToString(message.style));
+    for (const item of items) {
+        if (item.type === "text") {
+            logBuffer.text += `%c${item.text}%c`;
+            logBuffer.rest.push(consoleStyleToString(item.style));
             logBuffer.rest.push("");
-        } else if (message.type === "object") {
+        } else if (item.type === "object") {
             logBuffer.text += "%o";
-            logBuffer.rest.push(message.object);
-        } else if (message.type === "line") {
+            logBuffer.rest.push(item.object);
+        } else if (item.type === "flush") {
             flush(logBuffer);
-        } else if (message.type === "group") {
+        } else if (item.type === "group") {
             flush(logBuffer);
 
-            const merged = mergeText(message.header);
-            if (message.expanded) {
+            const merged = mergeText(item.header);
+            if (item.expanded) {
                 console.group(merged.text, ...merged.rest);
             } else {
                 console.groupCollapsed(merged.text, ...merged.rest);
             }
 
-            consolePrint(message.body);
+            consolePrint(item.body);
 
             console.groupEnd();
         }

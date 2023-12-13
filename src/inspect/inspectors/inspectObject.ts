@@ -1,4 +1,4 @@
-import ConsoleMessage from "../../core/ConsoleMessage";
+import ConsoleItem from "../../core/ConsoleItem";
 import { consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
@@ -14,7 +14,7 @@ export default function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleMessage[] {
+): ConsoleItem[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(object)];
     }
@@ -31,8 +31,8 @@ export default function inspectObject(
 
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
-): ConsoleMessage[] {
-    const messages: ConsoleMessage[] = [consoleText("{ ")];
+): ConsoleItem[] {
+    const messages: ConsoleItem[] = [consoleText("{ ")];
 
     let isFirst = true;
     for (const key in value) {
@@ -55,9 +55,9 @@ function multiLineObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleMessage[] {
+): ConsoleItem[] {
     const maxLength = maxKeyLength(object);
-    const messages: ConsoleMessage[] = [];
+    const messages: ConsoleItem[] = [];
 
     let isFirst = true;
     for (const key of sortKeys(object)) {

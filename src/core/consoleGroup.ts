@@ -1,5 +1,5 @@
 import arrayArg from "../utils/arrayArg";
-import ConsoleMessage from "./ConsoleMessage";
+import ConsoleItem from "./ConsoleItem";
 import { consoleText, ConsoleText } from "./consoleText";
 import ensureConsoleText from "../utils/ensureConsoleText";
 
@@ -7,7 +7,7 @@ export interface ConsoleGroup {
     type: "group";
     expanded: boolean;
     header: ConsoleText[];
-    body: ConsoleMessage[];
+    body: ConsoleItem[];
 }
 
 export function consoleGroup({
@@ -17,7 +17,7 @@ export function consoleGroup({
 }: {
     expanded?: boolean;
     header?: string | ConsoleText | (string | ConsoleText)[];
-    body?: (ConsoleMessage | string)[] | string;
+    body?: (ConsoleItem | string)[] | string;
 } = {}): ConsoleGroup {
     return {
         type: "group",

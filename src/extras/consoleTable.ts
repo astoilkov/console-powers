@@ -1,5 +1,5 @@
 import ConsoleStyle from "../core/ConsoleStyle";
-import ConsoleMessage from "../core/ConsoleMessage";
+import ConsoleItem from "../core/ConsoleItem";
 import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleInline from "../utils/consoleInline";
 
@@ -46,8 +46,8 @@ const lastRowStyle = {
     },
 };
 
-export default function consoleTable(object: object): ConsoleMessage[] {
-    const messages: ConsoleMessage[] = [];
+export default function consoleTable(object: object): ConsoleItem[] {
+    const messages: ConsoleItem[] = [];
     const keyPad =
         maxLength(
             Object.keys(object).map((key) => consoleInline(key).text.length),
