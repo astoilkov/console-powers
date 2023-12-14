@@ -41,6 +41,8 @@ consolePrint(
 )
 ```
 
+![90s](/img/90s.png)
+
 ### `consoleInspect()`
 
 ```ts
@@ -62,6 +64,8 @@ consoleInspect({
     },
 })
 ```
+
+![inspect](/img/inspect.png)
 
 ## API
 
