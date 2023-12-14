@@ -1,6 +1,6 @@
 # `console-powers`
 
-> Craft beautiful browser console messages.
+> Craft beautiful browser console messages.  
 > Debug & inspect data with elegant outputs.
 
 <!--
