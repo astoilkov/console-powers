@@ -1,7 +1,8 @@
 # `console-powers`
 
 > Craft beautiful browser console messages.  
-> Debug & inspect data with elegant outputs.
+> Debug & inspect data with elegant outputs.  
+> Small & tree-shakable.
 
 <!--
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/{{data.name}})](https://bundlephobia.com/result?p={{data.name}})
