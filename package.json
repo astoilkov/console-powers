@@ -28,7 +28,7 @@
         "build": "tsc",
         "test": "yarn run build && vitest run --coverage",
         "playground": "vite ./playground --open",
-        "release": "np"
+        "release": "yarn run build && np"
     },
     "files": [
         "index.js",
