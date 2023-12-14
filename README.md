@@ -29,6 +29,8 @@ npm install {{data.name}}
 
 ### `consolePrint()`
 
+<img src="/img/90s.png" width="240" />
+
 ```ts
 import { consolePrint, consoleText } from "console-powers"
 
@@ -41,9 +43,9 @@ consolePrint(
 )
 ```
 
-![90s](/img/90s.png)
-
 ### `consoleInspect()`
+
+<img src="/img/inspect.png" width="240" />
 
 ```ts
 import { consoleInspect } from "console-powers"
@@ -64,8 +66,6 @@ consoleInspect({
     },
 })
 ```
-
-![inspect](/img/inspect.png)
 
 ## API
 
