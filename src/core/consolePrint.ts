@@ -1,13 +1,17 @@
 import ConsoleItem from "./ConsoleItem";
 import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
+import arrayArg from "../utils/arrayArg";
 
-export default function consolePrint(items: ConsoleItem[]): void {
+export default function consolePrint(
+    ...value: (ConsoleItem | ConsoleItem[])[]
+): void {
     let logBuffer: LogBuffer = {
         text: "",
         rest: [],
     };
 
+    const items = value.flatMap(arrayArg);
     for (const item of items) {
         if (item.type === "text") {
             logBuffer.text += `%c${item.text}%c`;
