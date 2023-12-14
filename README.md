@@ -29,7 +29,7 @@ npm install {{data.name}}
 
 ### `consolePrint()`
 
-<img src="/img/90s.png" width="240" />
+<img src="/img/90s.png" width="320" />
 
 ```ts
 import { consolePrint, consoleText } from "console-powers"
@@ -45,7 +45,7 @@ consolePrint(
 
 ### `consoleInspect()`
 
-<img src="/img/inspect.png" width="240" />
+<img src="/img/inspect.png" width="320" />
 
 ```ts
 import { consoleInspect } from "console-powers"
