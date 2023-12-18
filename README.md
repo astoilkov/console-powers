@@ -80,6 +80,8 @@ Prints the provided messages to the console.
 
 #### `consoleText(text: string, style?: ConsoleStyle)`
 
+Creates a styled text in the console.
+
 ##### `ConsoleStyle`
 
 - [`background`](https://developer.mozilla.org/en-US/docs/Web/CSS/background) and its longhand equivalents
