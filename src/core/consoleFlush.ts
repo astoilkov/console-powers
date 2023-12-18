@@ -2,6 +2,6 @@ export interface ConsoleFlush {
     type: "flush";
 }
 
-export function consoleDivider(): ConsoleFlush {
+export function consoleFlush(): ConsoleFlush {
     return { type: "flush" };
 }
