@@ -5,7 +5,7 @@ export { consoleText } from "./src/core/consoleText";
 export type { ConsoleText } from "./src/core/consoleText";
 export { consoleObject } from "./src/core/consoleObject";
 export type { ConsoleObject } from "./src/core/consoleObject";
-export { consoleDivider } from "./src/core/consoleFlush";
+export { consoleFlush } from "./src/core/consoleFlush";
 export { consoleGroup } from "./src/core/consoleGroup";
 export type { ConsoleGroup } from "./src/core/consoleGroup";
 
