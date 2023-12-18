@@ -5,6 +5,7 @@ import consoleUnorderedList from "../src/extras/consoleUnorderedList";
 import { consoleText } from "../src/core/consoleText";
 import consoleTable from "../src/extras/consoleTable";
 import slicedownResult from "./fixtures/slicedownResult";
+import consoleOrderedList from "../src/extras/consoleOrderedList";
 
 function inspect(value: unknown): unknown {
     console.log(value);
@@ -101,21 +102,6 @@ inspect([
 ]);
 // )
 
-consolePrint([
-    ...consoleQuote(
-        "This is really what it means to love which is to be generous in the interpretation of the behavior of another person",
-        "Alain De Botton",
-    ),
-    consoleText("\n\n"),
-    ...consoleUnorderedList([
-        //
-        "🥑 avocado",
-        "🍌 banana",
-        "🍍 pineapple",
-        "🍓 strawberry",
-    ]),
-]);
-
 consoleInspect(slicedownResult);
 
 // array of arrays
@@ -151,3 +137,27 @@ consoleInspect(nestedObject1, {
     indent: 4,
 });
 consolePrint(consoleTable(nestedObject1));
+
+consolePrint(
+    consoleOrderedList([
+        "🥑 avocado",
+        "🍌 banana",
+        "🍍 pineapple",
+        "🍓 strawberry",
+    ]),
+);
+
+consolePrint([
+    ...consoleQuote(
+        "This is really what it means to love which is to be generous in the interpretation of the behavior of another person",
+        "Alain De Botton",
+    ),
+    consoleText("\n\n"),
+    ...consoleUnorderedList([
+        //
+        "🥑 avocado",
+        "🍌 banana",
+        "🍍 pineapple",
+        "🍓 strawberry",
+    ]),
+]);
