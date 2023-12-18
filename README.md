@@ -94,9 +94,9 @@ consolePrint(consoleGroup({
 }))
 ```
 
-_Note: The method calls `consoleLine()` and flushes everything up until now before starting a new group._
+_Note: The method calls `consoleFlush()` and flushes everything up until now before starting a new group._
 
-#### `consoleLine()`
+#### `consoleFlush()`
 
 Flushes everything up until now and starts a new `console.log()` line.
 
@@ -125,28 +125,21 @@ Flushes everything up until now and starts a new `console.log()` line.
 <details>
 <summary><code>consoleInspect()</code></summary>
 
-#### `consoleInspect(value: unknown)`
+#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions)`
+
+Inspects a value. Great when debugging.
+
+##### `ConsoleInspectOptions.expandDepth`
+
+Default: `2`
+
+How much levels to expand the object. Levels after that will be collapsed.
+
+##### `ConsoleInspectOptions.indent`
+
+Default: `4`
+
+How much spaces to add when going down a level.
+
 
 </details>
-
-<!--
-```ts
-import { consolePrint, consoleText } from 'console-powers'
-
-consolePrint([
-    consoleText("Arguments mismatch:", { background: "yellow" }),
-    consoleText(" "),
-    consoleText("addTodo(", { background: "#eee" }),
-    consoleText(" ? ", { background: "red", color: "white" }),
-    consoleText(")", { background: "#eee" }),
-    consoleText(" - "),
-    consoleText("less arguments than the required specified", {
-        color: "red",
-    }),
-]);
-```
--->
-
-
-
-<!-- - [`cursor`](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) -->
