@@ -1,14 +1,18 @@
 import ConsoleItem from "../../core/ConsoleItem";
-import { consoleText } from "../../core/consoleText";
+import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
 import isPrimitive from "../../utils/isPrimitive";
-import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
+import {
+    ConsoleInspectContext,
+    ConsoleInspectOptions,
+} from "../consoleInspect";
 import { Primitive } from "type-fest";
 import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
+import canFit from "../../utils/canFit";
 
 export default function inspectObject(
     object: object,
@@ -17,22 +21,27 @@ export default function inspectObject(
 ): ConsoleItem[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(object)];
+    } else if (hasOnlyPrimitives(object)) {
+        const singleLine = singleLineObject(
+            object as Record<string | number | symbol, Primitive>,
+            context,
+        );
+        if (canFit(singleLine, context.indent)) {
+            return singleLine;
+        }
     }
 
-    return Object.values(object).every(isPrimitive)
-        ? [
-              consoleText(" ".repeat(context.indent)),
-              ...singleLineObject(
-                  object as Record<string | number | symbol, Primitive>,
-              ),
-          ]
-        : multiLineObject(object, options, context);
+    return multiLineObject(object, options, context);
 }
 
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
-): ConsoleItem[] {
-    const messages: ConsoleItem[] = [consoleText("{ ")];
+    context: ConsoleInspectContext,
+): ConsoleText[] {
+    const messages: ConsoleText[] = [
+        consoleText(" ".repeat(context.indent)),
+        consoleText("{ "),
+    ];
 
     let isFirst = true;
     for (const key in value) {
@@ -66,7 +75,7 @@ function multiLineObject(
         }
         isFirst = false;
 
-        messages.push(...createIndent(context, options))
+        messages.push(...createIndent(context, options));
         messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
         messages.push(consoleText(": "));
         messages.push(consoleText(" ".repeat(maxLength - key.length)));
