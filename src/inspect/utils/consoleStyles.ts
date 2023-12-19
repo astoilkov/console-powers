@@ -1,5 +1,5 @@
 const consoleStyles = {
-    string: { color: "#C00" },
+    string: { color: "#CC0100" },
     number: { color: "#1A1AA6" },
     undefinedNull: { color: "#888" },
     collapsedObjectKey: { color: "#5F6367" },
