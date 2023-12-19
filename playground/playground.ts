@@ -81,6 +81,9 @@ consolePrint([
 // array (primitive values)
 inspect([1, 2, 3, "first", "second", "third", undefined, null, Symbol("test")]);
 
+// array (length 12)
+inspect(new Array(12).fill(0));
+
 // array (length 102)
 inspect(new Array(102).fill(0));
 

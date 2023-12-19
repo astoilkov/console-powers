@@ -13,6 +13,7 @@ import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 import canFit from "../../utils/canFit";
+import { consoleGroup } from "../../core/consoleGroup";
 
 export default function inspectArray(
     array: unknown[],
@@ -26,6 +27,16 @@ export default function inspectArray(
     if (array.every(isPrimitive)) {
         const singleLine = singleLineArray(array as Primitive[]);
         if (canFit(singleLine, context.indent)) {
+            // special case: top-level array
+            // we otherwise can't use groups because they call `consoleFlush()`
+            if (context.depth === 0) {
+                return [
+                    consoleGroup({
+                        header: singleLine,
+                        body: multiLineArray(array, options, context),
+                    }),
+                ];
+            }
             return singleLine;
         }
     }
@@ -34,7 +45,7 @@ export default function inspectArray(
 }
 
 function singleLineArray(array: Primitive[]): ConsoleText[] {
-    const header = [
+    return [
         consoleText("["),
         ...array.flatMap((value, i) => {
             return i === 0
@@ -43,14 +54,6 @@ function singleLineArray(array: Primitive[]): ConsoleText[] {
         }),
         consoleText("]"),
     ];
-
-    return header;
-    // return [
-    //     consoleGroup({
-    //         header,
-    //         body: multiLineArrayMessages(array),
-    //     }),
-    // ];
 }
 
 function multiLineArray(
