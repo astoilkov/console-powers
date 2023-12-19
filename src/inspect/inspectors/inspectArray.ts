@@ -53,6 +53,7 @@ function singleLineArray(array: Primitive[]): ConsoleText[] {
                 : [consoleText(", "), inspectPrimitive(value)];
         }),
         consoleText("]"),
+        consoleText(` (${array.length})`, consoleStyles.collapsedObjectKey)
     ];
 }
 
