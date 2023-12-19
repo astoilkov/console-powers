@@ -6,6 +6,9 @@ export interface ConsoleInspectOptions {
     line?: boolean;
     indent?: number;
     expandDepth?: number;
+    // preferMultiLine?: boolean;
+    // preferSingleLine?: boolean;
+    // preferTables?: boolean;
 }
 
 export interface ConsoleInspectContext {
@@ -13,19 +16,6 @@ export interface ConsoleInspectContext {
     depth: number;
 }
 
-// export type ConsoleInspectOptions = {
-//   preferMultiLine?: boolean
-//   preferSingleLine?: boolean
-//   preferTables?: boolean
-//   preferExpanded?: boolean / preferCollapsed?: boolean
-//   expandDepth?: number
-// }
-
-// - when it's an iterable, iterate over it
-// - name ideas:
-//   - inspect
-//   - prettyLog
-//   - fullLog
 export default function consoleInspect(
     value: unknown,
     options?: ConsoleInspectOptions,
