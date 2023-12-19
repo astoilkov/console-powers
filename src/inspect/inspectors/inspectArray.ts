@@ -20,10 +20,6 @@ export default function inspectArray(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleItem[] {
-    if (context.depth >= options.expandDepth) {
-        return [consoleObject(array)];
-    }
-
     if (array.every(isPrimitive)) {
         const singleLine = singleLineArray(array as Primitive[]);
         if (canFit(singleLine, context.indent)) {
@@ -39,6 +35,10 @@ export default function inspectArray(
             }
             return singleLine;
         }
+    }
+
+    if (context.depth >= options.expandDepth) {
+        return [consoleObject(array)];
     }
 
     return multiLineArray(array, options, context);

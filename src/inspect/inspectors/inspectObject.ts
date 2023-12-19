@@ -19,10 +19,6 @@ export default function inspectObject(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleItem[] {
-    if (context.depth >= options.expandDepth) {
-        return [consoleObject(object)];
-    }
-
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
@@ -30,6 +26,10 @@ export default function inspectObject(
         if (canFit(singleLine, context.indent)) {
             return singleLine;
         }
+    }
+
+    if (context.depth >= options.expandDepth) {
+        return [consoleObject(object)];
     }
 
     return multiLineObject(object, options, context);
