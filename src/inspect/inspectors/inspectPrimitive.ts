@@ -9,7 +9,14 @@ export default function inspectPrimitive(value: Primitive): ConsoleText {
     } else if (type === "number" || type === "bigint") {
         return consoleText(String(value), consoleStyles.number);
     } else if (type === "string") {
-        return consoleText(`'${String(value)}'`, consoleStyles.string);
+        const string = String(value);
+        if (string.length > 100) {
+            return consoleText(
+                `'${string.slice(0, 50)}…${string.slice(-49)}'`,
+                consoleStyles.string,
+            );
+        }
+        return consoleText(`'${string}'`, consoleStyles.string);
     } else if (type === "symbol") {
         return consoleText(String(value), consoleStyles.string);
     }
