@@ -1,14 +1,18 @@
 import { Primitive } from "type-fest";
-import { consoleText } from "../../core/consoleText";
+import { ConsoleText, consoleText } from "../../core/consoleText";
 import inspectPrimitive from "./inspectPrimitive";
 import ConsoleItem from "../../core/ConsoleItem";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
-import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
+import {
+    ConsoleInspectContext,
+    ConsoleInspectOptions,
+} from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
+import canFit from "../../utils/canFit";
 
 export default function inspectArray(
     array: unknown[],
@@ -19,13 +23,17 @@ export default function inspectArray(
         return [consoleObject(array)];
     }
 
-    return array.every(isPrimitive)
-        ? //
-          singleLineArray(array)
-        : multiLineArray(array, options, context);
+    if (array.every(isPrimitive)) {
+        const singleLine = singleLineArray(array as Primitive[]);
+        if (canFit(singleLine, context.indent)) {
+            return singleLine;
+        }
+    }
+
+    return multiLineArray(array, options, context);
 }
 
-function singleLineArray(array: Primitive[]): ConsoleItem[] {
+function singleLineArray(array: Primitive[]): ConsoleText[] {
     const header = [
         consoleText("["),
         ...array.flatMap((value, i) => {

@@ -21,7 +21,9 @@ export default function inspectObject(
 ): ConsoleItem[] {
     if (context.depth >= options.expandDepth) {
         return [consoleObject(object)];
-    } else if (hasOnlyPrimitives(object)) {
+    }
+
+    if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
             context,
