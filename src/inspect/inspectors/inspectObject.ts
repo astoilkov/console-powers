@@ -26,7 +26,6 @@ export default function inspectObject(
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
-            context,
         );
         if (canFit(singleLine, context.indent)) {
             return singleLine;
@@ -38,12 +37,8 @@ export default function inspectObject(
 
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
-    context: ConsoleInspectContext,
 ): ConsoleText[] {
-    const messages: ConsoleText[] = [
-        consoleText(" ".repeat(context.indent)),
-        consoleText("{ "),
-    ];
+    const messages: ConsoleText[] = [consoleText("{ ")];
 
     let isFirst = true;
     for (const key in value) {
