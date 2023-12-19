@@ -2,7 +2,7 @@ import { ConsoleText, consoleText } from "../../core/consoleText";
 import { Primitive } from "type-fest";
 import consoleStyles from "../utils/consoleStyles";
 
-export default function inspectPrimitive(value: Primitive): ConsoleText {
+export default function inspectPrimitive(value: Primitive | Date): ConsoleText {
     const type = typeof value;
     if (value === undefined || value === null) {
         return consoleText(String(value), consoleStyles.undefinedNull);
@@ -19,6 +19,10 @@ export default function inspectPrimitive(value: Primitive): ConsoleText {
         return consoleText(`'${string}'`, consoleStyles.string);
     } else if (type === "symbol") {
         return consoleText(String(value), consoleStyles.string);
+    } else if (value instanceof Date) {
+        return consoleText(value.toLocaleString(), {
+            fontStyle: "italic",
+        });
     }
 
     // fallback

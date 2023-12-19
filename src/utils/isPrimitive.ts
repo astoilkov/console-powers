@@ -1,6 +1,6 @@
 import { Primitive } from "type-fest";
 
-export default function isPrimitive(value: unknown): value is Primitive {
+export default function isPrimitive(value: unknown): value is Primitive | Date {
     const type = typeof value;
     return (
         value === null ||
@@ -9,6 +9,7 @@ export default function isPrimitive(value: unknown): value is Primitive {
         type === "number" ||
         type === "boolean" ||
         type === "bigint" ||
-        type === "symbol"
+        type === "symbol" ||
+        value instanceof Date
     );
 }
