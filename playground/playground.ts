@@ -87,6 +87,16 @@ inspect(new Array(12).fill(0));
 // array (length 102)
 inspect(new Array(102).fill(0));
 
+// Map
+inspect(
+    new Map([
+        ["today", new Date()],
+        ["tomorrow", new Date()],
+    ]),
+);
+
+inspect(new Set(["🥑 avocado", "🍌 banana", "🍍 pineapple", "🍓 strawberry"]));
+
 // primitive object
 inspect({
     a: 1,
