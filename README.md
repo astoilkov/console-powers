@@ -4,21 +4,15 @@
 > Debug & inspect data with elegant outputs.  
 > Small & tree-shakable.
 
+[![Gzipped Size](https://img.shields.io/bundlephobia/minzip/console-powers)](https://bundlephobia.com/result?p=console-powers)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/console-powers/main.yml?branch=main)](https://github.com/astoilkov/console-powers/actions/workflows/main.yml)
+
 <!--
-[![Gzipped Size](https://img.shields.io/bundlephobia/minzip/{{data.name}})](https://bundlephobia.com/result?p={{data.name}})
-[![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/{{data.name}}/main.yml?branch=main)](https://github.com/astoilkov/{{data.name}}/actions/workflows/main.yml)
-
-
 ## Why
-
 ## Usage
-
 ## API
-
 ## Alternatives
-
 ## Related
-
 -->
 
 ## Install
