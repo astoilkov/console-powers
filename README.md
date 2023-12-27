@@ -65,9 +65,6 @@ consoleInspect({
 
 ## API
 
-<details>
-<summary><code>consolePrint()</code> & constructing methods</summary>
-
 #### `consolePrint(messages: ConsoleMessage[])`
 
 Prints the provided messages to the console.
@@ -116,11 +113,6 @@ _Note: The method calls `consoleFlush()` and flushes everything up until now bef
 
 Flushes everything up until now and starts a new `console.log()` line.
 
-</details>
-
-<details>
-<summary><code>consoleInspect()</code></summary>
-
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions)`
 
 Inspects a value. Great when debugging.
@@ -136,6 +128,3 @@ How much levels to expand the object. Levels after that will be collapsed.
 Default: `4`
 
 How much spaces to add when going down a level.
-
-
-</details>
