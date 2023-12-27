@@ -62,16 +62,16 @@ function multiLineObject(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleItem[] {
-    const maxLength = maxKeyLength(object);
     const messages: ConsoleItem[] = [];
+    const sortedKeys = sortKeys(object);
+    const maxLength = maxKeyLength(object);
 
-    let isFirst = true;
-    for (const key of sortKeys(object)) {
-        if (!isFirst) {
+    for (let i = 0; i < sortedKeys.length; i++) {
+        if (i !== 0) {
             messages.push(consoleText("\n"));
         }
-        isFirst = false;
 
+        const key = sortedKeys[i]!;
         messages.push(...createIndent(context, options));
         messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
         messages.push(consoleText(": "));
