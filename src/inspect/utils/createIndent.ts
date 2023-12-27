@@ -1,6 +1,9 @@
 import { consoleText, ConsoleText } from "../../core/consoleText";
 import consoleStyles from "./consoleStyles";
-import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
+import {
+    ConsoleInspectContext,
+    ConsoleInspectOptions,
+} from "../consoleInspect";
 
 const LINE_AT_FIRST_LEVEL = false;
 
@@ -19,11 +22,13 @@ export default function createIndent(
                 messages.push(consoleText(" ".repeat(options.indent - 1)));
             }
             messages.push(
-                consoleText(" ", {
-                    marginLeft: "0.2em",
-                    borderLeft: `1.85px solid ${consoleStyles.expandedKey.color}`,
+                consoleText("\u200C", {
+                    marginLeft: "0.22em",
+                    paddingLeft: `1.85px`,
+                    background: consoleStyles.expandedKey.color,
                 }),
             );
+            messages.push(consoleText(" "));
         }
         return messages;
     } else {
