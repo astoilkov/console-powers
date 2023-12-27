@@ -5,7 +5,7 @@ import {
     ConsoleInspectOptions,
 } from "../consoleInspect";
 
-const LINE_AT_FIRST_LEVEL = false;
+const LINE_AT_FIRST_LEVEL = true;
 
 export default function createIndent(
     context: ConsoleInspectContext,

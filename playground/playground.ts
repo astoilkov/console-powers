@@ -63,6 +63,8 @@ consoleInspect({
             column: 10,
         },
     },
+}, {
+    line: true
 });
 
 // // example 2
