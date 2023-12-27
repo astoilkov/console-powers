@@ -6,330 +6,330 @@ export default interface ConsoleStyle {
     // cursor?: string
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-radius) */
-    borderRadius?: string;
+    borderRadius?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/box-shadow) */
-    boxShadow?: string;
+    boxShadow?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/clear) */
-    clear?: string;
+    clear?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/float) */
-    float?: string;
+    float?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/color) */
-    color?: string;
+    color?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/display) */
-    display?: string;
+    display?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/line-height) */
-    lineHeight?: string;
+    lineHeight?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/white-space) */
-    whiteSpace?: string;
+    whiteSpace?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/word-break) */
-    wordBreak?: string;
+    wordBreak?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/word-spacing) */
-    wordSpacing?: string;
+    wordSpacing?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/writing-mode) */
-    writingMode?: string;
+    writingMode?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin) */
-    margin?: string;
+    margin?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-block) */
-    marginBlock?: string;
+    marginBlock?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-block-end) */
-    marginBlockEnd?: string;
+    marginBlockEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-block-start) */
-    marginBlockStart?: string;
+    marginBlockStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-bottom) */
-    marginBottom?: string;
+    marginBottom?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-inline) */
-    marginInline?: string;
+    marginInline?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-inline-end) */
-    marginInlineEnd?: string;
+    marginInlineEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-inline-start) */
-    marginInlineStart?: string;
+    marginInlineStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-left) */
-    marginLeft?: string;
+    marginLeft?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-right) */
-    marginRight?: string;
+    marginRight?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/margin-top) */
-    marginTop?: string;
+    marginTop?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/outline) */
-    outline?: string;
+    outline?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/outline-color) */
-    outlineColor?: string;
+    outlineColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/outline-offset) */
-    outlineOffset?: string;
+    outlineOffset?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/outline-style) */
-    outlineStyle?: string;
+    outlineStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/outline-width) */
-    outlineWidth?: string;
+    outlineWidth?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font) */
-    font?: string;
+    font?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-family) */
-    fontFamily?: string;
+    fontFamily?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-feature-settings) */
-    fontFeatureSettings?: string;
+    fontFeatureSettings?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-kerning) */
-    fontKerning?: string;
+    fontKerning?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-optical-sizing) */
-    fontOpticalSizing?: string;
+    fontOpticalSizing?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-palette) */
-    fontPalette?: string;
+    fontPalette?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-size) */
-    fontSize?: string;
+    fontSize?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-size-adjust) */
-    fontSizeAdjust?: string;
+    fontSizeAdjust?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-stretch) */
-    fontStretch?: string;
+    fontStretch?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-style) */
-    fontStyle?: string;
+    fontStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-synthesis) */
-    fontSynthesis?: string;
+    fontSynthesis?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-synthesis-small-caps) */
-    fontSynthesisSmallCaps?: string;
+    fontSynthesisSmallCaps?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-synthesis-style) */
-    fontSynthesisStyle?: string;
+    fontSynthesisStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-synthesis-weight) */
-    fontSynthesisWeight?: string;
+    fontSynthesisWeight?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant) */
-    fontVariant?: string;
+    fontVariant?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-alternates) */
-    fontVariantAlternates?: string;
+    fontVariantAlternates?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-caps) */
-    fontVariantCaps?: string;
+    fontVariantCaps?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-east-asian) */
-    fontVariantEastAsian?: string;
+    fontVariantEastAsian?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-ligatures) */
-    fontVariantLigatures?: string;
+    fontVariantLigatures?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-numeric) */
-    fontVariantNumeric?: string;
+    fontVariantNumeric?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variant-position) */
-    fontVariantPosition?: string;
+    fontVariantPosition?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-variation-settings) */
-    fontVariationSettings?: string;
+    fontVariationSettings?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font-weight) */
-    fontWeight?: string;
+    fontWeight?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/forced-color-adjust) */
-    forcedColorAdjust?: string;
+    forcedColorAdjust?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding) */
-    padding?: string;
+    padding?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-block) */
-    paddingBlock?: string;
+    paddingBlock?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-block-end) */
-    paddingBlockEnd?: string;
+    paddingBlockEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-block-start) */
-    paddingBlockStart?: string;
+    paddingBlockStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-bottom) */
-    paddingBottom?: string;
+    paddingBottom?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-inline) */
-    paddingInline?: string;
+    paddingInline?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-inline-end) */
-    paddingInlineEnd?: string;
+    paddingInlineEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-inline-start) */
-    paddingInlineStart?: string;
+    paddingInlineStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-left) */
-    paddingLeft?: string;
+    paddingLeft?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-right) */
-    paddingRight?: string;
+    paddingRight?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/padding-top) */
-    paddingTop?: string;
+    paddingTop?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background) */
-    background?: string;
+    background?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-attachment) */
-    backgroundAttachment?: string;
+    backgroundAttachment?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-blend-mode) */
-    backgroundBlendMode?: string;
+    backgroundBlendMode?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-clip) */
-    backgroundClip?: string;
+    backgroundClip?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-color) */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-image) */
-    backgroundImage?: string;
+    backgroundImage?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-origin) */
-    backgroundOrigin?: string;
+    backgroundOrigin?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-position) */
-    backgroundPosition?: string;
+    backgroundPosition?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-position-x) */
-    backgroundPositionX?: string;
+    backgroundPositionX?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-position-y) */
-    backgroundPositionY?: string;
+    backgroundPositionY?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-repeat) */
-    backgroundRepeat?: string;
+    backgroundRepeat?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/background-size) */
-    backgroundSize?: string;
+    backgroundSize?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border) */
-    border?: string;
+    border?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block) */
-    borderBlock?: string;
+    borderBlock?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-color) */
-    borderBlockColor?: string;
+    borderBlockColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-end) */
-    borderBlockEnd?: string;
+    borderBlockEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-end-color) */
-    borderBlockEndColor?: string;
+    borderBlockEndColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-end-style) */
-    borderBlockEndStyle?: string;
+    borderBlockEndStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-end-width) */
-    borderBlockEndWidth?: string;
+    borderBlockEndWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-start) */
-    borderBlockStart?: string;
+    borderBlockStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-start-color) */
-    borderBlockStartColor?: string;
+    borderBlockStartColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-start-style) */
-    borderBlockStartStyle?: string;
+    borderBlockStartStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-start-width) */
-    borderBlockStartWidth?: string;
+    borderBlockStartWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-style) */
-    borderBlockStyle?: string;
+    borderBlockStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-block-width) */
-    borderBlockWidth?: string;
+    borderBlockWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom) */
-    borderBottom?: string;
+    borderBottom?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom-color) */
-    borderBottomColor?: string;
+    borderBottomColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom-left-radius) */
-    borderBottomLeftRadius?: string;
+    borderBottomLeftRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom-right-radius) */
-    borderBottomRightRadius?: string;
+    borderBottomRightRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom-style) */
-    borderBottomStyle?: string;
+    borderBottomStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-bottom-width) */
-    borderBottomWidth?: string;
+    borderBottomWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-collapse) */
-    borderCollapse?: string;
+    borderCollapse?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-color) */
-    borderColor?: string;
+    borderColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-end-end-radius) */
-    borderEndEndRadius?: string;
+    borderEndEndRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-end-start-radius) */
-    borderEndStartRadius?: string;
+    borderEndStartRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image) */
-    borderImage?: string;
+    borderImage?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image-outset) */
-    borderImageOutset?: string;
+    borderImageOutset?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image-repeat) */
-    borderImageRepeat?: string;
+    borderImageRepeat?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image-slice) */
-    borderImageSlice?: string;
+    borderImageSlice?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image-source) */
-    borderImageSource?: string;
+    borderImageSource?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-image-width) */
-    borderImageWidth?: string;
+    borderImageWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline) */
-    borderInline?: string;
+    borderInline?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-color) */
-    borderInlineColor?: string;
+    borderInlineColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-end) */
-    borderInlineEnd?: string;
+    borderInlineEnd?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-end-color) */
-    borderInlineEndColor?: string;
+    borderInlineEndColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-end-style) */
-    borderInlineEndStyle?: string;
+    borderInlineEndStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-end-width) */
-    borderInlineEndWidth?: string;
+    borderInlineEndWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-start) */
-    borderInlineStart?: string;
+    borderInlineStart?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-start-color) */
-    borderInlineStartColor?: string;
+    borderInlineStartColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-start-style) */
-    borderInlineStartStyle?: string;
+    borderInlineStartStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-start-width) */
-    borderInlineStartWidth?: string;
+    borderInlineStartWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-style) */
-    borderInlineStyle?: string;
+    borderInlineStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-inline-width) */
-    borderInlineWidth?: string;
+    borderInlineWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-left) */
-    borderLeft?: string;
+    borderLeft?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-left-color) */
-    borderLeftColor?: string;
+    borderLeftColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-left-style) */
-    borderLeftStyle?: string;
+    borderLeftStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-left-width) */
-    borderLeftWidth?: string;
+    borderLeftWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-right) */
-    borderRight?: string;
+    borderRight?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-right-color) */
-    borderRightColor?: string;
+    borderRightColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-right-style) */
-    borderRightStyle?: string;
+    borderRightStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-right-width) */
-    borderRightWidth?: string;
+    borderRightWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-spacing) */
-    borderSpacing?: string;
+    borderSpacing?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-start-end-radius) */
-    borderStartEndRadius?: string;
+    borderStartEndRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-start-start-radius) */
-    borderStartStartRadius?: string;
+    borderStartStartRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-style) */
-    borderStyle?: string;
+    borderStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top) */
-    borderTop?: string;
+    borderTop?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top-color) */
-    borderTopColor?: string;
+    borderTopColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top-left-radius) */
-    borderTopLeftRadius?: string;
+    borderTopLeftRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top-right-radius) */
-    borderTopRightRadius?: string;
+    borderTopRightRadius?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top-style) */
-    borderTopStyle?: string;
+    borderTopStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-top-width) */
-    borderTopWidth?: string;
+    borderTopWidth?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/border-width) */
-    borderWidth?: string;
+    borderWidth?: string | undefined;
 
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-align) */
-    textAlign?: string;
+    textAlign?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-align-last) */
-    textAlignLast?: string;
-    textAnchor?: string;
+    textAlignLast?: string | undefined;
+    textAnchor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-combine-upright) */
-    textCombineUpright?: string;
+    textCombineUpright?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration) */
-    textDecoration?: string;
+    textDecoration?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration-color) */
-    textDecorationColor?: string;
+    textDecorationColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration-line) */
-    textDecorationLine?: string;
+    textDecorationLine?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration-skip-ink) */
-    textDecorationSkipInk?: string;
+    textDecorationSkipInk?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration-style) */
-    textDecorationStyle?: string;
+    textDecorationStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration-thickness) */
-    textDecorationThickness?: string;
+    textDecorationThickness?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-emphasis) */
-    textEmphasis?: string;
+    textEmphasis?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-emphasis-color) */
-    textEmphasisColor?: string;
+    textEmphasisColor?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-emphasis-position) */
-    textEmphasisPosition?: string;
+    textEmphasisPosition?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-emphasis-style) */
-    textEmphasisStyle?: string;
+    textEmphasisStyle?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-indent) */
-    textIndent?: string;
+    textIndent?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-orientation) */
-    textOrientation?: string;
+    textOrientation?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-overflow) */
-    textOverflow?: string;
+    textOverflow?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-rendering) */
-    textRendering?: string;
+    textRendering?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-shadow) */
-    textShadow?: string;
+    textShadow?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-transform) */
-    textTransform?: string;
+    textTransform?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-underline-offset) */
-    textUnderlineOffset?: string;
+    textUnderlineOffset?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-underline-position) */
-    textUnderlinePosition?: string;
+    textUnderlinePosition?: string | undefined;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/top) */
 }
