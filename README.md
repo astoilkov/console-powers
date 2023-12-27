@@ -115,7 +115,7 @@ Flushes everything up until now and starts a new `console.log()` line.
 
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions)`
 
-Inspects a value. Great when debugging.
+Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
 
 ##### `ConsoleInspectOptions.expandDepth`
 
