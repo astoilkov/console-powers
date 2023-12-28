@@ -26,6 +26,16 @@ export default function inspectPrimitive(value: Primitive | Date): ConsoleText {
     } else if (type === "symbol") {
         return consoleText(String(value), consoleStyles.string);
     } else if (value instanceof Date) {
+        if (
+            value.getHours() === 0 &&
+            value.getMinutes() === 0 &&
+            value.getSeconds() === 0 &&
+            value.getMilliseconds() === 0
+        ) {
+            return consoleText(value.toLocaleDateString(), {
+                fontStyle: "italic",
+            });
+        }
         return consoleText(value.toLocaleString(), {
             fontStyle: "italic",
         });
