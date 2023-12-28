@@ -4,7 +4,7 @@ import isIterable from "../../utils/isIterable";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectPrimitive from "./inspectPrimitive";
 import { consoleText } from "../../core/consoleText";
-import ConsoleItem from "../../core/ConsoleItem";
+import ConsoleSpan from "../../core/ConsoleSpan";
 import { consoleObject } from "../../core/consoleObject";
 import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 
@@ -12,7 +12,7 @@ export default function inspectAny(
     value: unknown,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleItem[] {
+): ConsoleSpan[] {
     if (isPrimitive(value)) {
         return [inspectPrimitive(value)];
     } else if (Array.isArray(value) || isIterable(value)) {

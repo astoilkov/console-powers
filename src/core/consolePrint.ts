@@ -1,10 +1,10 @@
-import ConsoleItem from "./ConsoleItem";
+import ConsoleSpan from "./ConsoleSpan";
 import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
 import arrayArg from "../utils/arrayArg";
 
 export default function consolePrint(
-    ...value: (ConsoleItem | ConsoleItem[])[]
+    ...value: (ConsoleSpan | ConsoleSpan[])[]
 ): void {
     let logBuffer: LogBuffer = {
         text: "",

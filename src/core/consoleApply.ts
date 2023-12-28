@@ -1,7 +1,7 @@
-import ConsoleItem from "./ConsoleItem";
+import ConsoleSpan from "./ConsoleSpan";
 import ConsoleStyle from "./ConsoleStyle";
 
-export default function consoleApply<T extends ConsoleItem>(
+export default function consoleApply<T extends ConsoleSpan>(
     messages: T[],
     style: ConsoleStyle,
 ): T[] {

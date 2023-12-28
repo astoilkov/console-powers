@@ -1,4 +1,4 @@
-import ConsoleItem from "../../core/ConsoleItem";
+import ConsoleSpan from "../../core/ConsoleSpan";
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
@@ -18,7 +18,7 @@ export default function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleItem[] {
+): ConsoleSpan[] {
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
@@ -61,8 +61,8 @@ function multiLineObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleItem[] {
-    const messages: ConsoleItem[] = [];
+): ConsoleSpan[] {
+    const messages: ConsoleSpan[] = [];
     const sortedKeys = sortKeys(object);
     const maxLength = maxKeyLength(object);
 

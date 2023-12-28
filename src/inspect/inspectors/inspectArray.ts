@@ -1,7 +1,7 @@
 import { Primitive } from "type-fest";
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import inspectPrimitive from "./inspectPrimitive";
-import ConsoleItem from "../../core/ConsoleItem";
+import ConsoleSpan from "../../core/ConsoleSpan";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
@@ -19,7 +19,7 @@ export default function inspectArray(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleItem[] {
+): ConsoleSpan[] {
     if (array.every(isPrimitive)) {
         const singleLine = singleLineArray(array as Primitive[]);
         if (canFit(singleLine, context.indent)) {
@@ -61,7 +61,7 @@ function multiLineArray(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleItem[] {
+): ConsoleSpan[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;
         const valueMessages =

@@ -65,11 +65,11 @@ consoleInspect({
 
 ## API
 
-#### `consolePrint(messages: ConsoleItem[]): void`
+#### `consolePrint(messages: ConsoleSpan[]): void`
 
 Prints the provided messages to the console.
 
-#### `consoleText(text: string, style?: ConsoleStyle): ConsoleItem`
+#### `consoleText(text: string, style?: ConsoleStyle): ConsoleSpan`
 
 Creates a styled text in the console.
 
@@ -93,11 +93,11 @@ Creates a styled text in the console.
 - [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
 - [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
 
-#### `consoleObject(object: object): ConsoleItem`
+#### `consoleObject(object: object): ConsoleSpan`
 
 An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
 
-#### `consoleGroup(options): ConsoleItem`
+#### `consoleGroup(options): ConsoleSpan`
 
 ```ts
 consolePrint(consoleGroup({
@@ -109,7 +109,7 @@ consolePrint(consoleGroup({
 
 _Note: The method calls `consoleFlush()` and flushes everything up until now before starting a new group._
 
-#### `consoleFlush(): ConsoleItem`
+#### `consoleFlush(): ConsoleSpan`
 
 Flushes everything up until now and starts a new `console.log()` line.
 
