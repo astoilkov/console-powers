@@ -65,11 +65,11 @@ consoleInspect({
 
 ## API
 
-#### `consolePrint(messages: ConsoleMessage[])`
+#### `consolePrint(messages: ConsoleItem[]): void`
 
 Prints the provided messages to the console.
 
-#### `consoleText(text: string, style?: ConsoleStyle)`
+#### `consoleText(text: string, style?: ConsoleStyle): ConsoleItem`
 
 Creates a styled text in the console.
 
@@ -93,11 +93,11 @@ Creates a styled text in the console.
 - [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
 - [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
 
-#### `consoleObject(object: object)`
+#### `consoleObject(object: object): ConsoleItem`
 
 An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
 
-#### `consoleGroup(options)`
+#### `consoleGroup(options): ConsoleItem`
 
 ```ts
 consolePrint(consoleGroup({
@@ -109,22 +109,24 @@ consolePrint(consoleGroup({
 
 _Note: The method calls `consoleFlush()` and flushes everything up until now before starting a new group._
 
-#### `consoleFlush()`
+#### `consoleFlush(): ConsoleItem`
 
 Flushes everything up until now and starts a new `console.log()` line.
 
-#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions)`
+#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): void`
 
 Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
 
 ##### `ConsoleInspectOptions.expandDepth`
 
+Type: `number`
 Default: `2`
 
 How much levels to expand the object. Levels after that will be collapsed.
 
 ##### `ConsoleInspectOptions.indent`
 
+Type: `number`
 Default: `4`
 
 How much spaces to add when going down a level.
