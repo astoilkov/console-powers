@@ -2,6 +2,7 @@ import ConsoleStyle from "../core/ConsoleStyle";
 import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleInline from "../utils/consoleInline";
 import consoleStyles from "../inspect/utils/consoleStyles";
+import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
 
 const firstRowStyle = {
     left: {
@@ -47,10 +48,45 @@ const lastRowStyle = {
 };
 
 export default function consoleTable(object: object): ConsoleText[] {
-    return flatObjectArray(object);
+    const isArrayOfObjects =
+        Array.isArray(object) && !hasOnlyPrimitives(object);
+
+    return isArrayOfObjects
+        ? arrayOfObjects(object)
+        : flatObjectOrArray(object);
 }
 
-function flatObjectArray(object: object): ConsoleText[] {
+function arrayOfObjects(array: object[]): ConsoleText[] {
+    const messages: ConsoleText[] = [];
+    const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
+    const rows = [
+        keys.map((key) => consoleText(key, consoleStyles.expandedKey)),
+        ...array.map((item) => {
+            const row: ConsoleText[] = [];
+            for (const key of keys) {
+                row.push(consoleInline(item[key as keyof typeof item]));
+            }
+            return row;
+        }),
+    ];
+    const columnsSize = calcColumnsSize(rows);
+    for (let i = 0; i < rows.length; i++) {
+        const isLastRow = i === rows.length - 1;
+        const style =
+            i === 0 || i === 1
+                ? firstRowStyle
+                : isLastRow
+                  ? lastRowStyle
+                  : middleRowStyle;
+        messages.push(...tableRow(rows[i]!, columnsSize, style));
+        if (!isLastRow) {
+            messages.push(consoleText("\n"));
+        }
+    }
+    return messages;
+}
+
+function flatObjectOrArray(object: object): ConsoleText[] {
     const messages: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
