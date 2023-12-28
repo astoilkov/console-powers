@@ -61,25 +61,11 @@ function flatObjectArray(object: object): ConsoleText[] {
         consoleInline(object[key as keyof typeof object]),
     ]);
     const columnsSize = calcColumnsSize(rows);
-    for (let i = 0; i < keys.length; i++) {
-        const isLastRow = i === keys.length - 1;
+    for (let i = 0; i < rows.length; i++) {
+        const isLastRow = i === rows.length - 1;
         const style =
             i === 0 ? firstRowStyle : isLastRow ? lastRowStyle : middleRowStyle;
-        messages.push(
-            ...tableRow(
-                [
-                    isArray
-                        ? consoleText(`[${i}]`, consoleStyles.expandedKey)
-                        : consoleText(
-                              `${keys[i]}:`,
-                              consoleStyles.collapsedObjectKey,
-                          ),
-                    consoleInline(object[keys[i] as keyof typeof object]),
-                ],
-                columnsSize,
-                style,
-            ),
-        );
+        messages.push(...tableRow(rows[i]!, columnsSize, style));
         if (!isLastRow) {
             messages.push(consoleText("\n"));
         }
