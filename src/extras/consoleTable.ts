@@ -60,7 +60,7 @@ function arrayOfObjects(array: object[]): ConsoleText[] {
     const messages: ConsoleText[] = [];
     const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
     const rows = [
-        keys.map((key) => consoleText(key, consoleStyles.expandedKey)),
+        keys.map((key) => consoleText(key, { fontWeight: 'bold' })),
         ...array.map((item) => {
             const row: ConsoleText[] = [];
             for (const key of keys) {
