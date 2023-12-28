@@ -10,8 +10,10 @@ export default function inspectPrimitive(value: Primitive | Date): ConsoleText {
         return consoleText(String(value), consoleStyles.null);
     } else if (type === "boolean") {
         return consoleText(String(value), consoleStyles.boolean);
-    } else if (type === "number" || type === "bigint") {
+    } else if (type === "number") {
         return consoleText(String(value), consoleStyles.number);
+    } else if (type === "bigint") {
+        return consoleText(`${String(value)}n`, consoleStyles.bigint);
     } else if (type === "string") {
         const string = String(value);
         if (string.length > 100) {
