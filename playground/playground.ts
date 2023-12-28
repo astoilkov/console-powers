@@ -49,23 +49,26 @@ consolePrint(
 // ]);
 
 // example 2
-consoleInspect({
-    type: "group",
-    level: 1,
-    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-    location: {
-        start: {
-            line: 1,
-            column: 0,
-        },
-        end: {
-            line: 4,
-            column: 10,
+consoleInspect(
+    {
+        type: "group",
+        level: 1,
+        items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+        location: {
+            start: {
+                line: 1,
+                column: 0,
+            },
+            end: {
+                line: 4,
+                column: 10,
+            },
         },
     },
-}, {
-    line: true
-});
+    {
+        line: true,
+    },
+);
 
 // // example 2
 consolePrint([
@@ -176,3 +179,17 @@ consolePrint([
         "🍓 strawberry",
     ]),
 ]);
+
+// --- consoleTable() ---
+
+consolePrint(
+    consoleTable([
+        { name: "John", age: 24 },
+        { name: "Jane", age: 23 },
+        { name: "Jack", age: 25 },
+    ]),
+);
+
+consolePrint(consoleTable(["John", "Jake", "Jack"]));
+
+consolePrint(consoleTable({ name: "John", age: 24 }));

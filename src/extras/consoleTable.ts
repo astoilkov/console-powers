@@ -1,7 +1,7 @@
 import ConsoleStyle from "../core/ConsoleStyle";
-import ConsoleItem from "../core/ConsoleItem";
 import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleInline from "../utils/consoleInline";
+import consoleStyles from "../inspect/utils/consoleStyles";
 
 const firstRowStyle = {
     left: {
@@ -46,32 +46,37 @@ const lastRowStyle = {
     },
 };
 
-export default function consoleTable(object: object): ConsoleItem[] {
-    const messages: ConsoleItem[] = [];
-    const keyPad =
-        maxLength(
-            Object.keys(object).map((key) => consoleInline(key).text.length),
-        ) + 2;
-    const valuePad =
-        maxLength(
-            Object.values(object).map(
-                (value) => consoleInline(value).text.length,
-            ),
-        ) + 2;
+export default function consoleTable(object: object): ConsoleText[] {
+    return flatObjectArray(object);
+}
 
-    // messages.push(
-    //     ...tableRow(['key', 'value'], [keyPad, valuePad], firstRowStyle),
-    //     consoleText('\n'),
-    // )
+function flatObjectArray(object: object): ConsoleText[] {
+    const messages: ConsoleText[] = [];
+    const isArray = Array.isArray(object);
     const keys = Object.keys(object);
+    const rows = keys.map((key) => [
+        isArray
+            ? consoleText(`[${key}]`, consoleStyles.expandedKey)
+            : consoleText(`${key}:`, consoleStyles.collapsedObjectKey),
+        consoleInline(object[key as keyof typeof object]),
+    ]);
+    const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < keys.length; i++) {
         const isLastRow = i === keys.length - 1;
         const style =
             i === 0 ? firstRowStyle : isLastRow ? lastRowStyle : middleRowStyle;
         messages.push(
             ...tableRow(
-                [keys[i], object[keys[i] as keyof typeof object]],
-                [keyPad, valuePad],
+                [
+                    isArray
+                        ? consoleText(`[${i}]`, consoleStyles.expandedKey)
+                        : consoleText(
+                              `${keys[i]}:`,
+                              consoleStyles.collapsedObjectKey,
+                          ),
+                    consoleInline(object[keys[i] as keyof typeof object]),
+                ],
+                columnsSize,
                 style,
             ),
         );
@@ -82,9 +87,19 @@ export default function consoleTable(object: object): ConsoleItem[] {
     return messages;
 }
 
+function calcColumnsSize(rows: ConsoleText[][]): number[] {
+    const columns: number[] = [];
+    for (const row of rows) {
+        for (let i = 0; i < row.length; i++) {
+            columns[i] = Math.max(columns[i] ?? 0, row[i]!.text.length);
+        }
+    }
+    return columns;
+}
+
 function tableRow(
-    values: unknown[],
-    pad: number[],
+    cells: ConsoleText[],
+    columnsSize: number[],
     styles: {
         left: ConsoleStyle;
         right: ConsoleStyle;
@@ -92,15 +107,15 @@ function tableRow(
     },
 ): ConsoleText[] {
     const messages: ConsoleText[] = [];
-    for (let i = 0; i < values.length; i++) {
+    for (let i = 0; i < cells.length; i++) {
         const style =
             i === 0
                 ? styles.left
-                : i === values.length - 1
+                : i === cells.length - 1
                   ? styles.right
                   : styles.middle;
-        const cell = consoleInline(values[i]);
-        cell.text = "  " + cell.text.padEnd(pad[i] ?? 0);
+        const cell = cells[i]!;
+        cell.text = "  " + cell.text.padEnd(columnsSize[i]! + 2);
         cell.style = {
             ...cell.style,
             ...style,
@@ -109,12 +124,4 @@ function tableRow(
         messages.push(cell);
     }
     return messages;
-}
-
-function maxLength(values: number[]): number {
-    let max = 0;
-    for (const value of values) {
-        max = Math.max(max, value);
-    }
-    return max;
 }
