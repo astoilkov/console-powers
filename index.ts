@@ -1,6 +1,6 @@
 // core
 export { default as consolePrint } from "./src/core/consolePrint";
-export type { default as ConsoleMessage } from "./src/core/ConsoleItem";
+export type { default as ConsoleItem } from "./src/core/ConsoleItem";
 export { consoleText } from "./src/core/consoleText";
 export type { ConsoleText } from "./src/core/consoleText";
 export { consoleObject } from "./src/core/consoleObject";
