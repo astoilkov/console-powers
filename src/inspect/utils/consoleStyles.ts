@@ -1,5 +1,5 @@
 const consoleStyles = {
-    string: { color: "#CC0100" },
+    string: { color: "#DC362E" },
     number: { color: "#0842A0" },
     null: { color: "#AAAAAA" },
     undefined: { color: "#AAAAAA" },
