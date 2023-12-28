@@ -4,8 +4,10 @@ import consoleStyles from "../utils/consoleStyles";
 
 export default function inspectPrimitive(value: Primitive | Date): ConsoleText {
     const type = typeof value;
-    if (value === undefined || value === null) {
-        return consoleText(String(value), consoleStyles.undefinedNull);
+    if (value === undefined) {
+        return consoleText(String(value), consoleStyles.undefined);
+    } else if (value === null) {
+        return consoleText(String(value), consoleStyles.null);
     } else if (type === "number" || type === "bigint") {
         return consoleText(String(value), consoleStyles.number);
     } else if (type === "string") {
