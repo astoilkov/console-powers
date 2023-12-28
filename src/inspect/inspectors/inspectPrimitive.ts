@@ -8,6 +8,8 @@ export default function inspectPrimitive(value: Primitive | Date): ConsoleText {
         return consoleText(String(value), consoleStyles.undefined);
     } else if (value === null) {
         return consoleText(String(value), consoleStyles.null);
+    } else if (type === "boolean") {
+        return consoleText(String(value), consoleStyles.boolean);
     } else if (type === "number" || type === "bigint") {
         return consoleText(String(value), consoleStyles.number);
     } else if (type === "string") {
