@@ -15,6 +15,49 @@ function inspect(value: unknown): unknown {
 
 // example 1
 consolePrint(
+    consoleTable([
+        {
+            model: 'MacBook Air 13"',
+            year: new Date(2020, 10, 23),
+            price: 999,
+        },
+        {
+            model: 'MacBook Air 15"',
+            year: new Date(2023, 9, 18),
+            price: 1299,
+        },
+        {
+            model: 'MacBook Pro 13"',
+            year: new Date(2019, 11, 2),
+            price: 1499,
+        },
+    ]),
+);
+
+// example 2
+consoleInspect(
+    {
+        type: "group",
+        level: 1,
+        items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+        location: {
+            start: {
+                line: 1,
+                column: 0,
+            },
+            end: {
+                line: 4,
+                column: 10,
+            },
+        },
+    },
+    {
+        line: true,
+    },
+);
+
+// example 3
+consolePrint(
     consoleText("9Os", {
         fontSize: "200px",
         color: "hsl(330, 100%, 50%)",
@@ -48,29 +91,7 @@ consolePrint(
 //     }),
 // ]);
 
-// example 2
-consoleInspect(
-    {
-        type: "group",
-        level: 1,
-        items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-        location: {
-            start: {
-                line: 1,
-                column: 0,
-            },
-            end: {
-                line: 4,
-                column: 10,
-            },
-        },
-    },
-    {
-        line: true,
-    },
-);
-
-// // example 2
+// // example 4
 consolePrint([
     consoleText("Arguments mismatch:", { background: "yellow" }),
     consoleText(" "),
@@ -173,28 +194,6 @@ consolePrint([
         "🍓 strawberry",
     ]),
 ]);
-
-// --- consoleTable() ---
-
-consolePrint(
-    consoleTable([
-        {
-            model: 'MacBook Air 13"',
-            year: new Date(2020, 10, 23),
-            price: 999,
-        },
-        {
-            model: 'MacBook Air 15"',
-            year: new Date(2023, 9, 18),
-            price: 1299,
-        },
-        {
-            model: 'MacBook Pro 13"',
-            year: new Date(2019, 11, 2),
-            price: 1499,
-        },
-    ]),
-);
 
 consolePrint(consoleTable(["John", "Jake", "Jack"]));
 
