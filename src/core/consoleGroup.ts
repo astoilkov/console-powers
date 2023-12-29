@@ -1,12 +1,12 @@
-import arrayArg from "../utils/arrayArg";
+import toFlatSpans from "../utils/toFlatSpans";
 import ConsoleSpan from "./ConsoleSpan";
-import { consoleText, ConsoleText } from "./consoleText";
-import ensureConsoleText from "../utils/ensureConsoleText";
+import { ConsoleText } from "./consoleText";
+import consoleApply from "./consoleApply";
 
 export interface ConsoleGroup {
     type: "group";
     expanded: boolean;
-    header: ConsoleText[];
+    header: (ConsoleText | string)[];
     body: ConsoleSpan[];
 }
 
@@ -16,25 +16,15 @@ export function consoleGroup({
     body,
 }: {
     expanded?: boolean;
-    header?: string | ConsoleText | (string | ConsoleText)[];
-    body?: (ConsoleSpan | string)[] | string;
+    header?: ConsoleText | string | (ConsoleText | string)[];
+    body?: ConsoleSpan | ConsoleSpan[];
 } = {}): ConsoleGroup {
     return {
         type: "group",
         expanded: expanded ?? false,
-        header:
-            arrayArg(header).map((span) => {
-                const consoleText = ensureConsoleText(span);
-                return {
-                    ...consoleText,
-                    style: {
-                        fontWeight: "normal",
-                        ...consoleText.style,
-                    },
-                };
-            }) ?? [],
-        body: arrayArg(body).map((span) =>
-            typeof span === "string" ? consoleText(span) : span,
-        ),
+        header: consoleApply(toFlatSpans(header), {
+            fontWeight: "normal",
+        }),
+        body: toFlatSpans(body),
     };
 }

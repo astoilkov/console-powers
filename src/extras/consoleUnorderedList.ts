@@ -2,13 +2,13 @@ import { consoleText, ConsoleText } from "../core/consoleText";
 import ensureConsoleText from "../utils/ensureConsoleText";
 
 export default function consoleUnorderedList(
-    items: (string | ConsoleText)[],
+    spans: (string | ConsoleText)[],
 ): ConsoleText[] {
-    return items.flatMap((item, index) => {
+    return spans.flatMap((span, index) => {
         const line = [
             //
             consoleText("• "),
-            ensureConsoleText(item),
+            ensureConsoleText(span),
         ];
         return index === 0 ? line : [consoleText("\n"), ...line];
     });

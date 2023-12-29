@@ -1,14 +1,14 @@
 import { consoleText, ConsoleText } from "../core/consoleText";
 import ensureConsoleText from "../utils/ensureConsoleText";
 
-export default function consoleOrderedList(
-    items: (string | ConsoleText)[],
+export default function consoleUnorderedList(
+    spans: (string | ConsoleText)[],
 ): ConsoleText[] {
-    return items.flatMap((item, index) => {
+    return spans.flatMap((span, index) => {
         const line = [
             //
             consoleText(`${index + 1}. `),
-            ensureConsoleText(item),
+            ensureConsoleText(span),
         ];
         return index === 0 ? line : [consoleText("\n"), ...line];
     });

@@ -1,70 +1,71 @@
 import ConsoleSpan from "./ConsoleSpan";
 import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
-import arrayArg from "../utils/arrayArg";
+import toFlatSpans from "../utils/toFlatSpans";
+
+interface ConsoleBuffer {
+    text: string;
+    rest: (string | object)[];
+}
 
 export default function consolePrint(
-    ...args: (ConsoleSpan | ConsoleSpan[])[]
+    ...args: (ConsoleSpan | ConsoleSpan[] | ConsoleSpan[][])[]
 ): void {
-    let logBuffer: LogBuffer = {
+    const buffer: ConsoleBuffer = {
         text: "",
         rest: [],
     };
 
-    const items = args.flatMap(arrayArg);
-    for (const item of items) {
-        if (item.type === "text") {
-            logBuffer.text += `%c${item.text}%c`;
-            logBuffer.rest.push(consoleStyleToString(item.style));
-            logBuffer.rest.push("");
-        } else if (item.type === "object") {
-            logBuffer.text += "%o";
-            logBuffer.rest.push(item.object);
-        } else if (item.type === "flush") {
-            flush(logBuffer);
-        } else if (item.type === "group") {
-            flush(logBuffer);
+    const spans = toFlatSpans(...args);
+    for (const span of spans) {
+        if (typeof span === "string" || span.type === "text") {
+            appendBuffer(buffer, [span]);
+        } else if (span.type === "object") {
+            buffer.text += "%o";
+            buffer.rest.push(span.object);
+        } else if (span.type === "flush") {
+            flushBuffer(buffer);
+        } else if (span.type === "group") {
+            flushBuffer(buffer);
 
-            const merged = mergeText(item.header);
-            if (item.expanded) {
-                console.group(merged.text, ...merged.rest);
+            appendBuffer(buffer, span.header);
+
+            if (span.expanded) {
+                console.group(buffer.text, ...buffer.rest);
             } else {
-                console.groupCollapsed(merged.text, ...merged.rest);
+                console.groupCollapsed(buffer.text, ...buffer.rest);
             }
 
-            consolePrint(item.body);
+            consolePrint(span.body);
 
             console.groupEnd();
         }
     }
 
-    flush(logBuffer);
+    flushBuffer(buffer);
 }
 
-interface LogBuffer {
-    text: string;
-    rest: (string | object)[];
-}
-
-function flush(logBuffer: LogBuffer): void {
-    if (logBuffer.text !== "") {
-        console.log(logBuffer.text, ...logBuffer.rest);
-    }
-    logBuffer.text = "";
-    logBuffer.rest = [];
-}
-
-function mergeText(spans: ConsoleText[]): LogBuffer {
-    const merged: LogBuffer = {
-        text: "",
-        rest: [],
-    };
+function appendBuffer(
+    buffer: ConsoleBuffer,
+    spans: (ConsoleText | string)[],
+): void {
     for (const span of spans) {
-        merged.text += `%c${span.text}%c`;
-        merged.rest.push(consoleStyleToString(span.style));
-        merged.rest.push("");
+        if (typeof span === "string") {
+            buffer.text += span;
+        } else {
+            buffer.text += `%c${span.text}%c`;
+            buffer.rest.push(consoleStyleToString(span.style));
+            buffer.rest.push("");
+        }
     }
-    return merged;
+}
+
+function flushBuffer(buffer: ConsoleBuffer): void {
+    if (buffer.text !== "") {
+        console.log(buffer.text, ...buffer.rest);
+    }
+    buffer.text = "";
+    buffer.rest = [];
 }
 
 function consoleStyleToString(style: ConsoleStyle): string {
