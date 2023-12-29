@@ -10,12 +10,12 @@ const CHAR_WIDTH = 6.6;
 const DEV_TOOLS_MARGINS = 250;
 
 export default function canFit(
-    messages: ConsoleText[],
+    spans: ConsoleText[],
     indent: number = 0,
 ): boolean {
     let charsCount = 0;
-    for (const message of messages) {
-        charsCount += message.text.length;
+    for (const span of spans) {
+        charsCount += span.text.length;
     }
     const charsWidth = charsCount * CHAR_WIDTH;
     const indentWidth = indent * CHAR_WIDTH;

@@ -53,7 +53,7 @@ function singleLineArray(array: Primitive[]): ConsoleText[] {
                 : [consoleText(", "), inspectPrimitive(value)];
         }),
         consoleText("]"),
-        consoleText(` (${array.length})`, consoleStyles.collapsedObjectKey)
+        consoleText(` (${array.length})`, consoleStyles.collapsedObjectKey),
     ];
 }
 
@@ -64,7 +64,7 @@ function multiLineArray(
 ): ConsoleSpan[] {
     return array.flatMap((value, i) => {
         const indexText = `[${i}]: `;
-        const valueMessages =
+        const valueSpans =
             isPrimitive(value) ||
             hasOnlyPrimitives(value) ||
             context.depth + 1 >= options.expandDepth
@@ -83,7 +83,7 @@ function multiLineArray(
             ...(i === 0 ? [] : [consoleText("\n")]),
             ...createIndent(context, options),
             consoleText(indexText, consoleStyles.expandedKey),
-            ...valueMessages,
+            ...valueSpans,
         ];
     });
 }

@@ -4,14 +4,14 @@ import ConsoleStyle from "./ConsoleStyle";
 import arrayArg from "../utils/arrayArg";
 
 export default function consolePrint(
-    ...value: (ConsoleSpan | ConsoleSpan[])[]
+    ...args: (ConsoleSpan | ConsoleSpan[])[]
 ): void {
     let logBuffer: LogBuffer = {
         text: "",
         rest: [],
     };
 
-    const items = value.flatMap(arrayArg);
+    const items = args.flatMap(arrayArg);
     for (const item of items) {
         if (item.type === "text") {
             logBuffer.text += `%c${item.text}%c`;
@@ -54,14 +54,14 @@ function flush(logBuffer: LogBuffer): void {
     logBuffer.rest = [];
 }
 
-function mergeText(messages: ConsoleText[]): LogBuffer {
+function mergeText(spans: ConsoleText[]): LogBuffer {
     const merged: LogBuffer = {
         text: "",
         rest: [],
     };
-    for (const message of messages) {
-        merged.text += `%c${message.text}%c`;
-        merged.rest.push(consoleStyleToString(message.style));
+    for (const span of spans) {
+        merged.text += `%c${span.text}%c`;
+        merged.rest.push(consoleStyleToString(span.style));
         merged.rest.push("");
     }
     return merged;

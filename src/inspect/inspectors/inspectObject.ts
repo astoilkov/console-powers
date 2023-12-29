@@ -38,23 +38,23 @@ export default function inspectObject(
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
 ): ConsoleText[] {
-    const messages: ConsoleText[] = [consoleText("{ ")];
+    const spans: ConsoleText[] = [consoleText("{ ")];
 
     let isFirst = true;
     for (const key in value) {
         if (isFirst) {
             isFirst = false;
         } else {
-            messages.push(consoleText(", "));
+            spans.push(consoleText(", "));
         }
-        messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
-        messages.push(consoleText(": "));
-        messages.push(inspectPrimitive(value[key]));
+        spans.push(consoleText(key, consoleStyles.collapsedObjectKey));
+        spans.push(consoleText(": "));
+        spans.push(inspectPrimitive(value[key]));
     }
 
-    messages.push(consoleText(" }"));
+    spans.push(consoleText(" }"));
 
-    return messages;
+    return spans;
 }
 
 function multiLineObject(
@@ -62,20 +62,20 @@ function multiLineObject(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleSpan[] {
-    const messages: ConsoleSpan[] = [];
+    const spans: ConsoleSpan[] = [];
     const sortedKeys = sortKeys(object);
     const maxLength = maxKeyLength(object);
 
     for (let i = 0; i < sortedKeys.length; i++) {
         if (i !== 0) {
-            messages.push(consoleText("\n"));
+            spans.push(consoleText("\n"));
         }
 
         const key = sortedKeys[i]!;
-        messages.push(...createIndent(context, options));
-        messages.push(consoleText(key, consoleStyles.collapsedObjectKey));
-        messages.push(consoleText(": "));
-        messages.push(consoleText(" ".repeat(maxLength - key.length)));
+        spans.push(...createIndent(context, options));
+        spans.push(consoleText(key, consoleStyles.collapsedObjectKey));
+        spans.push(consoleText(": "));
+        spans.push(consoleText(" ".repeat(maxLength - key.length)));
 
         const value = object[key as keyof typeof object];
         if (
@@ -83,15 +83,15 @@ function multiLineObject(
             hasOnlyPrimitives(value) ||
             context.depth + 1 >= options.expandDepth
         ) {
-            messages.push(
+            spans.push(
                 ...inspectAny(value, options, {
                     indent: context.indent,
                     depth: context.depth + 1,
                 }),
             );
         } else {
-            messages.push(consoleText("\n"));
-            messages.push(
+            spans.push(consoleText("\n"));
+            spans.push(
                 ...inspectAny(value, options, {
                     indent: context.indent + options.indent,
                     depth: context.depth + 1,
@@ -99,7 +99,7 @@ function multiLineObject(
             );
         }
     }
-    return messages;
+    return spans;
 }
 
 function maxKeyLength(object: object): number {

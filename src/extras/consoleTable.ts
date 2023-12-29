@@ -57,7 +57,7 @@ export default function consoleTable(object: object): ConsoleText[] {
 }
 
 function arrayOfObjects(array: object[]): ConsoleText[] {
-    const messages: ConsoleText[] = [];
+    const spans: ConsoleText[] = [];
     const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
     const rows = [
         keys.map((key) => consoleText(key, { fontWeight: 'bold' })),
@@ -78,16 +78,16 @@ function arrayOfObjects(array: object[]): ConsoleText[] {
                 : isLastRow
                   ? lastRowStyle
                   : middleRowStyle;
-        messages.push(...tableRow(rows[i]!, columnsSize, style));
+        spans.push(...tableRow(rows[i]!, columnsSize, style));
         if (!isLastRow) {
-            messages.push(consoleText("\n"));
+            spans.push(consoleText("\n"));
         }
     }
-    return messages;
+    return spans;
 }
 
 function flatObjectOrArray(object: object): ConsoleText[] {
-    const messages: ConsoleText[] = [];
+    const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
     const rows = keys.map((key) => [
@@ -101,12 +101,12 @@ function flatObjectOrArray(object: object): ConsoleText[] {
         const isLastRow = i === rows.length - 1;
         const style =
             i === 0 ? firstRowStyle : isLastRow ? lastRowStyle : middleRowStyle;
-        messages.push(...tableRow(rows[i]!, columnsSize, style));
+        spans.push(...tableRow(rows[i]!, columnsSize, style));
         if (!isLastRow) {
-            messages.push(consoleText("\n"));
+            spans.push(consoleText("\n"));
         }
     }
-    return messages;
+    return spans;
 }
 
 function calcColumnsSize(rows: ConsoleText[][]): number[] {
@@ -128,7 +128,7 @@ function tableRow(
         middle: ConsoleStyle;
     },
 ): ConsoleText[] {
-    const messages: ConsoleText[] = [];
+    const spans: ConsoleText[] = [];
     for (let i = 0; i < cells.length; i++) {
         const style =
             i === 0
@@ -143,7 +143,7 @@ function tableRow(
             ...style,
             lineHeight: "1.8",
         };
-        messages.push(cell);
+        spans.push(cell);
     }
-    return messages;
+    return spans;
 }

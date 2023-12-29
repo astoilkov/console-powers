@@ -2,18 +2,18 @@ import ConsoleSpan from "./ConsoleSpan";
 import ConsoleStyle from "./ConsoleStyle";
 
 export default function consoleApply<T extends ConsoleSpan>(
-    messages: T[],
+    spans: T[],
     style: ConsoleStyle,
 ): T[] {
-    return messages.map((message) => {
-        return message.type === "text"
+    return spans.map((span) => {
+        return span.type === "text"
             ? {
-                  ...message,
+                  ...span,
                   style: {
-                      ...message.style,
+                      ...span.style,
                       ...style,
                   },
               }
-            : message;
+            : span;
     });
 }

@@ -16,36 +16,36 @@ export default function createIndent(
     }
 
     if (LINE_AT_FIRST_LEVEL) {
-        const messages: ConsoleText[] = [];
+        const spans: ConsoleText[] = [];
         for (let i = 0; i <= context.indent; i += options.indent) {
             if (i !== 0) {
-                messages.push(consoleText(" ".repeat(options.indent - 1)));
+                spans.push(consoleText(" ".repeat(options.indent - 1)));
             }
-            messages.push(
+            spans.push(
                 consoleText("\u200C", {
                     marginLeft: "0.22em",
                     paddingLeft: `1.85px`,
                     background: consoleStyles.expandedKey.color,
                 }),
             );
-            messages.push(consoleText(" "));
+            spans.push(consoleText(" "));
         }
-        return messages;
+        return spans;
     } else {
         if (context.indent === 0) {
             return [];
         }
 
-        const messages: ConsoleText[] = [];
+        const spans: ConsoleText[] = [];
         for (let i = options.indent; i <= context.indent; i += options.indent) {
-            messages.push(consoleText(" ".repeat(options.indent - 1)));
-            messages.push(
+            spans.push(consoleText(" ".repeat(options.indent - 1)));
+            spans.push(
                 consoleText(" ", {
                     marginLeft: "0.22em",
                     borderLeft: `1.85px solid ${consoleStyles.expandedKey.color}`,
                 }),
             );
         }
-        return messages;
+        return spans;
     }
 }

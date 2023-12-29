@@ -23,8 +23,8 @@ export function consoleGroup({
         type: "group",
         expanded: expanded ?? false,
         header:
-            arrayArg(header).map((message) => {
-                const consoleText = ensureConsoleText(message);
+            arrayArg(header).map((span) => {
+                const consoleText = ensureConsoleText(span);
                 return {
                     ...consoleText,
                     style: {
@@ -33,8 +33,8 @@ export function consoleGroup({
                     },
                 };
             }) ?? [],
-        body: arrayArg(body).map((message) =>
-            typeof message === "string" ? consoleText(message) : message,
+        body: arrayArg(body).map((span) =>
+            typeof span === "string" ? consoleText(span) : span,
         ),
     };
 }
