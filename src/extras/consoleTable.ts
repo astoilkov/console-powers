@@ -3,6 +3,7 @@ import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleInline from "../utils/consoleInline";
 import consoleStyles from "../inspect/utils/consoleStyles";
 import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
+import consolePrint from "../core/consolePrint";
 
 const firstRowStyle = {
     left: {
@@ -48,6 +49,7 @@ const lastRowStyle = {
 };
 
 export type ConsoleTableOptions = {
+    print?: boolean;
     theme?: "light" | "dark";
 };
 
@@ -60,10 +62,15 @@ export default function consoleTable(
     const theme =
         options.theme ??
         (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-
-    return isArrayOfObjects
+    const spans = isArrayOfObjects
         ? arrayOfObjects(object, theme)
         : flatObjectOrArray(object, theme);
+
+    if (options.print !== false) {
+        consolePrint(spans);
+    }
+
+    return spans;
 }
 
 function arrayOfObjects(
@@ -110,7 +117,7 @@ function flatObjectOrArray(
         isArray
             ? consoleText(`[${key}]`, consoleStyles[theme].highlight)
             : consoleText(`${key}:`, consoleStyles[theme].dimmed),
-        consoleInline(object[(key as keyof typeof object)], theme),
+        consoleInline(object[key as keyof typeof object], theme),
     ]);
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
