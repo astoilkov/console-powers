@@ -100,14 +100,14 @@ Default: `2`
 
 How much levels to expand the object. Levels after that will be collapsed.
 
-#### `consoleTable(value: object): void`
-
 ##### `ConsoleInspectOptions.indent`
 
 Type: `number`
 Default: `4`
 
 How much spaces to add when going down a level.
+
+#### `consoleTable(value: object): void`
 
 ## API _(core)_
 
