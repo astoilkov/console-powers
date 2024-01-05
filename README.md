@@ -89,7 +89,7 @@ consolePrint(
 
 ## API _(extras)_
 
-#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): void`
+#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
 
 Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
 
@@ -107,7 +107,27 @@ Default: `4`
 
 How much spaces to add when going down a level.
 
-#### `consoleTable(value: object): void`
+##### `ConsoleInspectOptions.theme`
+
+Type: `'light' | 'dark'`
+Default: automatically determined based on the system theme.
+
+##### `ConsoleInspectOptions.print`
+
+Type: `boolean`
+Default: `true`
+
+#### `consoleTable(value: object, options: ConsoleTableOptions): ConsoleSpan[]`
+
+##### `ConsoleTableOptions.theme`
+
+Type: `'light' | 'dark'`
+Default: automatically determined based on the system theme.
+
+##### `ConsoleTableOptions.print`
+
+Type: `boolean`
+Default: `true`
 
 ## API _(core)_
 

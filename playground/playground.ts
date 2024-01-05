@@ -14,47 +14,44 @@ function inspect(value: unknown): unknown {
 }
 
 // example 1
-consolePrint(
-    consoleTable([
-        {
-            model: 'MacBook Air 13"',
-            year: new Date(2020, 10, 23),
-            price: 999,
-        },
-        {
-            model: 'MacBook Air 15"',
-            year: new Date(2023, 9, 18),
-            price: 1299,
-        },
-        {
-            model: 'MacBook Pro 13"',
-            year: new Date(2019, 11, 2),
-            price: 1499,
-        },
-    ]),
-);
-
-// example 2
-consoleInspect(
+consoleTable([
     {
-        type: "group",
-        level: 1,
-        items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-        location: {
-            start: {
-                line: 1,
-                column: 0,
-            },
-            end: {
-                line: 4,
-                column: 10,
-            },
-        },
+        model: 'MacBook Air 13"',
+        year: new Date(2020, 10, 23),
+        price: 999,
     },
     {
-        line: true,
+        model: 'MacBook Air 15"',
+        year: new Date(2023, 9, 18),
+        price: 1299,
     },
-);
+    {
+        model: 'MacBook Pro 13"',
+        year: new Date(2019, 11, 2),
+        price: 1499,
+    },
+]),
+    // example 2
+    consoleInspect(
+        {
+            type: "group",
+            level: 1,
+            items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+            location: {
+                start: {
+                    line: 1,
+                    column: 0,
+                },
+                end: {
+                    line: 4,
+                    column: 10,
+                },
+            },
+        },
+        {
+            line: true,
+        },
+    );
 
 // example 3
 consolePrint(
@@ -105,7 +102,16 @@ consolePrint([
 ]);
 
 // array (primitive values)
-inspect([351, BigInt(9999), "string", false, undefined, null, Symbol("test"), new Date()]);
+inspect([
+    351,
+    BigInt(9999),
+    "string",
+    false,
+    undefined,
+    null,
+    Symbol("test"),
+    new Date(),
+]);
 
 // Map
 inspect(
@@ -169,7 +175,7 @@ consoleInspect(nestedObject1, {
     expandDepth: 3,
     indent: 4,
 });
-consolePrint(consoleTable(nestedObject1));
+consoleTable(nestedObject1);
 
 consolePrint(
     consoleOrderedList([
@@ -195,6 +201,6 @@ consolePrint([
     ]),
 ]);
 
-consolePrint(consoleTable(["John", "Jake", "Jack"]));
+consoleTable(["John", "Jake", "Jack"]);
 
-consolePrint(consoleTable({ name: "John", age: 24 }));
+consoleTable({ name: "John", age: 24 });
