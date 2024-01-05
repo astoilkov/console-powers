@@ -47,7 +47,7 @@ function singleLineObject(
         } else {
             spans.push(consoleText(", "));
         }
-        spans.push(consoleText(key, consoleStyles.collapsedObjectKey));
+        spans.push(consoleText(key, consoleStyles.dimmed));
         spans.push(consoleText(": "));
         spans.push(inspectPrimitive(value[key]));
     }
@@ -73,7 +73,7 @@ function multiLineObject(
 
         const key = sortedKeys[i]!;
         spans.push(...createIndent(context, options));
-        spans.push(consoleText(key, consoleStyles.collapsedObjectKey));
+        spans.push(consoleText(key, consoleStyles.dimmed));
         spans.push(consoleText(": "));
         spans.push(consoleText(" ".repeat(maxLength - key.length)));
 

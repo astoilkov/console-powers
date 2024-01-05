@@ -92,8 +92,8 @@ function flatObjectOrArray(object: object): ConsoleText[] {
     const keys = Object.keys(object);
     const rows = keys.map((key) => [
         isArray
-            ? consoleText(`[${key}]`, consoleStyles.expandedKey)
-            : consoleText(`${key}:`, consoleStyles.collapsedObjectKey),
+            ? consoleText(`[${key}]`, consoleStyles.highlight)
+            : consoleText(`${key}:`, consoleStyles.dimmed),
         consoleInline(object[key as keyof typeof object]),
     ]);
     const columnsSize = calcColumnsSize(rows);

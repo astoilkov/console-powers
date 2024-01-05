@@ -25,7 +25,7 @@ export default function createIndent(
                 consoleText("\u200C", {
                     marginLeft: "0.22em",
                     paddingLeft: `1.85px`,
-                    background: consoleStyles.expandedKey.color,
+                    background: consoleStyles.highlight.color,
                 }),
             );
             spans.push(consoleText(" "));
@@ -42,7 +42,7 @@ export default function createIndent(
             spans.push(
                 consoleText(" ", {
                     marginLeft: "0.22em",
-                    borderLeft: `1.85px solid ${consoleStyles.expandedKey.color}`,
+                    borderLeft: `1.85px solid ${consoleStyles.highlight.color}`,
                 }),
             );
         }

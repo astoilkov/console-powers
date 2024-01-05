@@ -53,7 +53,7 @@ function singleLineArray(array: Primitive[]): ConsoleText[] {
                 : [consoleText(", "), inspectPrimitive(value)];
         }),
         consoleText("]"),
-        consoleText(` (${array.length})`, consoleStyles.collapsedObjectKey),
+        consoleText(` (${array.length})`, consoleStyles.dimmed),
     ];
 }
 
@@ -82,7 +82,7 @@ function multiLineArray(
         return [
             ...(i === 0 ? [] : [consoleText("\n")]),
             ...createIndent(context, options),
-            consoleText(indexText, consoleStyles.expandedKey),
+            consoleText(indexText, consoleStyles.highlight),
             ...valueSpans,
         ];
     });
