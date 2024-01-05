@@ -23,20 +23,28 @@ npm install console-powers
 
 ## Examples
 
-### `consolePrint()`
-
-<img src="/img/90s.png" width="320" />
+### `consoleTable()`
 
 ```ts
-import { consolePrint, consoleText } from "console-powers"
-
 consolePrint(
-    consoleText("90s", {
-        fontSize: "200px",
-    	color: "hsl(330, 100%, 50%)",
-    	textShadow: "0 2px 0 hsl(330, 100%, 25%), 0 3px 2px hsla(330, 100%, 15%, 0.5), /* next */ 0 3px 0 hsl(350, 100%, 50%), 0 5px 0 hsl(350, 100%, 25%), 0 6px 2px hsla(350, 100%, 15%, 0.5), /* next */ 0 6px 0 hsl(20, 100%, 50%), 0 8px 0 hsl(20, 100%, 25%), 0 9px 2px hsla(20, 100%, 15%, 0.5), /* next */ 0 9px 0 hsl(50, 100%, 50%), 0 11px 0 hsl(50, 100%, 25%), 0 12px 2px hsla(50, 100%, 15%, 0.5), /* next */ 0 12px 0 hsl(70, 100%, 50%), 0 14px 0 hsl(70, 100%, 25%), 0 15px 2px hsla(70, 100%, 15%, 0.5), /* next */ 0 15px 0 hsl(90, 100%, 50%), 0 17px 0 hsl(90, 100%, 25%), 0 17px 2px hsla(90, 100%, 15%, 0.5)",
-    })
-)
+    consoleTable([
+        {
+            model: 'MacBook Air 13"',
+            year: new Date(2020, 10, 23),
+            price: 999,
+        },
+        {
+            model: 'MacBook Air 15"',
+            year: new Date(2023, 9, 18),
+            price: 1299,
+        },
+        {
+            model: 'MacBook Pro 13"',
+            year: new Date(2019, 11, 2),
+            price: 1499,
+        },
+    ]),
+);
 ```
 
 ### `consoleInspect()`
@@ -63,11 +71,49 @@ consoleInspect({
 })
 ```
 
-## API
+### `consolePrint()`
 
-#### `consolePrint(messages: ConsoleSpan[]): void`
+<img src="/img/90s.png" width="320" />
 
-Prints the provided messages to the console.
+```ts
+import { consolePrint, consoleText } from "console-powers"
+
+consolePrint(
+    consoleText("90s", {
+        fontSize: "200px",
+    	color: "hsl(330, 100%, 50%)",
+    	textShadow: "0 2px 0 hsl(330, 100%, 25%), 0 3px 2px hsla(330, 100%, 15%, 0.5), /* next */ 0 3px 0 hsl(350, 100%, 50%), 0 5px 0 hsl(350, 100%, 25%), 0 6px 2px hsla(350, 100%, 15%, 0.5), /* next */ 0 6px 0 hsl(20, 100%, 50%), 0 8px 0 hsl(20, 100%, 25%), 0 9px 2px hsla(20, 100%, 15%, 0.5), /* next */ 0 9px 0 hsl(50, 100%, 50%), 0 11px 0 hsl(50, 100%, 25%), 0 12px 2px hsla(50, 100%, 15%, 0.5), /* next */ 0 12px 0 hsl(70, 100%, 50%), 0 14px 0 hsl(70, 100%, 25%), 0 15px 2px hsla(70, 100%, 15%, 0.5), /* next */ 0 15px 0 hsl(90, 100%, 50%), 0 17px 0 hsl(90, 100%, 25%), 0 17px 2px hsla(90, 100%, 15%, 0.5)",
+    })
+)
+```
+
+## API _(extras)_
+
+#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): void`
+
+Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
+
+##### `ConsoleInspectOptions.expandDepth`
+
+Type: `number`
+Default: `2`
+
+How much levels to expand the object. Levels after that will be collapsed.
+
+#### `consoleTable(value: object): void`
+
+##### `ConsoleInspectOptions.indent`
+
+Type: `number`
+Default: `4`
+
+How much spaces to add when going down a level.
+
+## API _(core)_
+
+#### `consolePrint(spans: ConsoleSpan[]): void`
+
+Prints the provided spans to the console.
 
 #### `consoleText(text: string, style?: ConsoleStyle): ConsoleSpan`
 
@@ -97,7 +143,7 @@ Creates a styled text in the console.
 
 An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
 
-#### `consoleGroup(options): ConsoleSpan`
+#### `consoleGroup(options: ConsoleGroupOptions): ConsoleSpan`
 
 ```ts
 consolePrint(consoleGroup({
@@ -112,21 +158,3 @@ _Note: The method calls `consoleFlush()` and flushes everything up until now bef
 #### `consoleFlush(): ConsoleSpan`
 
 Flushes everything up until now and starts a new `console.log()` line.
-
-#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): void`
-
-Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
-
-##### `ConsoleInspectOptions.expandDepth`
-
-Type: `number`
-Default: `2`
-
-How much levels to expand the object. Levels after that will be collapsed.
-
-##### `ConsoleInspectOptions.indent`
-
-Type: `number`
-Default: `4`
-
-How much spaces to add when going down a level.
