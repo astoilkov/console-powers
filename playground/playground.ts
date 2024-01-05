@@ -105,7 +105,7 @@ consolePrint([
 ]);
 
 // array (primitive values)
-inspect([1, 2, 3, "first", "second", "third", undefined, null, Symbol("test")]);
+inspect([351, BigInt(9999), "string", false, undefined, null, Symbol("test"), new Date()]);
 
 // Map
 inspect(

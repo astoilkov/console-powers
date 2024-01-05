@@ -14,7 +14,7 @@ export default function inspectAny(
     context: ConsoleInspectContext,
 ): ConsoleSpan[] {
     if (isPrimitive(value)) {
-        return [inspectPrimitive(value)];
+        return [inspectPrimitive(value, options.theme)];
     } else if (Array.isArray(value) || isIterable(value)) {
         const array = [...value];
         return inspectArray(array, options, context);

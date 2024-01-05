@@ -47,24 +47,37 @@ const lastRowStyle = {
     },
 };
 
-export default function consoleTable(object: object): ConsoleText[] {
+export type ConsoleTableOptions = {
+    theme?: "light" | "dark";
+};
+
+export default function consoleTable(
+    object: object,
+    options: ConsoleTableOptions = {},
+): ConsoleText[] {
     const isArrayOfObjects =
         Array.isArray(object) && !hasOnlyPrimitives(object);
+    const theme =
+        options.theme ??
+        (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
     return isArrayOfObjects
-        ? arrayOfObjects(object)
-        : flatObjectOrArray(object);
+        ? arrayOfObjects(object, theme)
+        : flatObjectOrArray(object, theme);
 }
 
-function arrayOfObjects(array: object[]): ConsoleText[] {
+function arrayOfObjects(
+    array: object[],
+    theme: "light" | "dark",
+): ConsoleText[] {
     const spans: ConsoleText[] = [];
     const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
     const rows = [
-        keys.map((key) => consoleText(key, { fontWeight: 'bold' })),
+        keys.map((key) => consoleText(key, { fontWeight: "bold" })),
         ...array.map((item) => {
             const row: ConsoleText[] = [];
             for (const key of keys) {
-                row.push(consoleInline(item[key as keyof typeof item]));
+                row.push(consoleInline(item[key as keyof typeof item], theme));
             }
             return row;
         }),
@@ -86,15 +99,18 @@ function arrayOfObjects(array: object[]): ConsoleText[] {
     return spans;
 }
 
-function flatObjectOrArray(object: object): ConsoleText[] {
+function flatObjectOrArray(
+    object: object,
+    theme: "light" | "dark",
+): ConsoleText[] {
     const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
     const rows = keys.map((key) => [
         isArray
-            ? consoleText(`[${key}]`, consoleStyles.highlight)
-            : consoleText(`${key}:`, consoleStyles.dimmed),
-        consoleInline(object[key as keyof typeof object]),
+            ? consoleText(`[${key}]`, consoleStyles[theme].highlight)
+            : consoleText(`${key}:`, consoleStyles[theme].dimmed),
+        consoleInline(object[(key as keyof typeof object)], theme),
     ]);
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {

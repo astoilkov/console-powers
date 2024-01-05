@@ -6,6 +6,7 @@ export interface ConsoleInspectOptions {
     line?: boolean;
     indent?: number;
     expandDepth?: number;
+    theme?: "light" | "dark";
     // preferMultiLine?: boolean;
     // preferSingleLine?: boolean;
     // preferTables?: boolean;
@@ -28,6 +29,9 @@ export default function consoleInspect(
                     expandDepth: 2,
                     indent: 4,
                     line: false,
+                    theme: matchMedia("(prefers-color-scheme: dark)").matches
+                        ? "dark"
+                        : "light",
                     ...options,
                 },
                 {

@@ -22,6 +22,7 @@ export default function inspectObject(
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
+            options
         );
         if (canFit(singleLine, context.indent)) {
             return singleLine;
@@ -37,6 +38,7 @@ export default function inspectObject(
 
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
+    options: Required<ConsoleInspectOptions>,
 ): ConsoleText[] {
     const spans: ConsoleText[] = [consoleText("{ ")];
 
@@ -47,9 +49,9 @@ function singleLineObject(
         } else {
             spans.push(consoleText(", "));
         }
-        spans.push(consoleText(key, consoleStyles.dimmed));
+        spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
-        spans.push(inspectPrimitive(value[key]));
+        spans.push(inspectPrimitive(value[key], options.theme));
     }
 
     spans.push(consoleText(" }"));
@@ -73,7 +75,7 @@ function multiLineObject(
 
         const key = sortedKeys[i]!;
         spans.push(...createIndent(context, options));
-        spans.push(consoleText(key, consoleStyles.dimmed));
+        spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
         spans.push(consoleText(" ".repeat(maxLength - key.length)));
 
