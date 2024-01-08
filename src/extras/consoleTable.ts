@@ -1,52 +1,8 @@
-import ConsoleStyle from "../core/ConsoleStyle";
 import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleInline from "../utils/consoleInline";
 import consoleStyles from "../inspect/utils/consoleStyles";
 import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
 import consolePrint from "../core/consolePrint";
-
-const firstRowStyle = {
-    left: {
-        borderTop: "1px solid black",
-        borderLeft: "1px solid black",
-        borderRight: "1px solid black",
-    },
-    middle: {
-        borderTop: "1px solid black",
-        borderRight: "1px solid black",
-    },
-    right: {
-        borderTop: "1px solid black",
-        borderRight: "1px solid black",
-    },
-};
-const middleRowStyle = {
-    left: {
-        borderLeft: "1px solid black",
-        borderRight: "1px solid black",
-    },
-    middle: {
-        borderRight: "1px solid black",
-    },
-    right: {
-        borderRight: "1px solid black",
-    },
-};
-const lastRowStyle = {
-    left: {
-        borderBottom: "1px solid black",
-        borderLeft: "1px solid black",
-        borderRight: "1px solid black",
-    },
-    middle: {
-        borderBottom: "1px solid black",
-        borderRight: "1px solid black",
-    },
-    right: {
-        borderBottom: "1px solid black",
-        borderRight: "1px solid black",
-    },
-};
 
 export type ConsoleTableOptions = {
     print?: boolean;
@@ -92,13 +48,9 @@ function arrayOfObjects(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const style =
-            i === 0 || i === 1
-                ? firstRowStyle
-                : isLastRow
-                  ? lastRowStyle
-                  : middleRowStyle;
-        spans.push(...tableRow(rows[i]!, columnsSize, style));
+        const row =
+            i === 0 || i === 1 ? "first" : isLastRow ? "last" : "middle";
+        spans.push(...tableRow(rows[i]!, columnsSize, row, theme));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
         }
@@ -122,9 +74,8 @@ function flatObjectOrArray(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const style =
-            i === 0 ? firstRowStyle : isLastRow ? lastRowStyle : middleRowStyle;
-        spans.push(...tableRow(rows[i]!, columnsSize, style));
+        const row = i === 0 ? "first" : isLastRow ? "last" : "middle";
+        spans.push(...tableRow(rows[i]!, columnsSize, row, theme));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
         }
@@ -145,20 +96,17 @@ function calcColumnsSize(rows: ConsoleText[][]): number[] {
 function tableRow(
     cells: ConsoleText[],
     columnsSize: number[],
-    styles: {
-        left: ConsoleStyle;
-        right: ConsoleStyle;
-        middle: ConsoleStyle;
-    },
+    row: "first" | "middle" | "last",
+    theme: "light" | "dark",
 ): ConsoleText[] {
     const spans: ConsoleText[] = [];
     for (let i = 0; i < cells.length; i++) {
         const style =
             i === 0
-                ? styles.left
+                ? getRowStyle(row, "left", theme)
                 : i === cells.length - 1
-                  ? styles.right
-                  : styles.middle;
+                  ? getRowStyle(row, "right", theme)
+                  : getRowStyle(row, "middle", theme);
         const cell = cells[i]!;
         cell.text = "  " + cell.text.padEnd(columnsSize[i]! + 2);
         cell.style = {
@@ -169,4 +117,23 @@ function tableRow(
         spans.push(cell);
     }
     return spans;
+}
+
+function getRowStyle(
+    row: "first" | "middle" | "last",
+    column: "left" | "middle" | "right",
+    theme: "light" | "dark",
+) {
+    const color = theme === "light" ? "black" : "#474747";
+    const rowStyle = {
+        first: { borderTop: `1px solid ${color}` },
+        middle: {},
+        last: { borderBottom: `1px solid ${color}` },
+    }[row];
+    const positionStyle = {
+        left: { borderLeft: `1px solid ${color}` },
+        middle: { borderLeft: `1px solid ${color}` },
+        right: { borderRight: `1px solid ${color}` },
+    }[column];
+    return { ...rowStyle, ...positionStyle };
 }
