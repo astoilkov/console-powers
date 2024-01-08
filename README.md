@@ -110,39 +110,47 @@ Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute
 
 ##### `ConsoleInspectOptions.expandDepth`
 
-Type: `number`
+Type: `number`  
 Default: `2`
 
 How much levels to expand the object. Levels after that will be collapsed.
 
 ##### `ConsoleInspectOptions.indent`
 
-Type: `number`
+Type: `number`  
 Default: `4`
 
 How much spaces to add when going down a level.
 
 ##### `ConsoleInspectOptions.theme`
 
-Type: `'light' | 'dark'`
+Type: `'light' | 'dark'`  
 Default: automatically determined based on the system theme.
+
+Determines the colors that will be used to style the output.
 
 ##### `ConsoleInspectOptions.print`
 
-Type: `boolean`
+Type: `boolean`  
 Default: `true`
+
+If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
 
 #### `consoleTable(value: object, options: ConsoleTableOptions): ConsoleSpan[]`
 
 ##### `ConsoleTableOptions.theme`
 
-Type: `'light' | 'dark'`
+Type: `'light' | 'dark'`  
 Default: automatically determined based on the system theme.
+
+Determines the colors that will be used to style the output.
 
 ##### `ConsoleTableOptions.print`
 
-Type: `boolean`
+Type: `boolean`  
 Default: `true`
+
+If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
 
 ## API _(core)_
 
