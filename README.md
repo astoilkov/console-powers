@@ -25,7 +25,11 @@ npm install console-powers
 
 ### `consoleTable()`
 
-<img src="/img/light/table.png" width="320" />
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
+    <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
+    <img src="/img/light/table.png" width="320" />
+</picture>
 
 ```ts
 consolePrint(
@@ -79,7 +83,11 @@ consoleInspect({
 
 ### `consolePrint()`
 
-<img src="/img/light/90s.png" width="320" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
+  <source media="(prefers-color-scheme: light)" srcset="/img/dark/print.png">
+  <img src="/img/light/print.png" width="320" />
+</picture>
 
 ```ts
 import { consolePrint, consoleText } from "console-powers";
