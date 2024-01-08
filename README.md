@@ -25,6 +25,8 @@ npm install console-powers
 
 ### `consoleTable()`
 
+<img src="/img/table.png" width="320" />
+
 ```ts
 consolePrint(
     consoleTable([
