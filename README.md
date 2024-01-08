@@ -70,7 +70,7 @@ consoleInspect({
             column: 10,
         },
     },
-})
+}, { line: true })
 ```
 
 ### `consolePrint()`
