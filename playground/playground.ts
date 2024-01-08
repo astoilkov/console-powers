@@ -30,28 +30,24 @@ consoleTable([
         year: new Date(2019, 11, 2),
         price: 1499,
     },
-]),
-    // example 2
-    consoleInspect(
-        {
-            type: "group",
-            level: 1,
-            items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-            location: {
-                start: {
-                    line: 1,
-                    column: 0,
-                },
-                end: {
-                    line: 4,
-                    column: 10,
-                },
-            },
+]);
+
+// example 2
+consoleInspect({
+    type: "group",
+    level: 1,
+    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+    location: {
+        start: {
+            line: 1,
+            column: 0,
         },
-        {
-            line: true,
+        end: {
+            line: 4,
+            column: 10,
         },
-    );
+    },
+});
 
 // example 3
 consolePrint(
