@@ -3,6 +3,7 @@ import consoleInline from "../utils/consoleInline";
 import consoleStyles from "../inspect/utils/consoleStyles";
 import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
 import consolePrint from "../core/consolePrint";
+import ConsoleStyle from "../core/ConsoleStyle";
 
 export type ConsoleTableOptions = {
     print?: boolean;
@@ -48,8 +49,7 @@ function arrayOfObjects(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const row =
-            i === 0 || i === 1 ? "first" : isLastRow ? "last" : "middle";
+        const row = i === 0 || i === 1 ? "top" : isLastRow ? "last" : "bottom";
         spans.push(...tableRow(rows[i]!, columnsSize, row, theme));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
@@ -96,7 +96,7 @@ function calcColumnsSize(rows: ConsoleText[][]): number[] {
 function tableRow(
     cells: ConsoleText[],
     columnsSize: number[],
-    row: "first" | "middle" | "last",
+    row: "top" | "middle" | "bottom",
     theme: "light" | "dark",
 ): ConsoleText[] {
     const spans: ConsoleText[] = [];
@@ -120,20 +120,20 @@ function tableRow(
 }
 
 function getRowStyle(
-    row: "first" | "middle" | "last",
+    row: "top" | "middle" | "bottom",
     column: "left" | "middle" | "right",
     theme: "light" | "dark",
-) {
+): ConsoleStyle {
     const color = theme === "light" ? "black" : "#474747";
     const rowStyle = {
-        first: { borderTop: `1px solid ${color}` },
+        top: { borderTop: `1px solid ${color}` },
         middle: {},
-        last: { borderBottom: `1px solid ${color}` },
+        bottom: { borderBottom: `1px solid ${color}` },
     }[row];
-    const positionStyle = {
+    const columnStyle = {
         left: { borderLeft: `1px solid ${color}` },
         middle: { borderLeft: `1px solid ${color}` },
         right: { borderRight: `1px solid ${color}` },
     }[column];
-    return { ...rowStyle, ...positionStyle };
+    return { ...rowStyle, ...columnStyle };
 }
