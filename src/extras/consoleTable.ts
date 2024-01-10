@@ -49,7 +49,8 @@ function arrayOfObjects(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const row = i === 0 || i === 1 ? "top" : isLastRow ? "last" : "bottom";
+        const row =
+            i === 0 || i === 1 ? "top" : isLastRow ? "bottom" : "middle";
         spans.push(...tableRow(rows[i]!, columnsSize, row, theme));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
@@ -74,7 +75,7 @@ function flatObjectOrArray(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const row = i === 0 ? "first" : isLastRow ? "last" : "middle";
+        const row = i === 0 ? "top" : isLastRow ? "bottom" : "middle";
         spans.push(...tableRow(rows[i]!, columnsSize, row, theme));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
