@@ -12,7 +12,7 @@ import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
-import canFit from "../../utils/canFit";
+import spansLength from "../../utils/spansLength";
 
 export default function inspectObject(
     object: object,
@@ -22,9 +22,9 @@ export default function inspectObject(
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
-            options
+            options,
         );
-        if (canFit(singleLine, context.indent)) {
+        if (spansLength(singleLine) + context.indent <= options.lineLength) {
             return singleLine;
         }
     }

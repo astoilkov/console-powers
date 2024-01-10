@@ -12,7 +12,7 @@ import {
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
-import canFit from "../../utils/canFit";
+import spansLength from "../../utils/spansLength";
 import { consoleGroup } from "../../core/consoleGroup";
 
 export default function inspectArray(
@@ -22,7 +22,7 @@ export default function inspectArray(
 ): ConsoleSpan[] {
     if (array.every(isPrimitive)) {
         const singleLine = singleLineArray(array as Primitive[], options);
-        if (canFit(singleLine, context.indent)) {
+        if (spansLength(singleLine) + context.indent <= options.lineLength) {
             // special case: top-level array
             // we otherwise can't use groups because they call `consoleFlush()`
             if (context.depth === 0) {
