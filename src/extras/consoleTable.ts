@@ -84,16 +84,6 @@ function flatObjectOrArray(
     return spans;
 }
 
-function calcColumnsSize(rows: ConsoleText[][]): number[] {
-    const columns: number[] = [];
-    for (const row of rows) {
-        for (let i = 0; i < row.length; i++) {
-            columns[i] = Math.max(columns[i] ?? 0, row[i]!.text.length);
-        }
-    }
-    return columns;
-}
-
 function tableRow(
     cells: ConsoleText[],
     columnsSize: number[],
@@ -118,6 +108,16 @@ function tableRow(
         spans.push(cell);
     }
     return spans;
+}
+
+function calcColumnsSize(rows: ConsoleText[][]): number[] {
+    const columns: number[] = [];
+    for (const row of rows) {
+        for (let i = 0; i < row.length; i++) {
+            columns[i] = Math.max(columns[i] ?? 0, row[i]!.text.length);
+        }
+    }
+    return columns;
 }
 
 function getRowStyle(
