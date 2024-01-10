@@ -44,5 +44,8 @@
         "type-fest": "^4.8.3",
         "typescript": "^5.2.2",
         "vitest": "^0.34.6"
+    },
+    "dependencies": {
+        "is-plain-obj": "^4.1.0"
     }
 }

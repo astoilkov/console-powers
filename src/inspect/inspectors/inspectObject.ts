@@ -13,12 +13,17 @@ import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
+import isPlainObject from "is-plain-obj";
 
 export default function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleSpan[] {
+    if (!isPlainObject(object)) {
+        return [consoleObject(object)];
+    }
+
     if (hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
