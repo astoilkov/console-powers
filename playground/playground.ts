@@ -147,7 +147,7 @@ consoleInspect(
         [obj1, obj1],
     ],
     {
-        expandDepth: 2,
+        depth: 2,
     },
 );
 
@@ -168,7 +168,7 @@ const nestedObject1 = {
 };
 consoleInspect(nestedObject1);
 consoleInspect(nestedObject1, {
-    expandDepth: 3,
+    depth: 3,
     indent: 4,
 });
 consoleTable(nestedObject1);

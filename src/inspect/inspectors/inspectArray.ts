@@ -37,7 +37,7 @@ export default function inspectArray(
         }
     }
 
-    if (context.depth >= options.expandDepth) {
+    if (context.depth >= options.depth) {
         return [consoleObject(array)];
     }
 
@@ -70,7 +70,7 @@ function multiLineArray(
         const valueSpans =
             isPrimitive(value) ||
             hasOnlyPrimitives(value) ||
-            context.depth + 1 >= options.expandDepth
+            context.depth + 1 >= options.depth
                 ? inspectAny(value, options, {
                       indent: 0,
                       depth: context.depth + 1,

@@ -7,7 +7,7 @@ export interface ConsoleInspectOptions {
     line?: boolean;
     indent?: number;
     print?: boolean;
-    expandDepth?: number;
+    depth?: number;
     lineLength?: number;
     theme?: "light" | "dark";
     // preferMultiLine?: boolean;
@@ -28,7 +28,7 @@ export default function consoleInspect(
         inspectAny(
             value,
             {
-                expandDepth: 2,
+                depth: 2,
                 indent: 4,
                 line: false,
                 lineLength: defaultLineLength(),

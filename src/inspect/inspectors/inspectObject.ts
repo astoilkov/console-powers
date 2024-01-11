@@ -34,7 +34,7 @@ export default function inspectObject(
         }
     }
 
-    if (context.depth >= options.expandDepth) {
+    if (context.depth >= options.depth) {
         return [consoleObject(object)];
     }
 
@@ -88,7 +88,7 @@ function multiLineObject(
         if (
             isPrimitive(value) ||
             hasOnlyPrimitives(value) ||
-            context.depth + 1 >= options.expandDepth
+            context.depth + 1 >= options.depth
         ) {
             spans.push(
                 ...inspectAny(value, options, {
