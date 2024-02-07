@@ -27,7 +27,7 @@
     "scripts": {
         "build": "tsc",
         "test": "yarn run build && vitest run --coverage",
-        "playground": "vite ./playground --open",
+        "pg": "vite ./playground --open",
         "release": "yarn run build && np"
     },
     "files": [
