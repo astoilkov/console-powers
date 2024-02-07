@@ -134,7 +134,10 @@ function getRowStyle(
     const columnStyle = {
         left: { borderLeft: `1px solid ${color}` },
         middle: { borderLeft: `1px solid ${color}` },
-        right: { borderRight: `1px solid ${color}` },
+        right: {
+            borderLeft: `1px solid ${color}`,
+            borderRight: `1px solid ${color}`,
+        },
     }[column];
     return { ...rowStyle, ...columnStyle };
 }
