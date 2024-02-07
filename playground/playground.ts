@@ -163,6 +163,7 @@ const nestedObject1 = {
             column: 1,
         },
     },
+    object: { type: "value", increment: 1 },
     priorities: [3, 7],
     type: "group",
 };
@@ -200,3 +201,22 @@ consolePrint([
 consoleTable(["John", "Jake", "Jack"]);
 
 consoleTable({ name: "John", age: 24 });
+
+consoleTable([
+    {
+        model: 'MacBook Air 13"',
+        year: new Date(2020, 10, 23),
+        price: { currency: "USD", amount: 999 },
+
+    },
+    {
+        model: 'MacBook Air 15"',
+        year: new Date(2023, 9, 18),
+        price: { currency: "USD", amount: 1299 },
+    },
+    {
+        model: 'MacBook Pro 13"',
+        year: new Date(2019, 11, 2),
+        price: { currency: "USD", amount: 1499 },
+    },
+]);
