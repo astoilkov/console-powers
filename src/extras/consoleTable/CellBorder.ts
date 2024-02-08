@@ -10,11 +10,17 @@ export default class CellBorder {
         this.#borderStyle = theme === "light" ? "black" : "#474747";
     }
 
+    setHeaderRow(index: number): void {
+        if (index === 0) {
+            this.#style.borderBottom = `1px solid ${this.#borderStyle}`;
+        }
+    }
+
     setVertical(rows: ConsoleTableCell[][], index: number): void {
         if (index === 0) {
             this.#style.borderTop = `1px solid ${this.#borderStyle}`;
         }
-        if (index === 0 || index === rows.length - 1) {
+        if (index === rows.length - 1) {
             this.#style.borderBottom = `1px solid ${this.#borderStyle}`;
         }
     }

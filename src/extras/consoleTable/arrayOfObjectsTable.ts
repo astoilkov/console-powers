@@ -33,6 +33,7 @@ export default function arrayOfObjectsTable(
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
         const cellBorder = new CellBorder(options.theme);
+        cellBorder.setHeaderRow(i)
         cellBorder.setVertical(rows, i);
         spans.push(
             ...consoleTableRow(rows[i]!, columnsSize, cellBorder),
