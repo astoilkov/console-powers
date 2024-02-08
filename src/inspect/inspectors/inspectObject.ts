@@ -41,14 +41,14 @@ export default function inspectObject(
 }
 
 function singleLineObject(
-    value: Record<string | number | symbol, Primitive>,
+    object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): (ConsoleText | ConsoleObject)[] {
     const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{ ")];
 
     let isFirst = true;
-    for (const key in value) {
+    for (const key in object) {
         if (isFirst) {
             isFirst = false;
         } else {
@@ -57,7 +57,7 @@ function singleLineObject(
         spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
         spans.push(
-            ...inspectAny(value[key], options, {
+            ...inspectAny(object[key as keyof typeof object], options, {
                 ...context,
                 indent: 0,
                 depth: context.depth + 1,

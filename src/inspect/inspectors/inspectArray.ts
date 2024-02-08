@@ -1,4 +1,3 @@
-import { Primitive } from "type-fest";
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectAny from "./inspectAny";
@@ -11,7 +10,6 @@ import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
-import inspectInline from "./inspectInline";
 
 export default function inspectArray(
     array: unknown[],
@@ -19,7 +17,7 @@ export default function inspectArray(
     context: ConsoleInspectContext,
 ): (ConsoleText | ConsoleObject)[] {
     if (options.wrap !== "auto" || array.every(isPrimitive)) {
-        const singleLine = singleLineArray(array as Primitive[], options);
+        const singleLine = singleLineArray(array, options, context);
         if (spansLength(singleLine) + context.indent <= context.wrap) {
             // special case: top-level array
             // we otherwise can't use groups because they call `consoleFlush()`
@@ -43,15 +41,20 @@ export default function inspectArray(
 }
 
 function singleLineArray(
-    array: Primitive[],
+    array: unknown[],
     options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
 ): (ConsoleText | ConsoleObject)[] {
     return [
         consoleText("["),
         ...array.flatMap((value, i) => {
+            const spans = inspectAny(value, options, {
+                ...context,
+                depth: context.depth + 1,
+            })
             return i === 0
-                ? [inspectInline(value, options.theme)]
-                : [consoleText(", "), inspectInline(value, options.theme)];
+                ? spans
+                : [consoleText(", "), ...spans];
         }),
         consoleText("]"),
         consoleText(` (${array.length})`, consoleStyles[options.theme].dimmed),
