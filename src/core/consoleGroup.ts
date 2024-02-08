@@ -2,11 +2,12 @@ import toFlatSpans from "../utils/toFlatSpans";
 import ConsoleSpan from "./ConsoleSpan";
 import { ConsoleText } from "./consoleText";
 import consoleApply from "./consoleApply";
+import { ConsoleObject } from "./consoleObject";
 
 export interface ConsoleGroup {
     type: "group";
     expanded: boolean;
-    header: (ConsoleText | string)[];
+    header: (ConsoleText | ConsoleObject | string)[];
     body: ConsoleSpan[];
 }
 
@@ -16,7 +17,7 @@ export function consoleGroup({
     body,
 }: {
     expanded?: boolean;
-    header?: ConsoleText | string | (ConsoleText | string)[];
+    header?: ConsoleText | string | (ConsoleText | ConsoleObject | string)[];
     body?: ConsoleSpan | ConsoleSpan[];
 } = {}): ConsoleGroup {
     return {
