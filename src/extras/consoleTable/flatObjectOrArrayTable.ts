@@ -23,8 +23,8 @@ export default function flatObjectOrArrayTable(
                           consoleStyles[options.theme].highlight,
                       )
                     : consoleText(
-                          `${key}:`,
-                          consoleStyles[options.theme].dimmed,
+                          `${key}`,
+                        consoleStyles[options.theme].highlight,
                       ),
             ),
             consoleTableCell(
