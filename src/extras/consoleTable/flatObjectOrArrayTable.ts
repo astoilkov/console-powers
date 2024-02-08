@@ -11,10 +11,14 @@ export default function flatObjectOrArrayTable(
     object: object,
     options: Required<ConsoleTableOptions>,
 ): ConsoleText[] {
+    const cellPadding = 2;
     const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
-    const lengthPerColumn = Math.floor(options.lineLength / 2);
+    const valueColumnMaxLength =
+        options.lineLength -
+        cellPadding * 2 -
+        (maxKeyLength(keys) + cellPadding * 2);
     const rows = keys.map((key) => {
         return [
             createTableCell(
@@ -31,7 +35,7 @@ export default function flatObjectOrArrayTable(
             consoleTableCell(
                 object[key as keyof typeof object],
                 options.theme,
-                lengthPerColumn,
+                valueColumnMaxLength,
             ),
         ];
     });
@@ -46,4 +50,12 @@ export default function flatObjectOrArrayTable(
         }
     }
     return spans;
+}
+
+function maxKeyLength(keys: string[]): number {
+    let max = 0;
+    for (const key of keys) {
+        max = Math.max(max, key.length);
+    }
+    return max;
 }
