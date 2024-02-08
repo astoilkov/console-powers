@@ -207,16 +207,21 @@ consoleTable([
         model: 'MacBook Air 13"',
         year: new Date(2020, 10, 23),
         price: { currency: "USD", amount: 999 },
-
+        owner: "astoilkov",
     },
     {
         model: 'MacBook Air 15"',
         year: new Date(2023, 9, 18),
         price: { currency: "USD", amount: 1299 },
+        owner: "erusev",
     },
     {
         model: 'MacBook Pro 13"',
         year: new Date(2019, 11, 2),
         price: { currency: "USD", amount: 1499 },
+        owner: "astoilkov",
     },
 ]);
+
+consoleTable([1]);
+consoleTable([{ type: "new" }]);
