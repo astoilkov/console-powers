@@ -2,6 +2,7 @@ import ConsoleSpan from "./ConsoleSpan";
 import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
 import toFlatSpans from "../utils/toFlatSpans";
+import { ConsoleObject } from "./consoleObject";
 
 interface ConsoleBuffer {
     text: string;
@@ -47,15 +48,18 @@ export default function consolePrint(
 
 function appendBuffer(
     buffer: ConsoleBuffer,
-    spans: (ConsoleText | string)[],
+    spans: (ConsoleText | ConsoleObject | string)[],
 ): void {
     for (const span of spans) {
         if (typeof span === "string") {
             buffer.text += span;
-        } else {
+        } else if (span.type === "text") {
             buffer.text += `%c${span.text}%c`;
             buffer.rest.push(consoleStyleToString(span.style));
             buffer.rest.push("");
+        } else if (span.type === "object") {
+            buffer.text += "%o";
+            buffer.rest.push(span.object);
         }
     }
 }
