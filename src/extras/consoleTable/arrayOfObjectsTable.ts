@@ -4,6 +4,7 @@ import createTableCell, { ConsoleTableCell } from "./createTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import { ConsoleTableOptions } from "../consoleTable";
+import CellBorder from "./CellBorder";
 
 export default function arrayOfObjectsTable(
     array: object[],
@@ -31,10 +32,10 @@ export default function arrayOfObjectsTable(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const row =
-            i === 0 || i === 1 ? "top" : isLastRow ? "bottom" : "middle";
+        const cellBorder = new CellBorder(options.theme);
+        cellBorder.setVertical(rows, i);
         spans.push(
-            ...consoleTableRow(rows[i]!, columnsSize, row, options.theme),
+            ...consoleTableRow(rows[i]!, columnsSize, cellBorder),
         );
         if (!isLastRow) {
             spans.push(consoleText("\n"));

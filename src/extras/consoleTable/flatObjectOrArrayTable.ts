@@ -5,6 +5,7 @@ import consoleStyles from "../../inspect/utils/consoleStyles";
 import consoleTableCell from "./consoleTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
+import CellBorder from "./CellBorder";
 
 export default function flatObjectOrArrayTable(
     object: object,
@@ -24,7 +25,7 @@ export default function flatObjectOrArrayTable(
                       )
                     : consoleText(
                           `${key}`,
-                        consoleStyles[options.theme].highlight,
+                          consoleStyles[options.theme].highlight,
                       ),
             ),
             consoleTableCell(
@@ -37,10 +38,9 @@ export default function flatObjectOrArrayTable(
     const columnsSize = calcColumnsSize(rows);
     for (let i = 0; i < rows.length; i++) {
         const isLastRow = i === rows.length - 1;
-        const row = i === 0 ? "top" : isLastRow ? "bottom" : "middle";
-        spans.push(
-            ...consoleTableRow(rows[i]!, columnsSize, row, options.theme),
-        );
+        const cellBorder = new CellBorder(options.theme);
+        cellBorder.setVertical(rows, i);
+        spans.push(...consoleTableRow(rows[i]!, columnsSize, cellBorder));
         if (!isLastRow) {
             spans.push(consoleText("\n"));
         }
