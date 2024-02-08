@@ -8,11 +8,13 @@ export default function consoleTableRow(
     columnsSize: number[],
     cellBorder: CellBorder,
 ): ConsoleText[] {
+    const cellPadding = 2;
     const spans: ConsoleText[] = [];
     for (let i = 0; i < cells.length; i++) {
-        const padEnd = columnsSize[i]! + 2 - spansLength(cells[i]!.spans);
+        const padEnd =
+            columnsSize[i]! + cellPadding - spansLength(cells[i]!.spans);
         const cellWithPadding = createTableCell([
-            consoleText(" "),
+            consoleText(" ".repeat(cellPadding)),
             ...cells[i]!.spans,
             consoleText(" ".repeat(padEnd)),
         ]);
