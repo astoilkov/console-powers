@@ -4,7 +4,7 @@ export interface ConsoleTableCell {
     spans: ConsoleText[];
 }
 
-export default function createCell(
+export default function createTableCell(
     spans: ConsoleText | ConsoleText[],
 ): ConsoleTableCell {
     return { spans: Array.isArray(spans) ? spans : [spans] };

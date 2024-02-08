@@ -1,6 +1,6 @@
 import { ConsoleTableOptions } from "../consoleTable";
 import { consoleText, ConsoleText } from "../../core/consoleText";
-import createCell from "./createCell";
+import createTableCell from "./createTableCell";
 import consoleStyles from "../../inspect/utils/consoleStyles";
 import consoleTableCell from "./consoleTableCell";
 import calcColumnsSize from "./calcColumnsSize";
@@ -16,7 +16,7 @@ export default function flatObjectOrArrayTable(
     const lengthPerColumn = Math.floor(options.lineLength / keys.length);
     const rows = keys.map((key) => {
         return [
-            createCell(
+            createTableCell(
                 isArray
                     ? consoleText(
                           `[${key}]`,

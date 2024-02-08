@@ -1,4 +1,4 @@
-import createCell, { ConsoleTableCell } from "./createCell";
+import createTableCell, { ConsoleTableCell } from "./createTableCell";
 import { consoleText, ConsoleText } from "../../core/consoleText";
 import spansLength from "../../utils/spansLength";
 import ConsoleStyle from "../../core/ConsoleStyle";
@@ -13,7 +13,7 @@ export default function consoleTableRow(
     const spans: ConsoleText[] = [];
     for (let i = 0; i < cells.length; i++) {
         const padEnd = columnsSize[i]! + 2 - spansLength(cells[i]!.spans);
-        const cellWithPadding = createCell([
+        const cellWithPadding = createTableCell([
             consoleText(" "),
             ...cells[i]!.spans,
             consoleText(" ".repeat(padEnd)),
@@ -56,7 +56,7 @@ function applyCellStyle(
     } satisfies ConsoleStyle;
     if (cell.spans.length > 1) {
         const { borderLeft, borderRight, ...restStyle } = style;
-        return createCell([
+        return createTableCell([
             ...consoleApply(cell.spans[0]!, { ...restStyle, borderLeft }),
             ...consoleApply(cell.spans.slice(1, -1), restStyle),
             ...consoleApply(cell.spans.at(-1)!, {
@@ -65,5 +65,5 @@ function applyCellStyle(
             }),
         ]);
     }
-    return createCell(consoleApply(cell.spans, style));
+    return createTableCell(consoleApply(cell.spans, style));
 }

@@ -1,6 +1,6 @@
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleTableCell from "./consoleTableCell";
-import createCell, { ConsoleTableCell } from "./createCell";
+import createTableCell, { ConsoleTableCell } from "./createTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import { ConsoleTableOptions } from "../consoleTable";
@@ -13,7 +13,7 @@ export default function arrayOfObjectsTable(
     const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
     const lengthPerColumn = Math.floor(options.lineLength / keys.length);
     const rows = [
-        keys.map((key) => createCell(consoleText(key, { fontWeight: "bold" }))),
+        keys.map((key) => createTableCell(consoleText(key, { fontWeight: "bold" }))),
         ...array.map((item) => {
             const row: ConsoleTableCell[] = [];
             for (const key of keys) {

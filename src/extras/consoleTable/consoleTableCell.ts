@@ -1,8 +1,7 @@
 import consoleInline from "../../utils/consoleInline";
 import inspectAny from "../../inspect/inspectors/inspectAny";
-import { ConsoleText } from "../../core/consoleText";
-import ensureConsoleText from "../../utils/ensureConsoleText";
-import { ConsoleTableCell } from "./createCell";
+import { ConsoleText, consoleText } from "../../core/consoleText";
+import createTableCell, { ConsoleTableCell } from "./createTableCell";
 
 export default function consoleTableCell(
     value: unknown,
@@ -12,27 +11,28 @@ export default function consoleTableCell(
     const spans = inspectAny(
         value,
         {
-            lineLength: maxCellLength,
             theme,
+            lineLength: maxCellLength,
             print: false,
             line: false,
             indent: 0,
-            depth: 1,
+            depth: 2,
         },
         {
             depth: 1,
             indent: 0,
         },
-    );
-    if (
-        spans.every(
-            (span): span is string | ConsoleText =>
-                typeof span === "string" || span.type === "text",
-        )
-    ) {
-        return { spans: spans.map((span) => ensureConsoleText(span)) };
-    }
-    return {
-        spans: [consoleInline(value, theme)],
-    };
+    ).map((span) => {
+        return typeof span === "string"
+            ? consoleText(span)
+            : span.type === "object"
+              ? consoleInline(span, theme)
+              : span;
+    });
+    return spans.every(
+        (span): span is ConsoleText =>
+            span.type === "text" && !span.text.includes("\n"),
+    )
+        ? createTableCell(spans)
+        : createTableCell(consoleInline(value, theme));
 }
