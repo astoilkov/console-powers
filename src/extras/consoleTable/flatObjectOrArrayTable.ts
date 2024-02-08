@@ -14,7 +14,7 @@ export default function flatObjectOrArrayTable(
     const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
-    const lengthPerColumn = Math.floor(options.lineLength / keys.length);
+    const lengthPerColumn = Math.floor(options.lineLength / 2);
     const rows = keys.map((key) => {
         return [
             createTableCell(

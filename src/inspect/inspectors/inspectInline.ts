@@ -1,9 +1,9 @@
-import { consoleText, ConsoleText } from "../core/consoleText";
-import isPrimitive from "./isPrimitive";
-import inspectPrimitive from "../inspect/inspectors/inspectPrimitive";
-import isIterable from "./isIterable";
+import { consoleText, ConsoleText } from "../../core/consoleText";
+import isPrimitive from "../../utils/isPrimitive";
+import inspectPrimitive from "./inspectPrimitive";
+import isIterable from "../../utils/isIterable";
 
-export default function consoleInline(
+export default function inspectInline(
     value: unknown,
     theme: "light" | "dark",
 ): ConsoleText {

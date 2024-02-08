@@ -1,4 +1,4 @@
-export default function defaultLineLength(): number {
+export default function guessAvailableLength(): number {
     // - if a window is 1400px wide, a DevTools window positioned horizontally
     //   will have around 1150 space for printing characters on one line. note
     //   that this is variable due to the right side being taken by the name of

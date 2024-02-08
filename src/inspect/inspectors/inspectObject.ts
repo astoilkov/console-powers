@@ -1,4 +1,3 @@
-import ConsoleSpan from "../../core/ConsoleSpan";
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
@@ -8,9 +7,8 @@ import {
     ConsoleInspectOptions,
 } from "../consoleInspect";
 import { Primitive } from "type-fest";
-import inspectPrimitive from "./inspectPrimitive";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
-import { consoleObject } from "../../core/consoleObject";
+import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
 import isPlainObject from "is-plain-obj";
@@ -19,17 +17,18 @@ export default function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleSpan[] {
+): (ConsoleText | ConsoleObject)[] {
     if (!isPlainObject(object)) {
         return [consoleObject(object)];
     }
 
-    if (hasOnlyPrimitives(object)) {
+    if (options.wrap !== "auto" || hasOnlyPrimitives(object)) {
         const singleLine = singleLineObject(
             object as Record<string | number | symbol, Primitive>,
             options,
+            context,
         );
-        if (spansLength(singleLine) + context.indent <= options.lineLength) {
+        if (spansLength(singleLine) + context.indent <= context.wrap) {
             return singleLine;
         }
     }
@@ -44,8 +43,9 @@ export default function inspectObject(
 function singleLineObject(
     value: Record<string | number | symbol, Primitive>,
     options: Required<ConsoleInspectOptions>,
-): ConsoleText[] {
-    const spans: ConsoleText[] = [consoleText("{ ")];
+    context: ConsoleInspectContext,
+): (ConsoleText | ConsoleObject)[] {
+    const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{ ")];
 
     let isFirst = true;
     for (const key in value) {
@@ -56,7 +56,13 @@ function singleLineObject(
         }
         spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
-        spans.push(inspectPrimitive(value[key], options.theme));
+        spans.push(
+            ...inspectAny(value[key], options, {
+                ...context,
+                indent: 0,
+                depth: context.depth + 1,
+            }),
+        );
     }
 
     spans.push(consoleText(" }"));
@@ -68,8 +74,8 @@ function multiLineObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleSpan[] {
-    const spans: ConsoleSpan[] = [];
+): (ConsoleText | ConsoleObject)[] {
+    const spans: (ConsoleText | ConsoleObject)[] = [];
     const sortedKeys = sortKeys(object);
     const maxLength = maxKeyLength(object);
 
@@ -92,6 +98,7 @@ function multiLineObject(
         ) {
             spans.push(
                 ...inspectAny(value, options, {
+                    wrap: context.wrap,
                     indent: context.indent,
                     depth: context.depth + 1,
                 }),
@@ -100,6 +107,7 @@ function multiLineObject(
             spans.push(consoleText("\n"));
             spans.push(
                 ...inspectAny(value, options, {
+                    wrap: context.wrap,
                     indent: context.indent + options.indent,
                     depth: context.depth + 1,
                 }),

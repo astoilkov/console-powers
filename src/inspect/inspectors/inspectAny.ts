@@ -3,16 +3,15 @@ import inspectObject from "./inspectObject";
 import isIterable from "../../utils/isIterable";
 import isPrimitive from "../../utils/isPrimitive";
 import inspectPrimitive from "./inspectPrimitive";
-import { consoleText } from "../../core/consoleText";
-import ConsoleSpan from "../../core/ConsoleSpan";
-import { consoleObject } from "../../core/consoleObject";
+import { ConsoleText, consoleText } from "../../core/consoleText";
+import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import { ConsoleInspectContext, ConsoleInspectOptions } from "../consoleInspect";
 
 export default function inspectAny(
     value: unknown,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): ConsoleSpan[] {
+): (ConsoleText | ConsoleObject)[] {
     if (isPrimitive(value)) {
         return [inspectPrimitive(value, options.theme)];
     } else if (Array.isArray(value) || isIterable(value)) {
