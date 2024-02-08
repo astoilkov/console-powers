@@ -45,12 +45,13 @@ function singleLineObject(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): (ConsoleText | ConsoleObject)[] {
-    const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{ ")];
+    const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{")];
 
     let isFirst = true;
     for (const key in object) {
         if (isFirst) {
             isFirst = false;
+            spans.push(consoleText(" "));
         } else {
             spans.push(consoleText(", "));
         }
@@ -63,9 +64,10 @@ function singleLineObject(
                 depth: context.depth + 1,
             }),
         );
+        spans.push(consoleText(" "));
     }
 
-    spans.push(consoleText(" }"));
+    spans.push(consoleText("}"));
 
     return spans;
 }
