@@ -13,7 +13,7 @@ import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
 import isPlainObject from "is-plain-obj";
 
-export default function inspectObject(
+export function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
@@ -23,7 +23,7 @@ export default function inspectObject(
     }
 
     if (options.wrap !== "auto" || hasOnlyPrimitives(object)) {
-        const singleLine = singleLineObject(
+        const singleLine = inspectObjectSingleLine(
             object as Record<string | number | symbol, Primitive>,
             options,
             context,
@@ -37,10 +37,10 @@ export default function inspectObject(
         return [consoleObject(object)];
     }
 
-    return multiLineObject(object, options, context);
+    return inspectObjectMultiLine(object, options, context);
 }
 
-function singleLineObject(
+export function inspectObjectSingleLine(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
@@ -69,7 +69,7 @@ function singleLineObject(
     return index === 0 ? [consoleText("{}")] : spans;
 }
 
-function multiLineObject(
+export function inspectObjectMultiLine(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,

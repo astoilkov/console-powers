@@ -21,7 +21,7 @@ function findOptimalExpansion(
     maxCellLength: number,
 ): ConsoleText[] | undefined {
     let optimal: ConsoleText[] | undefined;
-    let depth = 1;
+    let depth = 0;
     while (true) {
         let hasObject = false;
         const spans = inspectAny(

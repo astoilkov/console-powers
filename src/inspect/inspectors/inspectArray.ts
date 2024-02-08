@@ -11,24 +11,14 @@ import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
 
-export default function inspectArray(
+export function inspectArray(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): (ConsoleText | ConsoleObject)[] {
     if (options.wrap !== "auto" || array.every(isPrimitive)) {
-        const singleLine = singleLineArray(array, options, context);
+        const singleLine = inspectArraySingleLine(array, options, context);
         if (spansLength(singleLine) + context.indent <= context.wrap) {
-            // special case: top-level array
-            // we otherwise can't use groups because they call `consoleFlush()`
-            // if (context.depth === 0) {
-            //     return [
-            //         consoleGroup({
-            //             header: singleLine,
-            //             body: multiLineArray(array, options, context),
-            //         }),
-            //     ];
-            // }
             return singleLine;
         }
     }
@@ -37,10 +27,10 @@ export default function inspectArray(
         return [consoleObject(array)];
     }
 
-    return multiLineArray(array, options, context);
+    return inspectArrayMultiLine(array, options, context);
 }
 
-function singleLineArray(
+export function inspectArraySingleLine(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
@@ -51,17 +41,15 @@ function singleLineArray(
             const spans = inspectAny(value, options, {
                 ...context,
                 depth: context.depth + 1,
-            })
-            return i === 0
-                ? spans
-                : [consoleText(", "), ...spans];
+            });
+            return i === 0 ? spans : [consoleText(", "), ...spans];
         }),
         consoleText("]"),
         consoleText(` (${array.length})`, consoleStyles[options.theme].dimmed),
     ];
 }
 
-function multiLineArray(
+export function inspectArrayMultiLine(
     array: unknown[],
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
