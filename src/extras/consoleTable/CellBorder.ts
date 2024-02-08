@@ -4,7 +4,7 @@ import consoleApply from "../../core/consoleApply";
 
 export default class CellBorder {
     #borderStyle: string;
-    #style: ConsoleStyle = { lineHeight: '1.8' };
+    #style: ConsoleStyle = { lineHeight: "1.8" };
 
     constructor(theme: "light" | "dark") {
         this.#borderStyle = theme === "light" ? "black" : "#474747";
@@ -14,7 +14,7 @@ export default class CellBorder {
         if (index === 0) {
             this.#style.borderTop = `1px solid ${this.#borderStyle}`;
         }
-        if (index === rows.length - 1) {
+        if (index === 0 || index === rows.length - 1) {
             this.#style.borderBottom = `1px solid ${this.#borderStyle}`;
         }
     }
