@@ -18,7 +18,7 @@ export default function inspectPrimitive(
     } else if (type === "bigint") {
         return consoleText(`${String(value)}n`, consoleStyles[theme].bigint);
     } else if (type === "string") {
-        const string = String(value);
+        const string = prepareString(value)
         if (string.length > 100) {
             return consoleText(
                 `'${string.slice(0, 50)}…${string.slice(-49)}'`,
@@ -27,7 +27,7 @@ export default function inspectPrimitive(
         }
         return consoleText(`'${string}'`, consoleStyles[theme].string);
     } else if (type === "symbol") {
-        return consoleText(String(value), consoleStyles[theme].string);
+        return consoleText(prepareString(value), consoleStyles[theme].string);
     } else if (value instanceof Date) {
         if (
             value.getHours() === 0 &&
@@ -45,5 +45,12 @@ export default function inspectPrimitive(
     }
 
     // fallback
-    return consoleText(String(value));
+    return consoleText(prepareString(value));
+}
+
+function prepareString(string: unknown): string {
+    return String(string)
+        .replace(/\n/gu, "\\n")
+        .replace(/\t/gu, "\\t")
+        .replace(/\r/gu, "\\r");
 }

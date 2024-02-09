@@ -166,6 +166,7 @@ const nestedObject1 = {
     object: { type: "value", increment: 1 },
     priorities: [3, 7],
     type: "group",
+    withNewLine: '- 1\n-2'
 };
 consoleInspect(nestedObject1);
 consoleInspect(nestedObject1, {
