@@ -1,84 +1,68 @@
 import ConsoleSpan from "./ConsoleSpan";
-import { ConsoleText } from "./consoleText";
 import ConsoleStyle from "./ConsoleStyle";
 import toFlatSpans from "../utils/toFlatSpans";
-import { ConsoleObject } from "./consoleObject";
-
-interface ConsoleBuffer {
-    text: string;
-    rest: (string | object)[];
-}
 
 export default function consolePrint(
     ...args: (ConsoleSpan | ConsoleSpan[] | ConsoleSpan[][])[]
 ): void {
-    const buffer: ConsoleBuffer = {
-        text: "",
-        rest: [],
-    };
-
+    const buffer = new ConsoleBuffer();
     const spans = toFlatSpans(...args);
-    for (const span of spans) {
-        if (typeof span === "string" || span.type === "text") {
-            appendBuffer(buffer, [span]);
-        } else if (span.type === "object") {
-            buffer.text += "%o";
-            buffer.rest.push(span.object);
-        } else if (span.type === "flush") {
-            flushBuffer(buffer);
-        } else if (span.type === "group") {
-            flushBuffer(buffer);
+    buffer.append(spans);
+    buffer.flush();
+}
 
-            appendBuffer(buffer, span.header);
+class ConsoleBuffer {
+    #text = "";
+    #rest: (string | object)[] = [];
 
-            if (span.expanded) {
-                console.group(buffer.text, ...buffer.rest);
-            } else {
-                console.groupCollapsed(buffer.text, ...buffer.rest);
+    append(spans: ConsoleSpan | ConsoleSpan[]): void {
+        spans = Array.isArray(spans) ? spans : [spans];
+        for (const span of spans) {
+            if (typeof span === "string") {
+                this.#text += span;
+            } else if (span.type === "text") {
+                this.#text += `%c${span.text}%c`;
+                this.#rest.push(this.#consoleStyleToString(span.style));
+                this.#rest.push("");
+            } else if (span.type === "object") {
+                this.#text += "%o";
+                this.#rest.push(span.object);
+            } else if (span.type === "group") {
+                this.flush();
+
+                this.append(span.header);
+
+                if (span.expanded) {
+                    console.group(this.#text, ...this.#rest);
+                } else {
+                    console.groupCollapsed(this.#text, ...this.#rest);
+                }
+
+                consolePrint(span.body);
+
+                console.groupEnd();
+            } else if (span.type === "flush") {
+                this.flush();
             }
-
-            consolePrint(span.body);
-
-            console.groupEnd();
         }
     }
 
-    flushBuffer(buffer);
-}
-
-function appendBuffer(
-    buffer: ConsoleBuffer,
-    spans: (ConsoleText | ConsoleObject | string)[],
-): void {
-    for (const span of spans) {
-        if (typeof span === "string") {
-            buffer.text += span;
-        } else if (span.type === "text") {
-            buffer.text += `%c${span.text}%c`;
-            buffer.rest.push(consoleStyleToString(span.style));
-            buffer.rest.push("");
-        } else if (span.type === "object") {
-            buffer.text += "%o";
-            buffer.rest.push(span.object);
+    flush(): void {
+        if (this.#text !== "") {
+            console.log(this.#text, ...this.#rest);
         }
+        this.#text = "";
+        this.#rest = [];
     }
-}
 
-function flushBuffer(buffer: ConsoleBuffer): void {
-    if (buffer.text !== "") {
-        console.log(buffer.text, ...buffer.rest);
+    #consoleStyleToString(style: ConsoleStyle): string {
+        return Object.entries(style)
+            .map(
+                ([key, value]) =>
+                    `${key.replace(/[A-Z]/g, function (match) {
+                        return "-" + match.toLowerCase();
+                    })}:${value}`,
+            )
+            .join(";");
     }
-    buffer.text = "";
-    buffer.rest = [];
-}
-
-function consoleStyleToString(style: ConsoleStyle): string {
-    return Object.entries(style)
-        .map(
-            ([key, value]) =>
-                `${key.replace(/[A-Z]/g, function (match) {
-                    return "-" + match.toLowerCase();
-                })}:${value}`,
-        )
-        .join(";");
 }
