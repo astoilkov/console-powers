@@ -8,6 +8,8 @@ import { consoleGroup } from "../core/consoleGroup";
 import { inspectArrayMultiLine } from "./inspectors/inspectArray";
 import isPlainObject from "is-plain-obj";
 import { inspectObjectMultiLine } from "./inspectors/inspectObject";
+import { consoleText } from "../core/consoleText";
+import stringExcerpt from "../utils/stringExcerpt";
 
 export interface ConsoleInspectOptions {
     line?: boolean;
@@ -59,6 +61,10 @@ function inspect(
     value: unknown,
     options: Required<ConsoleInspectOptions>,
 ): ConsoleSpan[] {
+    if (typeof value === "string") {
+        return [consoleText(stringExcerpt(value, 10000))];
+    }
+
     const context: ConsoleInspectContext = {
         depth: 0,
         indent: 0,

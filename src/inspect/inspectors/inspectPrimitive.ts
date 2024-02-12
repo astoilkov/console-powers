@@ -1,6 +1,7 @@
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import { Primitive } from "type-fest";
 import consoleStyles from "../utils/consoleStyles";
+import stringExcerpt from "../../utils/stringExcerpt";
 
 export default function inspectPrimitive(
     value: Primitive | Date,
@@ -18,14 +19,10 @@ export default function inspectPrimitive(
     } else if (type === "bigint") {
         return consoleText(`${String(value)}n`, consoleStyles[theme].bigint);
     } else if (type === "string") {
-        const string = prepareString(value)
-        if (string.length > 100) {
-            return consoleText(
-                `'${string.slice(0, 50)}…${string.slice(-49)}'`,
-                consoleStyles[theme].string,
-            );
-        }
-        return consoleText(`'${string}'`, consoleStyles[theme].string);
+        return consoleText(
+            stringExcerpt(prepareString(value), 100),
+            consoleStyles[theme].string,
+        );
     } else if (type === "symbol") {
         return consoleText(prepareString(value), consoleStyles[theme].string);
     } else if (value instanceof Date) {
