@@ -1,6 +1,5 @@
 import consolePrint from "../core/consolePrint";
 import inspectAny from "./inspectors/inspectAny";
-import consoleApply from "../core/consoleApply";
 import ConsoleSpan from "../core/ConsoleSpan";
 import guessAvailableLength from "../utils/guessAvailableLength";
 import isIterable from "../utils/isIterable";
@@ -10,6 +9,8 @@ import isPlainObject from "is-plain-obj";
 import { inspectObjectMultiLine } from "./inspectors/inspectObject";
 import { consoleText } from "../core/consoleText";
 import stringExcerpt from "../utils/stringExcerpt";
+import isPrimitive from "../utils/isPrimitive";
+import consoleApply from "../core/consoleApply";
 
 export interface ConsoleInspectOptions {
     line?: boolean;
@@ -33,28 +34,26 @@ export default function consoleInspect(
     value: unknown,
     options?: ConsoleInspectOptions,
 ): ConsoleSpan[] {
-    const spans = consoleApply(
-        inspect(value, {
-            depth: 2,
-            indent: 4,
-            line: false,
-            wrap: "auto",
-            theme: matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light",
-            print: true,
-            ...options,
-        }),
-        {
-            lineHeight: "1.6",
-        },
-    );
+    const spans = inspect(value, {
+        depth: 2,
+        indent: 4,
+        line: false,
+        wrap: "auto",
+        theme: matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light",
+        print: true,
+        ...options,
+    });
+    const withLineHeight = isPrimitive(value)
+        ? spans
+        : consoleApply(spans, { lineHeight: "1.6" });
 
     if (options?.print !== false) {
-        consolePrint(spans);
+        consolePrint(withLineHeight);
     }
 
-    return spans;
+    return withLineHeight;
 }
 
 function inspect(
