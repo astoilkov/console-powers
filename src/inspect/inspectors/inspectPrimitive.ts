@@ -36,7 +36,7 @@ export default function inspectPrimitive(
                 fontStyle: "italic",
             });
         }
-        return consoleText(value.toLocaleString(), {
+        return consoleText(`${value.toLocaleDateString()} ${value.toLocaleTimeString()}`, {
             fontStyle: "italic",
         });
     }
