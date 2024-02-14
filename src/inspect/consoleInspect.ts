@@ -13,7 +13,6 @@ import isPrimitive from "../utils/isPrimitive";
 import consoleApply from "../core/consoleApply";
 
 export interface ConsoleInspectOptions {
-    line?: boolean;
     indent?: number;
     print?: boolean;
     depth?: number;
@@ -25,7 +24,6 @@ export interface ConsoleInspectOptions {
 }
 
 export interface ConsoleInspectContext {
-    indent: number;
     depth: number;
     wrap: number;
 }
@@ -37,7 +35,6 @@ export default function consoleInspect(
     const spans = inspect(value, {
         depth: 2,
         indent: 4,
-        line: false,
         wrap: "auto",
         theme: matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
@@ -68,7 +65,6 @@ function inspect(
 
     const context: ConsoleInspectContext = {
         depth: 0,
-        indent: 0,
         wrap:
             options.wrap === "auto"
                 ? guessAvailableLength()

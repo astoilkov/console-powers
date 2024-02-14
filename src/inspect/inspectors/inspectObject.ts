@@ -36,7 +36,7 @@ export function inspectObject(
     const inspection = inspectObjectSingleLine(object, options, context);
     if (
         hasOnlyPrimitives(object) &&
-        spansLength(inspection.spans) + context.indent <= context.wrap
+        spansLength(inspection.spans) <= context.wrap
     ) {
         return inspection;
     }
@@ -63,7 +63,6 @@ export function inspectObjectSingleLine(
             options,
             {
                 ...context,
-                indent: 0,
                 depth: context.depth + 1,
             },
         );
@@ -102,7 +101,6 @@ export function inspectObjectMultiLine(
         const inspection = inspectAny(value, options, {
             wrap: context.wrap,
             depth: context.depth + 1,
-            indent: context.indent + options.indent,
         });
         if (inspection.type === "block") {
             spans.push(consoleText("\n"));

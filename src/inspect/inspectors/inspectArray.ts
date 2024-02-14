@@ -20,7 +20,6 @@ export function inspectArray(
         return {
             type: "inline",
             spans: [consoleObject(array)],
-
         };
     }
 
@@ -35,7 +34,7 @@ export function inspectArray(
     const inspection = inspectArraySingleLine(array, options, context);
     if (
         array.every(isPrimitive) &&
-        spansLength(inspection.spans) + context.indent <= context.wrap
+        spansLength(inspection.spans) <= context.wrap
     ) {
         return inspection;
     }
@@ -82,7 +81,6 @@ export function inspectArrayMultiLine(
             const inspection = inspectAny(value, options, {
                 wrap: context.wrap,
                 depth: context.depth + 1,
-                indent: context.indent + options.indent,
             });
             const valueSpans =
                 inspection.type === "block"

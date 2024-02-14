@@ -30,13 +30,11 @@ function findOptimalExpansion(
                 theme,
                 wrap: "single-line",
                 print: false,
-                line: false,
                 indent: 0,
                 depth: depth + 1,
             },
             {
                 depth: depth,
-                indent: 0,
                 wrap: Number.MAX_SAFE_INTEGER,
             },
         ).spans.map((span) => {
