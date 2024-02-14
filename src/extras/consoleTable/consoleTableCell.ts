@@ -39,7 +39,7 @@ function findOptimalExpansion(
                 indent: 0,
                 wrap: Number.MAX_SAFE_INTEGER,
             },
-        ).map((span) => {
+        ).spans.map((span) => {
             return typeof span === "string"
                 ? consoleText(span)
                 : span.type === "object"

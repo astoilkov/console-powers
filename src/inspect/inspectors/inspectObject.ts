@@ -6,35 +6,39 @@ import {
     ConsoleInspectContext,
     ConsoleInspectOptions,
 } from "../consoleInspect";
-import { Primitive } from "type-fest";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { ConsoleObject, consoleObject } from "../../core/consoleObject";
-import createIndent from "../utils/createIndent";
 import spansLength from "../../utils/spansLength";
 import isPlainObject from "is-plain-obj";
+import indent from "../../utils/indent";
+import ConsoleInspection from "../utils/ConsoleInspection";
 
 export function inspectObject(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): (ConsoleText | ConsoleObject)[] {
-    if (!isPlainObject(object)) {
-        return [consoleObject(object)];
+): ConsoleInspection {
+    if (!isPlainObject(object) || context.depth >= options.depth) {
+        return {
+            type: "inline",
+            spans: [consoleObject(object)],
+        };
     }
 
-    if (options.wrap !== "auto" || hasOnlyPrimitives(object)) {
-        const singleLine = inspectObjectSingleLine(
-            object as Record<string | number | symbol, Primitive>,
-            options,
-            context,
-        );
-        if (spansLength(singleLine) + context.indent <= context.wrap) {
-            return singleLine;
-        }
+    if (options.wrap === "single-line") {
+        return inspectObjectSingleLine(object, options, context);
     }
 
-    if (context.depth >= options.depth) {
-        return [consoleObject(object)];
+    if (options.wrap === "multi-line") {
+        return inspectObjectMultiLine(object, options, context);
+    }
+
+    const inspection = inspectObjectSingleLine(object, options, context);
+    if (
+        hasOnlyPrimitives(object) &&
+        spansLength(inspection.spans) + context.indent <= context.wrap
+    ) {
+        return inspection;
     }
 
     return inspectObjectMultiLine(object, options, context);
@@ -44,7 +48,7 @@ export function inspectObjectSingleLine(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): (ConsoleText | ConsoleObject)[] {
+): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{ ")];
 
     let index = 0;
@@ -54,26 +58,32 @@ export function inspectObjectSingleLine(
         }
         spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
-        spans.push(
-            ...inspectAny(object[key as keyof typeof object], options, {
+        const inspection = inspectAny(
+            object[key as keyof typeof object],
+            options,
+            {
                 ...context,
                 indent: 0,
                 depth: context.depth + 1,
-            }),
+            },
         );
+        spans.push(...inspection.spans);
         index += 1;
     }
 
     spans.push(consoleText(" }"));
 
-    return index === 0 ? [consoleText("{}")] : spans;
+    return {
+        type: "inline",
+        spans: index === 0 ? [consoleText("{}")] : spans,
+    };
 }
 
 export function inspectObjectMultiLine(
     object: object,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
-): (ConsoleText | ConsoleObject)[] {
+): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [];
     const sortedKeys = sortKeys(object);
     const maxLength = maxKeyLength(object);
@@ -84,36 +94,24 @@ export function inspectObjectMultiLine(
         }
 
         const key = sortedKeys[i]!;
-        spans.push(...createIndent(context, options));
         spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
         spans.push(consoleText(": "));
         spans.push(consoleText(" ".repeat(maxLength - key.length)));
 
         const value = object[key as keyof typeof object];
-        if (
-            isPrimitive(value) ||
-            hasOnlyPrimitives(value) ||
-            context.depth + 1 >= options.depth
-        ) {
-            spans.push(
-                ...inspectAny(value, options, {
-                    wrap: context.wrap,
-                    indent: context.indent,
-                    depth: context.depth + 1,
-                }),
-            );
-        } else {
+        const inspection = inspectAny(value, options, {
+            wrap: context.wrap,
+            depth: context.depth + 1,
+            indent: context.indent + options.indent,
+        });
+        if (inspection.type === "block") {
             spans.push(consoleText("\n"));
-            spans.push(
-                ...inspectAny(value, options, {
-                    wrap: context.wrap,
-                    indent: context.indent + options.indent,
-                    depth: context.depth + 1,
-                }),
-            );
+            spans.push(...indent(inspection.spans, options.indent));
+        } else {
+            spans.push(...inspection.spans);
         }
     }
-    return spans;
+    return { type: "block", spans };
 }
 
 function maxKeyLength(object: object): number {

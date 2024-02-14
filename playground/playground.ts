@@ -173,6 +173,7 @@ const nestedObject1 = {
     priorities: [3, 7],
     type: "group",
     withNewLine: "- 1\n-2",
+    onePropertyObject: { value: [] }
 };
 consoleInspect(nestedObject1);
 consoleInspect(nestedObject1, {

@@ -50,7 +50,9 @@ export default function consoleInspect(
         : consoleApply(spans, { lineHeight: "1.6" });
 
     if (options?.print !== false) {
-        consolePrint(withLineHeight);
+        consolePrint(
+            consoleApply(withLineHeight, { textOverflow: "ellipsis" }),
+        );
     }
 
     return withLineHeight;
@@ -76,29 +78,28 @@ function inspect(
                     ? 0
                     : options.wrap,
     };
-    const spans = inspectAny(value, options, context);
+    const inspection = inspectAny(value, options, context);
 
     // special case: top-level grouping of array/object
     // we otherwise can't use groups because they call `consoleFlush()`
-    if (
-        !spans.some((span) => span.type === "text" && span.text.includes("\n"))
-    ) {
+    if (inspection.type === "inline") {
         if (Array.isArray(value) || isIterable(value)) {
             return [
                 consoleGroup({
-                    header: spans,
-                    body: inspectArrayMultiLine([...value], options, context),
+                    header: inspection.spans,
+                    body: inspectArrayMultiLine([...value], options, context)
+                        .spans,
                 }),
             ];
         } else if (isPlainObject(value)) {
             return [
                 consoleGroup({
-                    header: spans,
-                    body: inspectObjectMultiLine(value, options, context),
+                    header: inspection.spans,
+                    body: inspectObjectMultiLine(value, options, context).spans,
                 }),
             ];
         }
     }
 
-    return spans;
+    return inspection.spans;
 }
