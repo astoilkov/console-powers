@@ -17,9 +17,15 @@ export default function inspectAny(
 ): ConsoleInspection {
     if (isPrimitive(value)) {
         return {
-            type: 'inline',
-            spans: [inspectPrimitive(value, options.theme)],
-        }
+            type: "inline",
+            spans: [
+                inspectPrimitive(
+                    value,
+                    options.theme,
+                    Math.round(context.wrap),
+                ),
+            ],
+        };
     } else if (Array.isArray(value) || isIterable(value)) {
         const array = [...value];
         return inspectArray(array, options, context);
@@ -29,7 +35,7 @@ export default function inspectAny(
 
     // fallback
     return {
-        type: 'inline',
-        spans: [consoleText(String(value))]
-    }
+        type: "inline",
+        spans: [consoleText(String(value))],
+    };
 }

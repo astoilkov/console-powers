@@ -6,6 +6,7 @@ import stringExcerpt from "../../utils/stringExcerpt";
 export default function inspectPrimitive(
     value: Primitive | Date,
     theme: "light" | "dark",
+    maxStringLength: number = 100,
 ): ConsoleText {
     const type = typeof value;
     if (value === undefined) {
@@ -20,7 +21,7 @@ export default function inspectPrimitive(
         return consoleText(`${String(value)}n`, consoleStyles[theme].bigint);
     } else if (type === "string") {
         return consoleText(
-            stringExcerpt(prepareString(value), 100),
+            stringExcerpt(prepareString(value), maxStringLength),
             consoleStyles[theme].string,
         );
     } else if (type === "symbol") {

@@ -79,7 +79,7 @@ export function inspectArrayMultiLine(
         spans: array.flatMap((value, i) => {
             const indexText = `[${i}]: `;
             const inspection = inspectAny(value, options, {
-                wrap: context.wrap,
+                wrap: context.wrap - indexText.length - options.indent,
                 depth: context.depth + 1,
             });
             const valueSpans =
