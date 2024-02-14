@@ -21,7 +21,7 @@ export default function inspectPrimitive(
         return consoleText(`${String(value)}n`, consoleStyles[theme].bigint);
     } else if (type === "string") {
         return consoleText(
-            stringExcerpt(prepareString(value), maxStringLength),
+            stringExcerpt(`'${prepareString(value)}'`, maxStringLength),
             consoleStyles[theme].string,
         );
     } else if (type === "symbol") {
