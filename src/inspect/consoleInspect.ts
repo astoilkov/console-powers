@@ -47,9 +47,7 @@ export default function consoleInspect(
         : consoleApply(spans, { lineHeight: "1.6" });
 
     if (options?.print !== false) {
-        consolePrint(
-            consoleApply(withLineHeight, { textOverflow: "ellipsis" }),
-        );
+        consolePrint(withLineHeight);
     }
 
     return withLineHeight;
