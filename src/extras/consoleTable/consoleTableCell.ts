@@ -28,10 +28,10 @@ function findOptimalExpansion(
             value,
             {
                 theme,
-                wrap: "single-line",
-                print: false,
                 indent: 0,
+                print: false,
                 depth: depth + 1,
+                wrap: "single-line",
             },
             {
                 depth: depth,
