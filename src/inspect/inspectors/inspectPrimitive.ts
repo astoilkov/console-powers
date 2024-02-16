@@ -21,7 +21,10 @@ export default function inspectPrimitive(
         return consoleText(`${String(value)}n`, consoleStyles[theme].bigint);
     } else if (type === "string") {
         return consoleText(
-            stringExcerpt(`'${prepareString(value)}'`, maxStringLength),
+            `'${stringExcerpt(
+                prepareString(value),
+                Math.max(maxStringLength - 2, 0),
+            )}'`,
             consoleStyles[theme].string,
         );
     } else if (type === "symbol") {
@@ -37,9 +40,12 @@ export default function inspectPrimitive(
                 fontStyle: "italic",
             });
         }
-        return consoleText(`${value.toLocaleDateString()} ${value.toLocaleTimeString()}`, {
-            fontStyle: "italic",
-        });
+        return consoleText(
+            `${value.toLocaleDateString()} ${value.toLocaleTimeString()}`,
+            {
+                fontStyle: "italic",
+            },
+        );
     }
 
     // fallback

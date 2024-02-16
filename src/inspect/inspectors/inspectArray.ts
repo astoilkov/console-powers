@@ -79,8 +79,8 @@ export function inspectArrayMultiLine(
         spans: array.flatMap((value, i) => {
             const indexText = `[${i}]: `;
             const inspection = inspectAny(value, options, {
-                wrap: context.wrap - indexText.length - options.indent,
                 depth: context.depth + 1,
+                wrap: Math.max(context.wrap - indexText.length - options.indent, 0),
             });
             const valueSpans =
                 inspection.type === "block"

@@ -7,6 +7,5 @@ export default function guessAvailableLength(): number {
     // - then, each character is around 6.6px wide
     const CHAR_WIDTH = 6.6;
     const DEV_TOOLS_MARGINS = 250;
-    console.log(Math.round((window.innerWidth - DEV_TOOLS_MARGINS) / CHAR_WIDTH))
-    return Math.round((window.innerWidth - DEV_TOOLS_MARGINS) / CHAR_WIDTH);
+    return Math.round((window.outerWidth - DEV_TOOLS_MARGINS) / CHAR_WIDTH);
 }
