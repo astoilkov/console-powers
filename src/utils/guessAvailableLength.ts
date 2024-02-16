@@ -6,6 +6,12 @@ export default function guessAvailableLength(): number {
     // - then, you have around 250px of margins that DevTools is adding
     // - then, each character is around 6.6px wide
     const CHAR_WIDTH = 6.6;
-    const DEV_TOOLS_MARGINS = 250;
-    return Math.round((window.outerWidth - DEV_TOOLS_MARGINS) / CHAR_WIDTH);
+    const DEV_TOOLS_CONSOLE_X_PADDING = 28;
+    // taken by DevTools for displaying the filename where the console.log() was called
+    const DEV_TOOLS_EXTRA_RIGHT_SPACING = 200;
+    const guessedAvailableWidth =
+        window.outerWidth -
+        DEV_TOOLS_CONSOLE_X_PADDING * 2 -
+        DEV_TOOLS_EXTRA_RIGHT_SPACING;
+    return Math.round(guessedAvailableWidth / CHAR_WIDTH);
 }
