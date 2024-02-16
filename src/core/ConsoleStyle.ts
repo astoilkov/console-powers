@@ -1,3 +1,4 @@
+// https://developer.mozilla.org/en-US/docs/Web/API/console#styling_console_output
 export default interface ConsoleStyle {
     // removed because:
     // - it doesn't work in Chrome DevTools (don't know about other browsers)
