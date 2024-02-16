@@ -57,12 +57,12 @@ class ConsoleBuffer {
 
     #consoleStyleToString(style: ConsoleStyle): string {
         return Object.entries(style)
-            .map(
-                ([key, value]) =>
-                    `${key.replace(/[A-Z]/g, function (match) {
-                        return "-" + match.toLowerCase();
-                    })}:${value}`,
-            )
+            .filter(([_, value]) => value !== undefined && value !== null)
+            .map(([key, value]) => {
+                return `${key.replace(/[A-Z]/g, function (match) {
+                    return "-" + match.toLowerCase();
+                })}:${value}`;
+            })
             .join(";");
     }
 }
