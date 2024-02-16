@@ -21,9 +21,22 @@ class ConsoleBuffer {
             if (typeof span === "string") {
                 this.#text += span;
             } else if (span.type === "text") {
-                this.#text += `%c${span.text}%c`;
-                this.#rest.push(this.#consoleStyleToString(span.style));
-                this.#rest.push("");
+                // splitting allows text wrapping in DevTools
+                if (this.#canSplit(span.style)) {
+                    const splits = span.text.split(" ");
+                    this.#text +=
+                        splits.map((split) => `%c${split}`).join(" ") + "%c";
+                    this.#rest.push(
+                        ...new Array(splits.length).fill(
+                            this.#consoleStyleToString(span.style),
+                        ),
+                    );
+                    this.#rest.push("");
+                } else {
+                    this.#text += `%c${span.text}%c`;
+                    this.#rest.push(this.#consoleStyleToString(span.style));
+                    this.#rest.push("");
+                }
             } else if (span.type === "object") {
                 this.#text += "%o";
                 this.#rest.push(span.object);
@@ -64,5 +77,16 @@ class ConsoleBuffer {
                 })}:${value}`;
             })
             .join(";");
+    }
+
+    #canSplit(style: ConsoleStyle): boolean {
+        const allowed = ["color", "background", "fontWeight", "lineHeight"];
+        const keys = Object.keys(style);
+        for (const key of keys) {
+            if (!allowed.includes(key)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
