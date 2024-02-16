@@ -80,7 +80,10 @@ export function inspectArrayMultiLine(
             const indexText = `[${i}]: `;
             const inspection = inspectAny(value, options, {
                 depth: context.depth + 1,
-                wrap: Math.max(context.wrap - indexText.length - options.indent, 0),
+                wrap: Math.max(
+                    context.wrap - Math.max(indexText.length, options.indent),
+                    0,
+                ),
             });
             const valueSpans =
                 inspection.type === "block"

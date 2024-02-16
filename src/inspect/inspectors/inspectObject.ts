@@ -100,7 +100,10 @@ export function inspectObjectMultiLine(
         const value = object[key as keyof typeof object];
         const inspection = inspectAny(value, options, {
             depth: context.depth + 1,
-            wrap: Math.max(context.wrap - maxLength - 2 - options.indent, 0),
+            wrap: Math.max(
+                context.wrap - Math.max(maxLength - 2, options.indent),
+                0,
+            ),
         });
         if (inspection.type === "block") {
             spans.push(consoleText("\n"));
