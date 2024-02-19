@@ -6,7 +6,7 @@ import {
     ConsoleInspectContext,
     ConsoleInspectOptions,
 } from "../consoleInspect";
-import { inspectArray } from "./inspectArray";
+import { inspectIterable } from "./inspectIterable";
 import { inspectObject } from "./inspectObject";
 import ConsoleInspection from "../utils/ConsoleInspection";
 
@@ -27,8 +27,7 @@ export default function inspectAny(
             ],
         };
     } else if (Array.isArray(value) || isIterable(value)) {
-        const array = [...value];
-        return inspectArray(array, options, context);
+        return inspectIterable(value, options, context);
     } else if (typeof value === "object" && value !== null) {
         return inspectObject(value, options, context);
     }

@@ -1,57 +1,57 @@
 import { consoleText } from "../../core/consoleText";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
-import {
-    ConsoleInspectContext,
-    ConsoleInspectOptions,
-} from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions, } from "../consoleInspect";
 import { consoleObject } from "../../core/consoleObject";
 import spansLength from "../../utils/spansLength";
 import indent from "../../utils/indent";
 import isPrimitive from "../../utils/isPrimitive";
 import ConsoleInspection from "../utils/ConsoleInspection";
 
-export function inspectArray(
-    array: unknown[],
+export function inspectIterable(
+    iterable: Iterable<unknown>,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
     if (context.depth >= options.depth) {
         return {
             type: "inline",
-            spans: [consoleObject(array)],
+            spans: [consoleObject(iterable)],
         };
     }
 
     if (options.wrap === "single-line") {
-        return inspectArraySingleLine(array, options, context);
+        return inspectIterableSingleLine(iterable, options, context);
     }
 
     if (options.wrap === "multi-line") {
-        return inspectArrayMultiLine(array, options, context);
+        return inspectIterableMultiLine(iterable, options, context);
     }
 
     // wrap is "auto", try to fit on one line
-    const inspection = inspectArraySingleLine(array, options, context);
+    const inspection = inspectIterableSingleLine(iterable, options, context);
     if (
-        array.every(isPrimitive) &&
-        spansLength(inspection.spans) <= context.wrap
+        spansLength(inspection.spans) <= context.wrap &&
+        toArray(iterable).every(isPrimitive)
     ) {
         return inspection;
     }
 
-    return inspectArrayMultiLine(array, options, context);
+    return inspectIterableMultiLine(iterable, options, context);
 }
 
-export function inspectArraySingleLine(
-    array: unknown[],
+export function inspectIterableSingleLine(
+    iterable: Iterable<unknown>,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
+    const array = toArray(iterable);
+    const isSet = iterable instanceof Set;
+    const modifier = isSet ? 'Set' : ''
     return {
         type: "inline",
         spans: [
-            consoleText("["),
+            consoleText(isSet ? '{' : "["),
             ...array.flatMap((value, i) => {
                 const inspection = inspectAny(value, options, {
                     ...context,
@@ -61,20 +61,21 @@ export function inspectArraySingleLine(
                     ? inspection.spans
                     : [consoleText(", "), ...inspection.spans];
             }),
-            consoleText("]"),
+            consoleText(isSet ? '}' : "]"),
             consoleText(
-                ` (${array.length})`,
+                ` ${modifier}(${array.length})`,
                 consoleStyles[options.theme].dimmed,
             ),
         ],
     };
 }
 
-export function inspectArrayMultiLine(
-    array: unknown[],
+export function inspectIterableMultiLine(
+    iterable: Iterable<unknown>,
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
+    const array = toArray(iterable);
     return {
         type: "block",
         spans: array.flatMap((value, i) => {
@@ -100,4 +101,8 @@ export function inspectArrayMultiLine(
             ];
         }),
     };
+}
+
+function toArray(iterable: Iterable<unknown>): unknown[] {
+    return Array.isArray(iterable) ? iterable : [...iterable];
 }
