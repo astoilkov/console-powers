@@ -6,19 +6,20 @@ import consoleTableCell from "./consoleTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import CellBorder from "./CellBorder";
+import guessAvailableLength from "../../utils/guessAvailableLength";
 
 export default function flatObjectOrArrayTable(
     object: object,
     options: Required<ConsoleTableOptions>,
 ): ConsoleText[] {
     const cellPadding = 2;
+    const wrap =
+        options.wrap === "auto" ? guessAvailableLength() : options.wrap;
     const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);
     const valueColumnMaxLength =
-        options.lineLength -
-        cellPadding * 2 -
-        (maxKeyLength(keys) + cellPadding * 2);
+        wrap - cellPadding * 2 - (maxKeyLength(keys) + cellPadding * 2);
     const rows = keys.map((key) => {
         return [
             createTableCell(

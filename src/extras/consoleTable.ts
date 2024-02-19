@@ -1,14 +1,13 @@
 import { ConsoleText } from "../core/consoleText";
 import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
 import consolePrint from "../core/consolePrint";
-import guessAvailableLength from "../utils/guessAvailableLength";
 import arrayOfObjectsTable from "./consoleTable/arrayOfObjectsTable";
 import flatObjectOrArrayTable from "./consoleTable/flatObjectOrArrayTable";
 
 export type ConsoleTableOptions = {
     print?: boolean;
     theme?: "light" | "dark";
-    lineLength?: number;
+    wrap?: "auto" | number;
 };
 
 export default function consoleTable(
@@ -19,7 +18,7 @@ export default function consoleTable(
         Array.isArray(object) && !hasOnlyPrimitives(object);
     const optionsRequired = {
         print: true,
-        lineLength: guessAvailableLength(),
+        wrap: "auto",
         theme: matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
             : "light",
