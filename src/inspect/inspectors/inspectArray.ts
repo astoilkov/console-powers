@@ -31,6 +31,7 @@ export function inspectArray(
         return inspectArrayMultiLine(array, options, context);
     }
 
+    // wrap is "auto", try to fit on one line
     const inspection = inspectArraySingleLine(array, options, context);
     if (
         array.every(isPrimitive) &&

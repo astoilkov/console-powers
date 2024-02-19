@@ -33,6 +33,7 @@ export function inspectObject(
         return inspectObjectMultiLine(object, options, context);
     }
 
+    // wrap is "auto", try to fit on one line
     const inspection = inspectObjectSingleLine(object, options, context);
     if (
         hasOnlyPrimitives(object) &&
