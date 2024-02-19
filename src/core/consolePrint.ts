@@ -8,7 +8,7 @@ export default function consolePrint(
     const buffer = new ConsoleBuffer();
     const spans = toFlatSpans(...args);
     buffer.append(spans);
-    buffer.flush();
+    buffer.flush('log');
 }
 
 class ConsoleBuffer {
@@ -41,28 +41,24 @@ class ConsoleBuffer {
                 this.#text += "%o";
                 this.#rest.push(span.object);
             } else if (span.type === "group") {
-                this.flush();
+                this.flush('log');
 
                 this.append(span.header);
 
-                if (span.expanded) {
-                    console.group(this.#text, ...this.#rest);
-                } else {
-                    console.groupCollapsed(this.#text, ...this.#rest);
-                }
+                this.flush(span.expanded ? 'group' : 'groupCollapsed');
 
                 consolePrint(span.body);
 
                 console.groupEnd();
             } else if (span.type === "flush") {
-                this.flush();
+                this.flush('log');
             }
         }
     }
 
-    flush(): void {
+    flush(method: 'log' | 'group' | 'groupCollapsed'): void {
         if (this.#text !== "") {
-            console.log(this.#text, ...this.#rest);
+            console[method](this.#text, ...this.#rest);
         }
         this.#text = "";
         this.#rest = [];
