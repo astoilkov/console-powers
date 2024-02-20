@@ -11,7 +11,7 @@ import indent from "../../utils/indent";
 import isPrimitive from "../../utils/isPrimitive";
 import ConsoleInspection from "../utils/ConsoleInspection";
 import inspectInline from "./inspectInline";
-import { inspectObjectMultiLine } from "./inspectObject";
+import { inspectObject } from "./inspectObject";
 
 export function inspectIterable(
     iterable: Iterable<unknown>,
@@ -56,10 +56,13 @@ export function inspectIterableSingleLine(
         spans: [
             consoleText(info.subtype === undefined ? "[" : "{"),
             ...info.array.flatMap((value, i) => {
-                const inspection = inspectAny(value, options, {
-                    ...context,
-                    depth: context.depth + 1,
-                });
+                const inspection =
+                    info.subtype === "Map"
+                        ? inspectEntry(value, options, context)
+                        : inspectAny(value, options, {
+                              ...context,
+                              depth: context.depth + 1,
+                          });
                 return i === 0
                     ? inspection.spans
                     : [consoleText(", "), ...inspection.spans];
@@ -126,7 +129,7 @@ function inspectEntry(
     });
 
     if (!isPrimitive(key)) {
-        return inspectObjectMultiLine({ key, value }, options, {
+        return inspectObject({ key, value }, options, {
             depth: context.depth,
             wrap: Math.max(context.wrap - options.indent, 0),
         });
