@@ -1,12 +1,17 @@
 import { consoleText } from "../../core/consoleText";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
-import { ConsoleInspectContext, ConsoleInspectOptions, } from "../consoleInspect";
+import {
+    ConsoleInspectContext,
+    ConsoleInspectOptions,
+} from "../consoleInspect";
 import { consoleObject } from "../../core/consoleObject";
 import spansLength from "../../utils/spansLength";
 import indent from "../../utils/indent";
 import isPrimitive from "../../utils/isPrimitive";
 import ConsoleInspection from "../utils/ConsoleInspection";
+import inspectInline from "./inspectInline";
+import { inspectObjectMultiLine } from "./inspectObject";
 
 export function inspectIterable(
     iterable: Iterable<unknown>,
@@ -32,7 +37,7 @@ export function inspectIterable(
     const inspection = inspectIterableSingleLine(iterable, options, context);
     if (
         spansLength(inspection.spans) <= context.wrap &&
-        toArray(iterable).every(isPrimitive)
+        iterableInfo(iterable).array.every(isPrimitive)
     ) {
         return inspection;
     }
@@ -45,14 +50,12 @@ export function inspectIterableSingleLine(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
-    const array = toArray(iterable);
-    const isSet = iterable instanceof Set;
-    const modifier = isSet ? 'Set' : ''
+    const info = iterableInfo(iterable);
     return {
         type: "inline",
         spans: [
-            consoleText(isSet ? '{' : "["),
-            ...array.flatMap((value, i) => {
+            consoleText(info.subtype === undefined ? "[" : "{"),
+            ...info.array.flatMap((value, i) => {
                 const inspection = inspectAny(value, options, {
                     ...context,
                     depth: context.depth + 1,
@@ -61,9 +64,9 @@ export function inspectIterableSingleLine(
                     ? inspection.spans
                     : [consoleText(", "), ...inspection.spans];
             }),
-            consoleText(isSet ? '}' : "]"),
+            consoleText(info.subtype === undefined ? "]" : "}"),
             consoleText(
-                ` ${modifier}(${array.length})`,
+                ` ${info.subtype ?? ""}(${info.array.length})`,
                 consoleStyles[options.theme].dimmed,
             ),
         ],
@@ -75,18 +78,22 @@ export function inspectIterableMultiLine(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
-    const array = toArray(iterable);
+    const info = iterableInfo(iterable);
     return {
         type: "block",
-        spans: array.flatMap((value, i) => {
+        spans: info.array.flatMap((value, i) => {
             const indexText = `[${i}]: `;
-            const inspection = inspectAny(value, options, {
-                depth: context.depth + 1,
-                wrap: Math.max(
-                    context.wrap - Math.max(indexText.length, options.indent),
-                    0,
-                ),
-            });
+            const inspection =
+                info.subtype === "Map"
+                    ? inspectEntry(value, options, context)
+                    : inspectAny(value, options, {
+                          depth: context.depth + 1,
+                          wrap: Math.max(
+                              context.wrap -
+                                  Math.max(indexText.length, options.indent),
+                              0,
+                          ),
+                      });
             const valueSpans =
                 inspection.type === "block"
                     ? [
@@ -103,6 +110,45 @@ export function inspectIterableMultiLine(
     };
 }
 
-function toArray(iterable: Iterable<unknown>): unknown[] {
-    return Array.isArray(iterable) ? iterable : [...iterable];
+function inspectEntry(
+    entry: unknown,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
+): ConsoleInspection {
+    const [key, value] = entry as [unknown, unknown];
+    const keySpan = inspectInline(key, options.theme);
+    const valueInspection = inspectAny(value, options, {
+        depth: context.depth + 1,
+        wrap: Math.max(
+            context.wrap - Math.max(keySpan.text.length + 4, options.indent),
+            0,
+        ),
+    });
+
+    if (!isPrimitive(key)) {
+        return inspectObjectMultiLine({ key, value }, options, {
+            depth: context.depth,
+            wrap: Math.max(context.wrap - options.indent, 0),
+        });
+    }
+
+    return {
+        type: valueInspection.type,
+        spans: [keySpan, consoleText(" => "), ...valueInspection.spans],
+    };
+}
+
+function iterableInfo(iterable: Iterable<unknown>): {
+    array: unknown[];
+    subtype: "Set" | "Map" | undefined;
+} {
+    return {
+        subtype:
+            iterable instanceof Set
+                ? "Set"
+                : iterable instanceof Map
+                  ? "Map"
+                  : undefined,
+        array: Array.isArray(iterable) ? iterable : [...iterable],
+    };
 }
