@@ -2,10 +2,7 @@ import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
 import isPrimitive from "../../utils/isPrimitive";
-import {
-    ConsoleInspectContext,
-    ConsoleInspectOptions,
-} from "../consoleInspect";
+import { ConsoleInspectContext, ConsoleInspectOptions, } from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import spansLength from "../../utils/spansLength";
@@ -102,7 +99,7 @@ export function inspectObjectMultiLine(
         const inspection = inspectAny(value, options, {
             depth: context.depth + 1,
             wrap: Math.max(
-                context.wrap - Math.max(maxLength - 2, options.indent),
+                context.wrap - Math.max(maxLength + 2, options.indent),
                 0,
             ),
         });
