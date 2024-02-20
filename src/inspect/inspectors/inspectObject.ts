@@ -91,7 +91,7 @@ export function inspectObjectMultiLine(
         }
 
         const key = sortedKeys[i]!;
-        spans.push(consoleText(key, consoleStyles[options.theme].dimmed));
+        spans.push(consoleText(key, consoleStyles[options.theme].highlight));
         spans.push(consoleText(": "));
         spans.push(consoleText(" ".repeat(maxLength - key.length)));
 
