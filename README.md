@@ -102,11 +102,11 @@ consolePrint(
 );
 ```
 
-## API _(extras)_
+## `consoleInspect()`
+
+A great substitute for `console.log()`. Great for debugging. Similar to `util.inspect()`. 
 
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
-
-Inspects a value. Great for debugging. Similar to `util.inspect()`. A substitute for `console.log()`.
 
 ##### `ConsoleInspectOptions.depth`
 
@@ -146,6 +146,8 @@ Type: `boolean`
 Default: `true`
 
 If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
+
+## `consoleTable()`
 
 #### `consoleTable(value: object, options: ConsoleTableOptions): ConsoleSpan[]`
 
