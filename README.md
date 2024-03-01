@@ -32,25 +32,23 @@ npm install console-powers
 </picture>
 
 ```ts
-consolePrint(
-    consoleTable([
-        {
-            model: 'MacBook Air 13"',
-            year: new Date(2020, 10, 23),
-            price: 999,
-        },
-        {
-            model: 'MacBook Air 15"',
-            year: new Date(2023, 9, 18),
-            price: 1299,
-        },
-        {
-            model: 'MacBook Pro 13"',
-            year: new Date(2019, 11, 2),
-            price: 1499,
-        },
-    ]),
-);
+consoleTable([
+    {
+        model: 'MacBook Air 13"',
+        year: new Date(2020, 10, 23),
+        price: 999,
+    },
+    {
+        model: 'MacBook Air 15"',
+        year: new Date(2023, 9, 18),
+        price: 1299,
+    },
+    {
+        model: 'MacBook Pro 13"',
+        year: new Date(2019, 11, 2),
+        price: 1499,
+    },
+])
 ```
 
 ### `consoleInspect()`
