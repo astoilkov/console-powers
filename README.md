@@ -30,6 +30,8 @@ npm install console-powers
 </picture>
 
 ```ts
+import { consoleTable } from "console-powers";
+
 consoleTable([
     {
         model: 'MacBook Air 13"',
