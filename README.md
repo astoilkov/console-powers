@@ -21,6 +21,13 @@
 npm install console-powers
 ```
 
+## Why
+
+- Debugging large objects with `console.log()` is hard — you either spend time printing only parts or you click multiple times to expand each time.
+- `console.table()` always displays an `(index)` column that adds clutter.
+- `console.table()` doesn't support displaying nested objects in the table cell making it's use limited.
+- Better date/time printing, simpler `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
+
 ## Examples
 
 <picture>
@@ -98,7 +105,7 @@ consolePrint(
 
 ## `consoleInspect()`
 
-A great substitute for `console.log()`. Great for debugging. Similar to `util.inspect()`. 
+Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console. 
 
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
 
@@ -118,7 +125,7 @@ Configure when the algorithm puts things on new lines:
 - `"auto"` — tries to guess the available space and wraps based on it.
 - `"single-line"` — never wraps on new lines, the entire output is a single line.
 - `"multi-line"` — always starts a new line when dwelling into a new object/array.
-- `number` — set the maximum number of characters per line, when it it can't place it, it creates a new line.
+- `number` — set the maximum number of characters per line before it wraps to the next line.
 
 ##### `ConsoleInspectOptions.indent`
 
@@ -142,6 +149,8 @@ Default: `true`
 If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
 
 ## `consoleTable()`
+
+Great for debugging. Especially great when you have an array of objects that aren't deeply nested.
 
 #### `consoleTable(value: object, options: ConsoleTableOptions): ConsoleSpan[]`
 
@@ -172,17 +181,19 @@ Prints the provided spans to the console.
 
 #### `consoleText(text: string, style?: ConsoleStyle): ConsoleSpan`
 
-Creates a styled text in the console.
+Creates a styled text span.
 
 #### `consoleObject(object: object): ConsoleSpan`
 
-An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties (the same thing as doing `console.log(element)` for example).
+An object, class, HTML element. It shows a preview of the object and an option to expand it to see it's properties. The same thing as `console.dirxml(object)`.
 
 #### `consoleApply(spans: ConsoleSpan | ConsoleSpan[], style: ConsoleStyle): ConsoleSpan[]`
 
-Add additional style to all spans.
+Apply additional styles to all provided spans.
 
 #### `consoleGroup(options: ConsoleGroupOptions): ConsoleSpan`
+
+It creates a group using `console.group()` or `console.groupCollapsed()` with the provided `header` and `body`.
 
 ```ts
 consolePrint(
@@ -198,24 +209,33 @@ _Note: The method calls `consoleFlush()` and flushes everything up until now bef
 
 #### `consoleFlush(): ConsoleSpan`
 
-Flushes everything up until now and starts a new `console.log()` line.
+Calls `console.log()` on all spans provided before it. Internally, `consolePrint()` uses `consoleFlush()` at the end.
+
+```ts
+consolePrint(
+    consoleText('take a look at'),
+    consoleObject(object),
+    consoleFlush(),
+    consoleText('this is a new line and a new console.log() statement')
+)
+```
 
 #### `ConsoleStyle`
 
--   [`background`](https://developer.mozilla.org/en-US/docs/Web/CSS/background) and its longhand equivalents
--   [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border) and its longhand equivalents
--   [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
--   [`box-decoration-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break)
--   [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
--   [`clear`](https://developer.mozilla.org/en-US/docs/Web/CSS/clear) and [`float`](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
--   [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
--   [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
--   [`font`](https://developer.mozilla.org/en-US/docs/Web/CSS/font) and its longhand equivalents
--   [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
--   [`margin`](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
--   [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline) and its longhand equivalents
--   [`padding`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
--   `text-*` properties such as [`text-transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)
--   [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
--   [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
--   [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
+- [`background`](https://developer.mozilla.org/en-US/docs/Web/CSS/background) and its longhand equivalents
+- [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border) and its longhand equivalents
+- [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
+- [`box-decoration-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break)
+- [`box-shadow`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
+- [`clear`](https://developer.mozilla.org/en-US/docs/Web/CSS/clear) and [`float`](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
+- [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
+- [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
+- [`font`](https://developer.mozilla.org/en-US/docs/Web/CSS/font) and its longhand equivalents
+- [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
+- [`margin`](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
+- [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline) and its longhand equivalents
+- [`padding`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- `text-*` properties such as [`text-transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)
+- [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
+- [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
+- [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
