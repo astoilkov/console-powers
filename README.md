@@ -23,8 +23,6 @@ npm install console-powers
 
 ## Examples
 
-### `consoleTable()`
-
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
     <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
@@ -51,8 +49,6 @@ consoleTable([
 ])
 ```
 
-### `consoleInspect()`
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
   <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
@@ -78,8 +74,6 @@ consoleInspect({
     },
 });
 ```
-
-### `consolePrint()`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
