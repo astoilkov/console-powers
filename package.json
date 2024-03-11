@@ -41,7 +41,7 @@
         "jsdom": "^22.1.0",
         "np": "^8.0.4",
         "prettier": "^3.0.3",
-        "type-fest": "^4.8.3",
+        "type-fest": "^4.12.0",
         "typescript": "^5.2.2",
         "vitest": "^0.34.6"
     },
