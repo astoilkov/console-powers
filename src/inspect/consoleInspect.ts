@@ -17,7 +17,7 @@ export interface ConsoleInspectOptions {
     print?: boolean;
     depth?: number;
     theme?: "light" | "dark";
-    wrap?: "auto" | "single-line" | "multi-line" | 100;
+    wrap?: "auto" | "single-line" | "multi-line" | number;
     // preferMultiLine?: boolean;
     // preferSingleLine?: boolean;
     // preferTables?: boolean;
