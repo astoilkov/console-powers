@@ -10,8 +10,21 @@ export default function guessAvailableLength(): number {
     // taken by DevTools for displaying the filename where the console.log() was called
     const DEV_TOOLS_EXTRA_RIGHT_SPACING = 200;
     const guessedAvailableWidth =
-        window.outerWidth -
+        guessDevToolsWidth() -
         DEV_TOOLS_CONSOLE_X_PADDING * 2 -
         DEV_TOOLS_EXTRA_RIGHT_SPACING;
     return Math.round(guessedAvailableWidth / CHAR_WIDTH);
+}
+
+function guessDevToolsWidth(): number {
+    const widthDiff = window.outerWidth - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+    if (heightDiff > widthDiff && heightDiff >= 100) {
+        // DevTools horizontal layout
+        return window.innerWidth;
+    } else if (widthDiff > heightDiff && widthDiff >= 250) {
+        // DevTools vertical layout
+        return widthDiff;
+    }
+    return window.outerWidth;
 }
