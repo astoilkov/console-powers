@@ -1,8 +1,10 @@
 import { ConsoleText, consoleText } from "../../core/consoleText";
 import consoleStyles from "../utils/consoleStyles";
 import inspectAny from "./inspectAny";
-import isPrimitive from "../../utils/isPrimitive";
-import { ConsoleInspectContext, ConsoleInspectOptions, } from "../consoleInspect";
+import {
+    ConsoleInspectContext,
+    ConsoleInspectOptions,
+} from "../consoleInspect";
 import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 import { ConsoleObject, consoleObject } from "../../core/consoleObject";
 import spansLength from "../../utils/spansLength";
@@ -82,7 +84,7 @@ export function inspectObjectMultiLine(
     context: ConsoleInspectContext,
 ): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [];
-    const sortedKeys = Object.keys(object)
+    const sortedKeys = Object.keys(object);
     const maxLength = maxKeyLength(object);
 
     for (let i = 0; i < sortedKeys.length; i++) {
