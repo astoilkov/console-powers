@@ -82,7 +82,7 @@ export function inspectObjectMultiLine(
     context: ConsoleInspectContext,
 ): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [];
-    const sortedKeys = sortKeys(object);
+    const sortedKeys = Object.keys(object)
     const maxLength = maxKeyLength(object);
 
     for (let i = 0; i < sortedKeys.length; i++) {
@@ -124,26 +124,26 @@ function maxKeyLength(object: object): number {
 // - primitives first
 // - array/object with only primitives second
 // - array/object with non-primitives third
-function sortKeys(object: object): string[] {
-    return Object.keys(object).sort((a, b) => {
-        const aIsPrimitive = isPrimitive(object[a as keyof typeof object]);
-        const bIsPrimitive = isPrimitive(object[b as keyof typeof object]);
-        const aHasOnlyPrimitives = hasOnlyPrimitives(
-            object[a as keyof typeof object],
-        );
-        const bHasOnlyPrimitives = hasOnlyPrimitives(
-            object[b as keyof typeof object],
-        );
-        if (aIsPrimitive && !bIsPrimitive) {
-            return -1;
-        } else if (!aIsPrimitive && bIsPrimitive) {
-            return 1;
-        } else if (aHasOnlyPrimitives && !bHasOnlyPrimitives) {
-            return -1;
-        } else if (!aHasOnlyPrimitives && bHasOnlyPrimitives) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-}
+// function sortKeys(object: object): string[] {
+//     return Object.keys(object).sort((a, b) => {
+//         const aIsPrimitive = isPrimitive(object[a as keyof typeof object]);
+//         const bIsPrimitive = isPrimitive(object[b as keyof typeof object]);
+//         const aHasOnlyPrimitives = hasOnlyPrimitives(
+//             object[a as keyof typeof object],
+//         );
+//         const bHasOnlyPrimitives = hasOnlyPrimitives(
+//             object[b as keyof typeof object],
+//         );
+//         if (aIsPrimitive && !bIsPrimitive) {
+//             return -1;
+//         } else if (!aIsPrimitive && bIsPrimitive) {
+//             return 1;
+//         } else if (aHasOnlyPrimitives && !bHasOnlyPrimitives) {
+//             return -1;
+//         } else if (!aHasOnlyPrimitives && bHasOnlyPrimitives) {
+//             return 1;
+//         } else {
+//             return 0;
+//         }
+//     });
+// }
