@@ -16,6 +16,7 @@ export interface ConsoleInspectOptions {
     indent?: number;
     print?: boolean;
     depth?: number;
+    keys?: string[];
     theme?: "light" | "dark";
     wrap?: "auto" | "single-line" | "multi-line" | number;
     // preferMultiLine?: boolean;
@@ -26,6 +27,7 @@ export interface ConsoleInspectOptions {
 export interface ConsoleInspectContext {
     depth: number;
     wrap: number;
+    keys: Set<string>
 }
 
 export default function consoleInspect(
@@ -40,6 +42,7 @@ export default function consoleInspect(
             ? "dark"
             : "light",
         print: true,
+        keys: [],
         ...options,
     });
     const withLineHeight = isPrimitive(value)
@@ -63,6 +66,7 @@ function inspect(
 
     const context: ConsoleInspectContext = {
         depth: 0,
+        keys: new Set(options.keys),
         wrap:
             options.wrap === "auto"
                 ? guessAvailableLength()

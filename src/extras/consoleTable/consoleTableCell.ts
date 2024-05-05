@@ -28,6 +28,7 @@ function findOptimalExpansion(
             value,
             {
                 theme,
+                keys: [],
                 indent: 0,
                 print: false,
                 depth: depth + 1,
@@ -35,6 +36,7 @@ function findOptimalExpansion(
             },
             {
                 depth: depth,
+                keys: new Set(),
                 wrap: Number.MAX_SAFE_INTEGER,
             },
         ).spans.map((span) => {

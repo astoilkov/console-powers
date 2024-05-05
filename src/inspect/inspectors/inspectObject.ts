@@ -11,6 +11,7 @@ import spansLength from "../../utils/spansLength";
 import isPlainObject from "is-plain-obj";
 import indent from "../../utils/indent";
 import ConsoleInspection from "../utils/ConsoleInspection";
+import keys from "../../utils/keys";
 
 export function inspectObject(
     object: object,
@@ -52,7 +53,7 @@ export function inspectObjectSingleLine(
     const spans: (ConsoleText | ConsoleObject)[] = [consoleText("{ ")];
 
     let index = 0;
-    for (const key in object) {
+    for (const key of keys(object, context.keys)) {
         if (index !== 0) {
             spans.push(consoleText(", "));
         }
@@ -84,7 +85,7 @@ export function inspectObjectMultiLine(
     context: ConsoleInspectContext,
 ): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [];
-    const sortedKeys = Object.keys(object);
+    const sortedKeys = keys(object, context.keys)
     const maxLength = maxKeyLength(object);
 
     for (let i = 0; i < sortedKeys.length; i++) {
@@ -99,6 +100,7 @@ export function inspectObjectMultiLine(
 
         const value = object[key as keyof typeof object];
         const inspection = inspectAny(value, options, {
+            keys: context.keys,
             depth: context.depth + 1,
             wrap: Math.max(
                 context.wrap - Math.max(maxLength + 2, options.indent),

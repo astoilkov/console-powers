@@ -90,6 +90,7 @@ export function inspectIterableMultiLine(
                 info.subtype === "Map"
                     ? inspectEntry(value, options, context)
                     : inspectAny(value, options, {
+                          keys: context.keys,
                           depth: context.depth + 1,
                           wrap: Math.max(
                               context.wrap -
@@ -121,6 +122,7 @@ function inspectEntry(
     const [key, value] = entry as [unknown, unknown];
     const keySpan = inspectInline(key, options.theme);
     const valueInspection = inspectAny(value, options, {
+        keys: context.keys,
         depth: context.depth + 1,
         wrap: Math.max(
             context.wrap - Math.max(keySpan.text.length + 4, options.indent),
@@ -130,6 +132,7 @@ function inspectEntry(
 
     if (!isPrimitive(key)) {
         return inspectObject({ key, value }, options, {
+            keys: context.keys,
             depth: context.depth,
             wrap: Math.max(context.wrap - options.indent, 0),
         });
