@@ -117,16 +117,6 @@ inspect([
     new Date(),
 ]);
 
-// Map
-inspect(
-    new Map([
-        ["today", new Date()],
-        ["tomorrow", new Date()],
-    ]),
-);
-
-inspect(new Set(["🥑 avocado", "🍌 banana", "🍍 pineapple", "🍓 strawberry"]));
-
 // primitive object
 inspect({
     a: 1,
@@ -175,7 +165,7 @@ const nestedObject1 = {
     priorities: [3, 7],
     type: "group",
     withNewLine: "- 1\n-2",
-    onePropertyObject: { value: [] }
+    onePropertyObject: { value: [] },
 };
 consoleInspect(nestedObject1);
 consoleInspect(nestedObject1, {
@@ -235,3 +225,22 @@ consoleTable([
 
 consoleTable([1]);
 consoleTable([{ type: "new" }]);
+
+// Map
+inspect(
+    new Map([
+        ["today", new Date()],
+        ["tomorrow", new Date()],
+    ]),
+);
+
+// Map
+inspect(
+    new Map([
+        [{ value: "🥑 avocado" }, { value: "🍌 banana" }],
+        [{ value: "🍍 pineapple" }, { value: "🍓 strawberry" }],
+    ]),
+);
+
+// Set
+inspect(new Set(["🥑 avocado", "🍌 banana", "🍍 pineapple", "🍓 strawberry"]));
