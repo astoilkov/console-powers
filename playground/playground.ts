@@ -1,4 +1,6 @@
-import consoleInspect from "../src/inspect/consoleInspect";
+import consoleInspect, {
+    type ConsoleInspectOptions,
+} from "../src/inspect/consoleInspect";
 import consolePrint from "../src/core/consolePrint";
 import consoleQuote from "../src/extras/consoleQuote";
 import consoleUnorderedList from "../src/extras/consoleUnorderedList";
@@ -7,9 +9,9 @@ import consoleTable from "../src/extras/consoleTable";
 import slicedownResult from "./fixtures/slicedownResult";
 import consoleOrderedList from "../src/extras/consoleOrderedList";
 
-function inspect(value: unknown): unknown {
+function inspect(value: unknown, options?: ConsoleInspectOptions): unknown {
     console.log(value);
-    consoleInspect(value);
+    consoleInspect(value, options);
     return value;
 }
 
