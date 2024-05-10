@@ -245,6 +245,7 @@ inspect(
 // Set
 inspect(new Set(["🥑 avocado", "🍌 banana", "🍍 pineapple", "🍓 strawberry"]));
 
+// options.keys
 consoleInspect(
     [
         {
@@ -271,3 +272,23 @@ consoleInspect(
         keys: ["price", "year", "amount"],
     },
 );
+
+// Error (inspect)
+consoleInspect(new Error("Hello world!"));
+
+// long object keys
+consoleInspect(
+    {
+        longLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnything:
+            true,
+        shortKey: false,
+    },
+    { wrap: "multi-line" },
+);
+
+// array with object keys/properties
+const array = [1, 2, 3];
+(array as any).someObjectKey = "someObjectValue";
+consoleInspect(array);
+(array as any).innerObj = { a: 1 };
+consoleInspect(array);
