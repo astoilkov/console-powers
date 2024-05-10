@@ -36,8 +36,8 @@ export function inspectIterable(
     // wrap is "auto", try to fit on one line
     const inspection = inspectIterableSingleLine(iterable, options, context);
     if (
-        spansLength(inspection.spans) <= context.wrap &&
-        iterableInfo(iterable).array.every(isPrimitive)
+        iterableArray(iterable).every(isPrimitive) &&
+        spansLength(inspection.spans) <= context.wrap
     ) {
         return inspection;
     }
@@ -50,14 +50,15 @@ export function inspectIterableSingleLine(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
-    const info = iterableInfo(iterable);
+    const type = iterableType(iterable);
+    const array = iterableArray(iterable);
     return {
         type: "inline",
         spans: [
-            consoleText(info.subtype === undefined ? "[" : "{"),
-            ...info.array.flatMap((value, i) => {
+            consoleText(type === undefined ? "[" : "{"),
+            ...array.flatMap((value, i) => {
                 const inspection =
-                    info.subtype === "Map"
+                    type === "Map"
                         ? inspectEntry(value, options, context)
                         : inspectAny(value, options, {
                               ...context,
@@ -67,9 +68,9 @@ export function inspectIterableSingleLine(
                     ? inspection.spans
                     : [consoleText(", "), ...inspection.spans];
             }),
-            consoleText(info.subtype === undefined ? "]" : "}"),
+            consoleText(type === undefined ? "]" : "}"),
             consoleText(
-                ` ${info.subtype ?? ""}(${info.array.length})`,
+                ` ${type ?? ""}(${array.length})`,
                 consoleStyles[options.theme].dimmed,
             ),
         ],
@@ -81,13 +82,13 @@ export function inspectIterableMultiLine(
     options: Required<ConsoleInspectOptions>,
     context: ConsoleInspectContext,
 ): ConsoleInspection {
-    const info = iterableInfo(iterable);
+    const array = iterableArray(iterable);
     return {
         type: "block",
-        spans: info.array.flatMap((value, i) => {
+        spans: array.flatMap((value, i) => {
             const indexText = `[${i}]: `;
             const inspection =
-                info.subtype === "Map"
+                iterableType(iterable) === "Map"
                     ? inspectEntry(value, options, context)
                     : inspectAny(value, options, {
                           keys: context.keys,
@@ -144,17 +145,26 @@ function inspectEntry(
     };
 }
 
-function iterableInfo(iterable: Iterable<unknown>): {
-    array: unknown[];
-    subtype: "Set" | "Map" | undefined;
-} {
-    return {
-        subtype:
-            iterable instanceof Set
-                ? "Set"
-                : iterable instanceof Map
-                  ? "Map"
-                  : undefined,
-        array: Array.isArray(iterable) ? iterable : [...iterable],
-    };
+const weakMap = new WeakMap<Iterable<unknown>, unknown[]>();
+function iterableArray(iterable: Iterable<unknown>): unknown[] {
+    if (Array.isArray(iterable)) {
+        return iterable;
+    }
+
+    const cached = weakMap.get(iterable);
+    if (cached === undefined) {
+        const array = [...iterable];
+        weakMap.set(iterable, array);
+        return array;
+    } else {
+        return cached;
+    }
+}
+
+function iterableType(iterable: Iterable<unknown>): "Set" | "Map" | undefined {
+    return iterable instanceof Set
+        ? "Set"
+        : iterable instanceof Map
+          ? "Map"
+          : undefined;
 }
