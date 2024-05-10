@@ -8,7 +8,7 @@ export default function consolePrint(
     const buffer = new ConsoleBuffer();
     const spans = toFlatSpans(...args);
     buffer.append(spans);
-    buffer.flush('log');
+    buffer.flush("log");
 }
 
 class ConsoleBuffer {
@@ -23,9 +23,9 @@ class ConsoleBuffer {
             } else if (span.type === "text") {
                 // splitting allows text wrapping in DevTools
                 if (this.#canSplit(span.style)) {
-                    const splits = span.text.split(" ");
+                    const splits = this.#split(span.text);
                     this.#text +=
-                        splits.map((split) => `%c${split}`).join(" ") + "%c";
+                        splits.map((split) => `%c${split}`).join("") + "%c";
                     this.#rest.push(
                         ...new Array(splits.length).fill(
                             this.#consoleStyleToString(span.style),
@@ -41,22 +41,22 @@ class ConsoleBuffer {
                 this.#text += "%o";
                 this.#rest.push(span.object);
             } else if (span.type === "group") {
-                this.flush('log');
+                this.flush("log");
 
                 this.append(span.header);
 
-                this.flush(span.expanded ? 'group' : 'groupCollapsed');
+                this.flush(span.expanded ? "group" : "groupCollapsed");
 
                 consolePrint(span.body);
 
                 console.groupEnd();
             } else if (span.type === "flush") {
-                this.flush('log');
+                this.flush("log");
             }
         }
     }
 
-    flush(method: 'log' | 'group' | 'groupCollapsed'): void {
+    flush(method: "log" | "group" | "groupCollapsed"): void {
         if (this.#text !== "") {
             console[method](this.#text, ...this.#rest);
         }
@@ -84,5 +84,18 @@ class ConsoleBuffer {
             }
         }
         return true;
+    }
+
+    #split(text: string): string[] {
+        const matches = text.matchAll(/(?=\p{Upper})|\s|[^\p{Upper}\s]{12}/gu)
+        const splits: string[] = []
+        let offset = 0
+        for (const match of matches) {
+            const end = match.index + match[0].length
+            splits.push(text.slice(offset, end))
+            offset = end
+        }
+        splits.push(text.slice(offset))
+        return splits;
     }
 }

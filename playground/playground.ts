@@ -281,6 +281,8 @@ consoleInspect(
     {
         longLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnything:
             true,
+        longlongverylongobjectkeythatwrapsifwedontdoanythinglonglongverylongobjectkeythatwrapsifwedontdoanythinglonglongverylongobjectkeythatwrapsifwedontdoanything:
+            true,
         shortKey: false,
     },
     { wrap: "multi-line" },
