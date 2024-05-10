@@ -96,7 +96,9 @@ export function inspectObjectMultiLine(
         const key = sortedKeys[i]!;
         spans.push(consoleText(key, consoleStyles[options.theme].highlight));
         spans.push(consoleText(": "));
-        spans.push(consoleText(" ".repeat(maxLength - key.length)));
+        if (maxLength < context.wrap / 2) {
+            spans.push(consoleText(" ".repeat(maxLength - key.length)));
+        }
 
         const value = object[key as keyof typeof object];
         const inspection = inspectAny(value, options, {
