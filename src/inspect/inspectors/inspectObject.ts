@@ -85,7 +85,7 @@ export function inspectObjectMultiLine(
     context: ConsoleInspectContext,
 ): ConsoleInspection {
     const spans: (ConsoleText | ConsoleObject)[] = [];
-    const sortedKeys = keys(object, context.keys)
+    const sortedKeys = keys(object, context.keys);
     const maxLength = maxKeyLength(object);
 
     for (let i = 0; i < sortedKeys.length; i++) {
