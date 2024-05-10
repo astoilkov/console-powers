@@ -1,11 +1,11 @@
-import { consoleText } from "../../core/consoleText";
+import { type ConsoleText, consoleText } from "../../core/consoleText";
 import inspectAny from "./inspectAny";
 import consoleStyles from "../utils/consoleStyles";
 import {
     ConsoleInspectContext,
     ConsoleInspectOptions,
 } from "../consoleInspect";
-import { consoleObject } from "../../core/consoleObject";
+import { type ConsoleObject, consoleObject } from "../../core/consoleObject";
 import spansLength from "../../utils/spansLength";
 import indent from "../../utils/indent";
 import isPrimitive from "../../utils/isPrimitive";
@@ -35,9 +35,13 @@ export function inspectIterable(
 
     // wrap is "auto", try to fit on one line
     const inspection = inspectIterableSingleLine(iterable, options, context);
+    const array = iterableArray(iterable);
     if (
-        iterableArray(iterable).every(isPrimitive) &&
-        spansLength(inspection.spans) <= context.wrap
+        spansLength(inspection.spans) <= context.wrap &&
+        array.every(isPrimitive) &&
+        iterableExtraKeys(iterable).every((key) =>
+            isPrimitive(array[key as keyof typeof array]),
+        )
     ) {
         return inspection;
     }
@@ -52,6 +56,7 @@ export function inspectIterableSingleLine(
 ): ConsoleInspection {
     const type = iterableType(iterable);
     const array = iterableArray(iterable);
+    const extraKeys = iterableExtraKeys(iterable);
     return {
         type: "inline",
         spans: [
@@ -67,6 +72,20 @@ export function inspectIterableSingleLine(
                 return i === 0
                     ? inspection.spans
                     : [consoleText(", "), ...inspection.spans];
+            }),
+            ...extraKeys.flatMap((key, i) => {
+                const value = array[key as keyof typeof array];
+                const spans = [
+                    consoleText(key, consoleStyles[options.theme].dimmed),
+                    consoleText(": "),
+                    ...inspectAny(value, options, {
+                        ...context,
+                        depth: context.depth + 1,
+                    }).spans,
+                ];
+                return i === 0 && array.length === 0
+                    ? spans
+                    : [consoleText(", "), ...spans];
             }),
             consoleText(type === undefined ? "]" : "}"),
             consoleText(
@@ -85,33 +104,67 @@ export function inspectIterableMultiLine(
     const array = iterableArray(iterable);
     return {
         type: "block",
-        spans: array.flatMap((value, i) => {
-            const indexText = `[${i}]: `;
-            const inspection =
-                iterableType(iterable) === "Map"
-                    ? inspectEntry(value, options, context)
-                    : inspectAny(value, options, {
-                          keys: context.keys,
-                          depth: context.depth + 1,
-                          wrap: Math.max(
-                              context.wrap -
-                                  Math.max(indexText.length, options.indent),
-                              0,
-                          ),
-                      });
-            const valueSpans =
-                inspection.type === "block"
-                    ? [
-                          consoleText("\n"),
-                          ...indent(inspection.spans, options.indent),
-                      ]
-                    : inspection.spans;
-            return [
-                ...(i === 0 ? [] : [consoleText("\n")]),
-                consoleText(indexText, consoleStyles[options.theme].highlight),
-                ...valueSpans,
-            ];
-        }),
+        spans: [
+            ...array.flatMap((value, i) => {
+                const indexText = `[${i}]: `;
+                const inspection =
+                    iterableType(iterable) === "Map"
+                        ? inspectEntry(value, options, context)
+                        : inspectAny(value, options, {
+                              keys: context.keys,
+                              depth: context.depth + 1,
+                              wrap: Math.max(
+                                  context.wrap -
+                                      Math.max(
+                                          indexText.length,
+                                          options.indent,
+                                      ),
+                                  0,
+                              ),
+                          });
+                const valueSpans =
+                    inspection.type === "block"
+                        ? [
+                              consoleText("\n"),
+                              ...indent(inspection.spans, options.indent),
+                          ]
+                        : inspection.spans;
+                return [
+                    ...(i === 0 ? [] : [consoleText("\n")]),
+                    consoleText(
+                        indexText,
+                        consoleStyles[options.theme].highlight,
+                    ),
+                    ...valueSpans,
+                ];
+            }),
+            ...iterableExtraKeys(iterable).flatMap((key, i) => {
+                const spans: (ConsoleText | ConsoleObject)[] = [];
+                if (i !== 0 || array.length !== 0) {
+                    spans.push(consoleText("\n"));
+                }
+
+                spans.push(consoleText(key, consoleStyles[options.theme].highlight));
+                spans.push(consoleText(": "));
+
+                const value = array[key as keyof typeof array];
+                const inspection = inspectAny(value, options, {
+                    keys: context.keys,
+                    depth: context.depth + 1,
+                    wrap: Math.max(
+                        context.wrap - Math.max(key.length + 2, options.indent),
+                        0,
+                    ),
+                });
+                if (inspection.type === "block") {
+                    spans.push(consoleText("\n"));
+                    spans.push(...indent(inspection.spans, options.indent));
+                } else {
+                    spans.push(...inspection.spans);
+                }
+                return spans
+            })
+        ],
     };
 }
 
@@ -145,20 +198,20 @@ function inspectEntry(
     };
 }
 
-const weakMap = new WeakMap<Iterable<unknown>, unknown[]>();
+const iterableArrayCache = new WeakMap<Iterable<unknown>, unknown[]>();
 function iterableArray(iterable: Iterable<unknown>): unknown[] {
     if (Array.isArray(iterable)) {
         return iterable;
     }
 
-    const cached = weakMap.get(iterable);
-    if (cached === undefined) {
-        const array = [...iterable];
-        weakMap.set(iterable, array);
-        return array;
-    } else {
+    const cached = iterableArrayCache.get(iterable);
+    if (cached !== undefined) {
         return cached;
     }
+
+    const array = [...iterable];
+    iterableArrayCache.set(iterable, array);
+    return array;
 }
 
 function iterableType(iterable: Iterable<unknown>): "Set" | "Map" | undefined {
@@ -167,4 +220,23 @@ function iterableType(iterable: Iterable<unknown>): "Set" | "Map" | undefined {
         : iterable instanceof Map
           ? "Map"
           : undefined;
+}
+
+const iterableExtraKeysCache = new WeakMap<Iterable<unknown>, string[]>();
+function iterableExtraKeys(iterable: Iterable<unknown>): string[] {
+    const cached = iterableExtraKeysCache.get(iterable);
+
+    if (cached !== undefined) {
+        return cached;
+    }
+
+    const keys: string[] = [];
+    const array = iterableArray(iterable);
+    for (const key of Object.keys(array)) {
+        const index = Number.parseInt(key, 10);
+        if (Number.isNaN(index) || index < 0 || index >= array.length) {
+            keys.push(key);
+        }
+    }
+    return keys;
 }
