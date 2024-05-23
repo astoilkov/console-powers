@@ -87,15 +87,15 @@ class ConsoleBuffer {
     }
 
     #split(text: string): string[] {
-        const matches = text.matchAll(/(?=\p{Upper})|\s|[^\p{Upper}\s]{12}/gu)
-        const splits: string[] = []
-        let offset = 0
+        const matches = text.matchAll(/(?=\p{Upper})|\s|[^\p{Upper}\s]{12}/gu);
+        const splits: string[] = [];
+        let offset = 0;
         for (const match of matches) {
-            const end = match.index + match[0].length
-            splits.push(text.slice(offset, end))
-            offset = end
+            const end = match.index + match[0].length;
+            splits.push(text.slice(offset, end));
+            offset = end;
         }
-        splits.push(text.slice(offset))
+        splits.push(text.slice(offset));
         return splits;
     }
 }
