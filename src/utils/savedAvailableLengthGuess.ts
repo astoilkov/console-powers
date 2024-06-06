@@ -31,7 +31,7 @@ function isDevToolsOpen(): boolean {
     return guessDevToolsWidth() !== undefined;
 }
 
-updateAvailableLength();
 if (typeof window !== "undefined") {
+    updateAvailableLength();
     window.addEventListener("resize", updateAvailableLength);
 }
