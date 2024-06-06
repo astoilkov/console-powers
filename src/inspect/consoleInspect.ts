@@ -70,13 +70,11 @@ function inspect(
         circular: new Set(),
         keys: new Set(options.keys),
         wrap:
-            options.wrap === "auto"
-                ? guessAvailableLength()
+            typeof options.wrap === "number"
+                ? options.wrap
                 : options.wrap === "single-line"
                   ? Number.MAX_SAFE_INTEGER
-                  : options.wrap === "multi-line"
-                    ? 0
-                    : options.wrap,
+                  : savedAvailableLengthGuess(),
     };
     const inspection = inspectAny(value, options, context);
 
