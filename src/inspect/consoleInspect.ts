@@ -1,7 +1,6 @@
 import consolePrint from "../core/consolePrint";
 import inspectAny from "./inspectors/inspectAny";
 import ConsoleSpan from "../core/ConsoleSpan";
-import guessAvailableLength from "../utils/guessAvailableLength";
 import isIterable from "../utils/isIterable";
 import { consoleGroup } from "../core/consoleGroup";
 import { inspectIterableMultiLine } from "./inspectors/inspectIterable";
@@ -11,6 +10,7 @@ import { consoleText } from "../core/consoleText";
 import stringExcerpt from "../utils/stringExcerpt";
 import isPrimitive from "../utils/isPrimitive";
 import consoleApply from "../core/consoleApply";
+import savedAvailableLengthGuess from "../utils/savedAvailableLengthGuess";
 
 export interface ConsoleInspectOptions {
     indent?: number;
@@ -28,7 +28,7 @@ export interface ConsoleInspectContext {
     depth: number;
     wrap: number;
     keys: Set<string>;
-    circular: Set<unknown>
+    circular: Set<unknown>;
 }
 
 export default function consoleInspect(

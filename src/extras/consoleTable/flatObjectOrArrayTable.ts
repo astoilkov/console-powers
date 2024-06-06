@@ -6,7 +6,7 @@ import consoleTableCell from "./consoleTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import CellBorder from "./CellBorder";
-import guessAvailableLength from "../../utils/guessAvailableLength";
+import savedAvailableLengthGuess from "../../utils/savedAvailableLengthGuess";
 
 export default function flatObjectOrArrayTable(
     object: object,
@@ -14,7 +14,7 @@ export default function flatObjectOrArrayTable(
 ): ConsoleText[] {
     const cellPadding = 2;
     const wrap =
-        options.wrap === "auto" ? guessAvailableLength() : options.wrap;
+        options.wrap === "auto" ? savedAvailableLengthGuess() : options.wrap;
     const spans: ConsoleText[] = [];
     const isArray = Array.isArray(object);
     const keys = Object.keys(object);

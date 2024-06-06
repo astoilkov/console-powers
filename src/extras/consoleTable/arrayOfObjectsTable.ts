@@ -5,14 +5,14 @@ import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import { ConsoleTableOptions } from "../consoleTable";
 import CellBorder from "./CellBorder";
-import guessAvailableLength from "../../utils/guessAvailableLength";
+import savedAvailableLengthGuess from "../../utils/savedAvailableLengthGuess";
 
 export default function arrayOfObjectsTable(
     array: object[],
     options: Required<ConsoleTableOptions>,
 ): ConsoleText[] {
     const wrap =
-        options.wrap === "auto" ? guessAvailableLength() : options.wrap;
+        options.wrap === "auto" ? savedAvailableLengthGuess() : options.wrap;
     const spans: ConsoleText[] = [];
     const keys = [...new Set(array.flatMap((item) => Object.keys(item)))];
     const lengthPerColumn = Math.floor(wrap / keys.length);

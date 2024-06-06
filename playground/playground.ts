@@ -342,7 +342,7 @@ examples.make(() => {
     // long object values
     consoleInspect(
         {
-            a: "1",
+            a: "longLongVeryLongObjectValueThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectValueThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectValueThatWrapsIfWeDontDoAnything",
             b: "2",
         },
         { wrap: "multi-line" },
