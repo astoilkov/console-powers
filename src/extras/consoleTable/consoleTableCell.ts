@@ -35,6 +35,7 @@ function findOptimalExpansion(
                 wrap: "single-line",
             },
             {
+                circular: new Set(),
                 depth: depth,
                 keys: new Set(),
                 wrap: Number.MAX_SAFE_INTEGER,

@@ -9,6 +9,7 @@ import {
 import { inspectIterable } from "./inspectIterable";
 import { inspectObject } from "./inspectObject";
 import ConsoleInspection from "../utils/ConsoleInspection";
+import consoleStyles from "../utils/consoleStyles";
 
 export default function inspectAny(
     value: unknown,
@@ -27,9 +28,15 @@ export default function inspectAny(
             ],
         };
     } else if (Array.isArray(value) || isIterable(value)) {
-        return inspectIterable(value, options, context);
+        return (
+            maybeCircular(value, options, context) ??
+            inspectIterable(value, options, context)
+        );
     } else if (typeof value === "object" && value !== null) {
-        return inspectObject(value, options, context);
+        return (
+            maybeCircular(value, options, context) ??
+            inspectObject(value, options, context)
+        );
     }
 
     // fallback
@@ -37,4 +44,21 @@ export default function inspectAny(
         type: "inline",
         spans: [consoleText(String(value))],
     };
+}
+
+function maybeCircular(
+    value: unknown,
+    options: Required<ConsoleInspectOptions>,
+    context: ConsoleInspectContext,
+): ConsoleInspection | undefined {
+    if (context.circular.has(value)) {
+        return {
+            type: "inline",
+            spans: [
+                consoleText("[Circular]", consoleStyles[options.theme].dimmed),
+            ],
+        };
+    }
+    context.circular.add(value);
+    return undefined;
 }

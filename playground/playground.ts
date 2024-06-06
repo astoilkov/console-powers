@@ -294,3 +294,10 @@ const array = [1, 2, 3];
 consoleInspect(array);
 (array as any).innerObj = { a: 1 };
 consoleInspect(array);
+
+// circular refs
+const circular = { a: 1, b: { a: 3 } };
+circular.b = circular;
+consoleInspect(circular, {
+    depth: 5,
+})

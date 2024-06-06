@@ -102,6 +102,7 @@ export function inspectObjectMultiLine(
 
         const value = object[key as keyof typeof object];
         const inspection = inspectAny(value, options, {
+            circular: context.circular,
             keys: context.keys,
             depth: context.depth + 1,
             wrap: Math.max(

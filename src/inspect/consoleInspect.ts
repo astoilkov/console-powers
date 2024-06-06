@@ -28,6 +28,7 @@ export interface ConsoleInspectContext {
     depth: number;
     wrap: number;
     keys: Set<string>;
+    circular: Set<unknown>
 }
 
 export default function consoleInspect(
@@ -66,6 +67,7 @@ function inspect(
 
     const context: ConsoleInspectContext = {
         depth: 0,
+        circular: new Set(),
         keys: new Set(options.keys),
         wrap:
             options.wrap === "auto"

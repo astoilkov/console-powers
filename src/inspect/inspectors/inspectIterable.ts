@@ -111,6 +111,7 @@ export function inspectIterableMultiLine(
                     iterableType(iterable) === "Map"
                         ? inspectEntry(value, options, context)
                         : inspectAny(value, options, {
+                              circular: context.circular,
                               keys: context.keys,
                               depth: context.depth + 1,
                               wrap: Math.max(
@@ -144,11 +145,14 @@ export function inspectIterableMultiLine(
                     spans.push(consoleText("\n"));
                 }
 
-                spans.push(consoleText(key, consoleStyles[options.theme].highlight));
+                spans.push(
+                    consoleText(key, consoleStyles[options.theme].highlight),
+                );
                 spans.push(consoleText(": "));
 
                 const value = array[key as keyof typeof array];
                 const inspection = inspectAny(value, options, {
+                    circular: context.circular,
                     keys: context.keys,
                     depth: context.depth + 1,
                     wrap: Math.max(
@@ -162,8 +166,8 @@ export function inspectIterableMultiLine(
                 } else {
                     spans.push(...inspection.spans);
                 }
-                return spans
-            })
+                return spans;
+            }),
         ],
     };
 }
@@ -176,6 +180,7 @@ function inspectEntry(
     const [key, value] = entry as [unknown, unknown];
     const keySpan = inspectInline(key, options.theme);
     const valueInspection = inspectAny(value, options, {
+        circular: context.circular,
         keys: context.keys,
         depth: context.depth + 1,
         wrap: Math.max(
@@ -186,6 +191,7 @@ function inspectEntry(
 
     if (!isPrimitive(key)) {
         return inspectObject({ key, value }, options, {
+            circular: context.circular,
             keys: context.keys,
             depth: context.depth,
             wrap: Math.max(context.wrap - options.indent, 0),
