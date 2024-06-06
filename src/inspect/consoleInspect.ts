@@ -27,7 +27,7 @@ export interface ConsoleInspectOptions {
 export interface ConsoleInspectContext {
     depth: number;
     wrap: number;
-    keys: Set<string>
+    keys: Set<string>;
 }
 
 export default function consoleInspect(
