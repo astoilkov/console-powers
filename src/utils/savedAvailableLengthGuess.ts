@@ -21,7 +21,9 @@ export default function savedAvailableLengthGuess(): number {
 function updateAvailableLength() {
     if (isDevToolsOpen()) {
         const length = guessAvailableLength();
-        localStorage.setItem(STORAGE_KEY, String(length));
+        try {
+            localStorage.setItem(STORAGE_KEY, String(length));
+        } catch {}
     }
 }
 
@@ -30,4 +32,6 @@ function isDevToolsOpen(): boolean {
 }
 
 updateAvailableLength();
-window.addEventListener("resize", updateAvailableLength);
+if (typeof window !== "undefined") {
+    window.addEventListener("resize", updateAvailableLength);
+}
