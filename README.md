@@ -30,6 +30,8 @@ npm install console-powers
 
 ## Examples
 
+### Table
+
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
     <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
@@ -58,6 +60,8 @@ consoleTable([
 ])
 ```
 
+### Deep object
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
   <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
@@ -83,6 +87,8 @@ consoleInspect({
     },
 });
 ```
+
+### Styling
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
