@@ -30,12 +30,6 @@ npm install console-powers
 
 ## Examples
 
-<picture>
-    <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
-    <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
-    <img src="/img/light/table.png" width="320" />
-</picture>
-
 ```ts
 import { consoleTable } from "console-powers";
 
@@ -59,9 +53,9 @@ consoleTable([
 ```
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
-  <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
-  <img src="/img/light/inspect.png" width="320" />
+    <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
+    <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
+    <img src="/img/light/table.png" width="320" />
 </picture>
 
 ```ts
@@ -85,9 +79,9 @@ consoleInspect({
 ```
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
-  <source media="(prefers-color-scheme: light)" srcset="/img/dark/print.png">
-  <img src="/img/light/print.png" width="320" />
+  <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
+  <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
+  <img src="/img/light/inspect.png" width="320" />
 </picture>
 
 ```ts
@@ -102,6 +96,12 @@ consolePrint(
     }),
 );
 ```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
+  <source media="(prefers-color-scheme: light)" srcset="/img/dark/print.png">
+  <img src="/img/light/print.png" width="320" />
+</picture>
 
 ## `consoleInspect()`
 
