@@ -360,9 +360,12 @@ examples.make(() => {
 
 examples.make(() => {
     // circular refs
-    const circular = { a: 1, b: { a: 3 } };
-    circular.b = circular;
-    consoleInspect(circular, {
+    const objCircular = { a: 1, b: { a: 3 }, c: [] };
+    objCircular.b = objCircular;
+    const arrCircular = [1, 2, 3];
+    arrCircular.push(arrCircular as any);
+    objCircular.c = arrCircular as any;
+    consoleInspect(objCircular, {
         depth: 5,
     });
 });

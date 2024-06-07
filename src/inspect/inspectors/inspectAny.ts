@@ -30,12 +30,18 @@ export default function inspectAny(
     } else if (Array.isArray(value) || isIterable(value)) {
         return (
             maybeCircular(value, options, context) ??
-            inspectIterable(value, options, context)
+            inspectIterable(value, options, {
+                ...context,
+                circular: new Set(context.circular).add(value),
+            })
         );
     } else if (typeof value === "object" && value !== null) {
         return (
             maybeCircular(value, options, context) ??
-            inspectObject(value, options, context)
+            inspectObject(value, options, {
+                ...context,
+                circular: new Set(context.circular).add(value),
+            })
         );
     }
 
@@ -59,6 +65,5 @@ function maybeCircular(
             ],
         };
     }
-    context.circular.add(value);
     return undefined;
 }
