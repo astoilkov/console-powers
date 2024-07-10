@@ -52,9 +52,13 @@ export default function inspectPrimitive(
     return consoleText(prepareString(value));
 }
 
-function prepareString(string: unknown): string {
-    return String(string)
-        .replace(/\n/gu, "\\n")
-        .replace(/\t/gu, "\\t")
-        .replace(/\r/gu, "\\r");
+function prepareString(value: unknown): string {
+    const string = typeof value === "string" ? value : String(value);
+    if (/[\n\t\r]/u.test(string)) {
+        return string
+            .replace(/\n/gu, "\\n")
+            .replace(/\t/gu, "\\t")
+            .replace(/\r/gu, "\\r");
+    }
+    return string;
 }
