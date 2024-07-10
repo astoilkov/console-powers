@@ -8,6 +8,7 @@ export type { ConsoleObject } from "./src/core/consoleObject";
 export { consoleFlush } from "./src/core/consoleFlush";
 export { consoleGroup } from "./src/core/consoleGroup";
 export type { ConsoleGroup } from "./src/core/consoleGroup";
+export { default as consoleCalls } from "./src/core/consoleCalls";
 
 // inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
