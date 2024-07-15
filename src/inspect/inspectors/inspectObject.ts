@@ -34,12 +34,11 @@ export function inspectObject(
     }
 
     // wrap is "auto", try to fit on one line
-    const inspection = inspectObjectSingleLine(object, options, context);
-    if (
-        hasOnlyPrimitives(object) &&
-        spansLength(inspection.spans) <= context.wrap
-    ) {
-        return inspection;
+    if (hasOnlyPrimitives(object)) {
+        const inspection = inspectObjectSingleLine(object, options, context);
+        if (spansLength(inspection.spans) <= context.wrap) {
+            return inspection;
+        }
     }
 
     return inspectObjectMultiLine(object, options, context);

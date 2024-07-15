@@ -6,12 +6,12 @@ import {
     ConsoleInspectOptions,
 } from "../consoleInspect";
 import { type ConsoleObject, consoleObject } from "../../core/consoleObject";
-import spansLength from "../../utils/spansLength";
 import indent from "../../utils/indent";
 import isPrimitive from "../../utils/isPrimitive";
 import ConsoleInspection from "../utils/ConsoleInspection";
 import inspectInline from "./inspectInline";
 import { inspectObject } from "./inspectObject";
+import spansLength from "../../utils/spansLength";
 
 export function inspectIterable(
     iterable: Iterable<unknown>,
@@ -34,16 +34,22 @@ export function inspectIterable(
     }
 
     // wrap is "auto", try to fit on one line
-    const inspection = inspectIterableSingleLine(iterable, options, context);
+
     const array = iterableArray(iterable);
     if (
-        spansLength(inspection.spans) <= context.wrap &&
         array.every(isPrimitive) &&
         iterableExtraKeys(iterable).every((key) =>
             isPrimitive(array[key as keyof typeof array]),
         )
     ) {
-        return inspection;
+        const inspection = inspectIterableSingleLine(
+            iterable,
+            options,
+            context,
+        );
+        if (spansLength(inspection.spans) <= context.wrap) {
+            return inspection;
+        }
     }
 
     return inspectIterableMultiLine(iterable, options, context);
