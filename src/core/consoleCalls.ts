@@ -38,7 +38,7 @@ class ConsoleCalls {
                 this.#text += span;
             } else if (span.type === "text") {
                 // splitting allows text wrapping in DevTools
-                if (this.#canSplit(span.style)) {
+                if (this.#canSplit(span.text, span.style)) {
                     const splits = this.#split(span.text);
                     this.#text +=
                         splits.map((split) => `%c${split}`).join("") + "%c";
@@ -101,7 +101,14 @@ class ConsoleCalls {
             .join(";");
     }
 
-    #canSplit(style: ConsoleStyle): boolean {
+    #canSplit(text: string, style: ConsoleStyle): boolean {
+        if (
+            text.includes("https://") ||
+            text.includes("http://") ||
+            text.includes("www.")
+        ) {
+            return false;
+        }
         const allowed = ["color", "background", "fontWeight", "lineHeight"];
         const keys = Object.keys(style);
         for (const key of keys) {
