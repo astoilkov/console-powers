@@ -1,14 +1,14 @@
 // core
 export { default as consolePrint } from "./src/core/consolePrint";
-export type { default as ConsoleSpan } from "./src/core/ConsoleSpan";
 export { consoleText } from "./src/core/consoleText";
-export type { ConsoleText } from "./src/core/consoleText";
 export { consoleObject } from "./src/core/consoleObject";
-export type { ConsoleObject } from "./src/core/consoleObject";
 export { consoleFlush } from "./src/core/consoleFlush";
 export { consoleGroup } from "./src/core/consoleGroup";
-export type { ConsoleGroup } from "./src/core/consoleGroup";
 export { default as consoleCalls } from "./src/core/consoleCalls";
+export type { default as ConsoleSpan } from "./src/core/ConsoleSpan";
+export type { ConsoleText } from "./src/core/consoleText";
+export type { ConsoleObject } from "./src/core/consoleObject";
+export type { ConsoleGroup } from "./src/core/consoleGroup";
 
 // inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
