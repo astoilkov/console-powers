@@ -117,8 +117,7 @@ export function inspectIterableMultiLine(
                     iterableType(iterable) === "Map"
                         ? inspectEntry(value, options, context)
                         : inspectAny(value, options, {
-                              circular: context.circular,
-                              keys: context.keys,
+                              ...context,
                               depth: context.depth + 1,
                               wrap: Math.max(
                                   context.wrap -
@@ -158,8 +157,7 @@ export function inspectIterableMultiLine(
 
                 const value = array[key as keyof typeof array];
                 const inspection = inspectAny(value, options, {
-                    circular: context.circular,
-                    keys: context.keys,
+                    ...context,
                     depth: context.depth + 1,
                     wrap: Math.max(
                         context.wrap - Math.max(key.length + 2, options.indent),
