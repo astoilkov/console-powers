@@ -95,6 +95,8 @@ export function inspectObjectMultiLine(
         const key = sortedKeys[i]!;
         spans.push(consoleText(key, consoleStyles[options.theme].highlight));
         spans.push(consoleText(": "));
+        // - align object keys
+        // - commented out for now, as it creates more problems than it solves
         // if (maxLength < context.wrap / 2) {
         //     spans.push(consoleText(" ".repeat(maxLength - key.length)));
         // }
