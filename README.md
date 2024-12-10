@@ -112,12 +112,7 @@ consolePrint(
 ```
 
 <details>
-<summary>
-
-## `consoleInspect()`
-
-</summary>
-<p></p>
+<summary><h2><code>consoleInspect()</code><h2></summary>
 
 Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console. 
 
@@ -171,7 +166,8 @@ If set to `false`, the method won't print to the console. In this case, you prob
 
 </details>
 
-## `consoleTable()`
+<details>
+<summary><h2><code>consoleTable()</code></h2></summary>
 
 Great for debugging. Especially great when you have an array of objects that aren't deeply nested.
 
@@ -196,7 +192,10 @@ Default: `true`
 
 If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
 
-## API _(core)_
+</details>
+
+<details>
+<summary><h2>API <i>(core)</i></h2></summary>
 
 #### `consolePrint(spans: ConsoleSpan[]): void`
 
@@ -262,3 +261,5 @@ consolePrint(
 - [`white-space`](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)
 - [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing) and [`word-break`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)
 - [`writing-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)
+
+</details>
