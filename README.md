@@ -112,7 +112,7 @@ consolePrint(
 ```
 
 <details>
-<summary><h2><code>consoleInspect()</code><h2></summary>
+<summary><h3><code>consoleInspect()</code><h3></summary>
 
 Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console. 
 
@@ -167,7 +167,7 @@ If set to `false`, the method won't print to the console. In this case, you prob
 </details>
 
 <details>
-<summary><h2><code>consoleTable()</code></h2></summary>
+<summary><h3><code>consoleTable()</code></h3></summary>
 
 Great for debugging. Especially great when you have an array of objects that aren't deeply nested.
 
@@ -195,7 +195,7 @@ If set to `false`, the method won't print to the console. In this case, you prob
 </details>
 
 <details>
-<summary><h2>API <i>(core)</i></h2></summary>
+<summary><h3>API <i>(core)</i></h3></summary>
 
 #### `consolePrint(spans: ConsoleSpan[]): void`
 
