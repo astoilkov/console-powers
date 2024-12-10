@@ -39,21 +39,26 @@ examples.make(() => {
 
 examples.make(() => {
     // example 2
-    consoleInspect({
-        type: "group",
-        level: 1,
-        items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-        location: {
-            start: {
-                line: 1,
-                column: 0,
-            },
-            end: {
-                line: 4,
-                column: 10,
+    consoleInspect(
+        {
+            type: "group",
+            level: 1,
+            items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+            location: {
+                start: {
+                    line: 1,
+                    column: 0,
+                },
+                end: {
+                    line: 4,
+                    column: 10,
+                },
             },
         },
-    });
+        {
+            depth: 3,
+        },
+    );
 });
 
 examples.make(() => {
