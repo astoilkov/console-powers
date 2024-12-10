@@ -111,6 +111,8 @@ consolePrint(
 );
 ```
 
+## Docs
+
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
 
