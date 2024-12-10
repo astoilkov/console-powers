@@ -34,5 +34,5 @@
         "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["index.ts"]
+    "include": ["index.ts", "./src/**/*.ts"],
 }
