@@ -1,3 +1,6 @@
+// main
+export { default as ii } from "./src/inspect/ii";
+
 // core
 export { default as consolePrint } from "./src/core/consolePrint";
 export { consoleText } from "./src/core/consoleText";
