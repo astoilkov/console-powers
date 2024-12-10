@@ -122,6 +122,13 @@ Default: `2`
 
 How much levels to expand the object. Levels after that will be collapsed.
 
+##### `ConsoleInspectOptions.keys`
+
+Type: `string[]`
+Default: `undefined`
+
+Whitelist for keys to include in the log. For nested object, `keys` work per level — at particular level of nesting if no key matches any of the `keys` the whole level is shown. For nested object, showing a key also shows its children.
+
 ##### `ConsoleInspectOptions.wrap`
 
 Type: `"auto" | "single-line" | "multi-line" | number`  
