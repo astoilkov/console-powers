@@ -30,7 +30,37 @@ npm install console-powers
 
 ## Examples
 
-### Table
+### `ii()`
+
+`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
+  <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
+  <img src="/img/light/inspect.png" width="320" />
+</picture>
+
+```ts
+import { ii } from "console-powers";
+
+ii({
+    type: "group",
+    priority: 1,
+    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
+    location: {
+        start: {
+            line: 1,
+            column: 0,
+        },
+        end: {
+            line: 4,
+            column: 10,
+        },
+    },
+});
+```
+
+### Tables
 
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
@@ -58,34 +88,6 @@ consoleTable([
         price: 1499,
     },
 ])
-```
-
-### Deep object
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
-  <source media="(prefers-color-scheme: light)" srcset="/img/dark/inspect.png">
-  <img src="/img/light/inspect.png" width="320" />
-</picture>
-
-```ts
-import { consoleInspect } from "console-powers";
-
-consoleInspect({
-    type: "group",
-    priority: 1,
-    items: [{ type: "new" }, { type: "delimiter" }, { type: "value" }],
-    location: {
-        start: {
-            line: 1,
-            column: 0,
-        },
-        end: {
-            line: 4,
-            column: 10,
-        },
-    },
-});
 ```
 
 ### Styling
