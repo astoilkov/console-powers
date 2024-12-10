@@ -12,8 +12,6 @@ import ConsoleInspection from "../utils/ConsoleInspection";
 import inspectInline from "./inspectInline";
 import { inspectObject } from "./inspectObject";
 import spansLength from "../../utils/spansLength";
-import consoleTable from "../../extras/consoleTable";
-import hasOnlyPrimitives from "../../utils/hasOnlyPrimitives";
 
 export function inspectIterable(
     iterable: Iterable<unknown>,
@@ -28,22 +26,22 @@ export function inspectIterable(
     }
 
     const iterableDetails = makeIterableDetails(iterable);
-    const preferTables = true;
-    if (
-        preferTables &&
-        iterableDetails.array.every(
-            (value) => isPrimitive(value) || hasOnlyPrimitives(value),
-        )
-    ) {
-        return {
-            type: "block",
-            spans: consoleTable(iterable, {
-                print: false,
-                theme: options.theme,
-                wrap: context.wrap,
-            }),
-        };
-    }
+    // const preferTables = true;
+    // if (
+    //     preferTables &&
+    //     iterableDetails.array.every(
+    //         (value) => isPrimitive(value) || hasOnlyPrimitives(value),
+    //     )
+    // ) {
+    //     return {
+    //         type: "block",
+    //         spans: consoleTable(iterable, {
+    //             print: false,
+    //             theme: options.theme,
+    //             wrap: context.wrap,
+    //         }),
+    //     };
+    // }
 
     if (options.wrap === "single-line") {
         return inspectIterableSingleLine(iterableDetails, options, context);
@@ -232,7 +230,7 @@ interface IterableDetails {
     type: "Set" | "Map" | undefined;
     extraKeys: string[];
 }
-function makeIterableDetails(iterable: Iterable<unknown>): IterableDetails {
+export function makeIterableDetails(iterable: Iterable<unknown>): IterableDetails {
     const array = Array.isArray(iterable) ? iterable : [...iterable];
     const type =
         iterable instanceof Set
