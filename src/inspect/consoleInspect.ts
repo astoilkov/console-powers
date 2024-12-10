@@ -3,7 +3,10 @@ import inspectAny from "./inspectors/inspectAny";
 import ConsoleSpan from "../core/ConsoleSpan";
 import isIterable from "../utils/isIterable";
 import { consoleGroup } from "../core/consoleGroup";
-import { inspectIterableMultiLine } from "./inspectors/inspectIterable";
+import {
+    inspectIterableMultiLine,
+    makeIterableDetails,
+} from "./inspectors/inspectIterable";
 import isPlainObject from "is-plain-obj";
 import { inspectObjectMultiLine } from "./inspectors/inspectObject";
 import { consoleText } from "../core/consoleText";
@@ -85,8 +88,11 @@ function inspect(
             return [
                 consoleGroup({
                     header: inspection.spans,
-                    body: inspectIterableMultiLine([...value], options, context)
-                        .spans,
+                    body: inspectIterableMultiLine(
+                        makeIterableDetails(value),
+                        options,
+                        context,
+                    ).spans,
                 }),
             ];
         } else if (isPlainObject(value)) {
