@@ -109,7 +109,13 @@ consolePrint(
 );
 ```
 
+<details>
+<summary>
+
 ## `consoleInspect()`
+
+</summary>
+<p></p>
 
 Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console. 
 
@@ -160,6 +166,8 @@ Type: `boolean`
 Default: `true`
 
 If set to `false`, the method won't print to the console. In this case, you probably want to get the return value of the method and use it.
+
+</details>
 
 ## `consoleTable()`
 
