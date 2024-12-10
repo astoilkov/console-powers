@@ -23,10 +23,10 @@ npm install console-powers
 
 ## Why
 
-- Debugging large objects with `console.log()` is hard — you either spend time printing only parts or you click multiple times to expand each time.
-- `console.table()` always displays an `(index)` column that adds clutter.
-- `console.table()` doesn't support displaying nested objects in the table cell making it's use limited.
-- Better date/time printing, simpler `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
+- **Quicker debugging for large objects.** Have you spent time clicking on the expand button in DevTools every time you `console.log()` a big object, or have you spent time doing data drilling so it's easier to see? With `consoleInspect()` and it's `expandDepth` and `keys` options you can see an entire object and only the keys you want.
+- **Better table printing.** `connsole.table()` always displays `(index)` column that adds clutter. Also, `console.table()` doesn't support displaying nested objects in the table cell making it's use limited.
+- **Write less, use inline.** You can sneak in `ii()` — `return ii(data)` — and it will print and return the value so you don't need to make a separate variable, print the value, and then return it.
+- **and many more.** Better date/time printing, simpler `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
 
 ## Examples
 
