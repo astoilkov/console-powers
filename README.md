@@ -35,7 +35,7 @@ npm install console-powers
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="/img/light/table.png">
     <source media="(prefers-color-scheme: light)" srcset="/img/dark/table.png">
-    <img src="/img/light/table.png" width="320" />
+    <img src="/img/light/table.png" width="380" />
 </picture>
 
 ```ts
