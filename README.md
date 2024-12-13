@@ -133,7 +133,7 @@ import { ii } from 'console-powers'
 if (import.meta.env.DEV) {
     global.ii == ii
 } else {
-    // if you leave a ii() call somewhere, just 
+    // ensure production doesn't break
     global.ii = (value) => value
 }
 ```
