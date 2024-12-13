@@ -23,10 +23,10 @@ npm install console-powers
 
 ## Why
 
-- **Quicker debugging for large objects.** Have you spent time clicking on the expand button in DevTools every time you `console.log()` a big object, or have you spent time doing data drilling so it's easier to see? With `consoleInspect()` and it's `expandDepth` and `keys` options you can see an entire object and only the keys you want.
+- **Quicker debugging for large objects.** Have you spent time clicking on the expand button in DevTools every time you `console.log()` a big object, or have you spent time doing data drilling so it's easier to see? With `ii()` and it's `depth` and `keys` options you can see an entire object with only the keys you want.
 - **Better table printing.** `connsole.table()` always displays `(index)` column that adds clutter. Also, `console.table()` doesn't support displaying nested objects in the table cell making it's use limited.
 - **Write less, use inline.** You can sneak in `ii()` — `return ii(data)` — and it will print and return the value so you don't need to make a separate variable, print the value, and then return it. Also, if your don't have a shorthand for `console.log`, writing `ii` is faster.
-- **and many more.** Better date/time printing, simpler `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
+- **And many more.** Better date/time printing, more readable `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
 
 ## Examples
 
