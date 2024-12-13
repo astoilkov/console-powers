@@ -113,7 +113,7 @@ consolePrint(
 
 ## Usage
 
-## `ii()`
+### `ii()`
 
 `ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can just start using `ii()` instead of `console.log()`.
 
