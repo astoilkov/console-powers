@@ -138,10 +138,24 @@ if (import.meta.env.DEV) {
 }
 ```
 
+**Passing options:**
+```ts
+// change how ii() works by default
+ii.defaults.indent = 2 // default: 4
+ii.defaults.depth = 4 // default: 2
+ii.defaults.wrap = 'multi-line' // default: 'auto'
+
+ii.depth(6) // for nested objects, expand more levels 
+ii.d(6) // or use the shorthand
+
+ii.keys('start', 'end', 'nodes') // whitelist keys that should be included
+ii.k('start', 'end', 'nodes') // or use the shorthand
+```
+
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
 
-Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console. 
+Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console.
 
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
 
