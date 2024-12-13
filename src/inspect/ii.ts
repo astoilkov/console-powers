@@ -9,6 +9,7 @@ export default ii;
 
 interface InspectInspect {
     <T>(value: T, ...args: unknown[]): T
+    defaults: ConsoleInspectOptions
     depth: (depth: number) => InspectInspect
     d: (depth: number) => InspectInspect
     keys: (keys: string[]) => InspectInspect
@@ -21,6 +22,7 @@ function createInspectInspect(
     const fn = (...args: unknown[]) => {
         return inspectInspect(options, ...args);
     };
+    fn.defaults = options
     fn.depth = (depth: number) => createInspectInspect({ ...options, depth });
     fn.d = fn.depth;
     fn.keys = (keys: string[]) => createInspectInspect({ ...options, keys });
