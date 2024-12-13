@@ -1,10 +1,46 @@
 import consolePrint from "../core/consolePrint";
 import type ConsoleSpan from "../core/ConsoleSpan";
 import { consoleText } from "../core/consoleText";
-import consoleInspect from "./consoleInspect";
+import consoleInspect, { type ConsoleInspectOptions } from "./consoleInspect";
 
-export default function ii<T>(value: T, ...args: unknown[]): T;
-export default function ii(...args: unknown[]): unknown {
+const ii = createInspectInspect({});
+
+export default ii;
+
+interface InspectInspect {
+    <T>(value: T, ...args: unknown[]): T
+    depth: (depth: number) => InspectInspect
+    d: (depth: number) => InspectInspect
+    keys: (keys: string[]) => InspectInspect
+    k: (keys: string[]) => InspectInspect
+}
+
+function createInspectInspect(
+    options: ConsoleInspectOptions,
+): InspectInspect {
+    const fn = (...args: unknown[]) => {
+        return inspectInspect(options, ...args);
+    };
+    fn.depth = (depth: number) => createInspectInspect({ ...options, depth });
+    fn.d = fn.depth;
+    fn.keys = (keys: string[]) => createInspectInspect({ ...options, keys });
+    fn.k = fn.keys;
+    return fn as InspectInspect
+}
+
+function inspectInspect<T>(
+    options: ConsoleInspectOptions,
+    value: T,
+    ...args: unknown[]
+): T;
+function inspectInspect(
+    options: ConsoleInspectOptions,
+    ...args: unknown[]
+): unknown;
+function inspectInspect(
+    options: ConsoleInspectOptions,
+    ...args: unknown[]
+): unknown {
     if (args.length === 0) {
         return undefined;
     }
@@ -19,6 +55,7 @@ export default function ii(...args: unknown[]): unknown {
             }
             spans.push(
                 ...consoleInspect(value, {
+                    ...options,
                     print: false,
                 }),
             );
