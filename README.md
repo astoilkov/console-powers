@@ -25,14 +25,14 @@ npm install console-powers
 
 - **Quicker debugging for large objects.** Have you spent time clicking on the expand button in DevTools every time you `console.log()` a big object, or have you spent time doing data drilling so it's easier to see? With `consoleInspect()` and it's `expandDepth` and `keys` options you can see an entire object and only the keys you want.
 - **Better table printing.** `connsole.table()` always displays `(index)` column that adds clutter. Also, `console.table()` doesn't support displaying nested objects in the table cell making it's use limited.
-- **Write less, use inline.** You can sneak in `ii()` — `return ii(data)` — and it will print and return the value so you don't need to make a separate variable, print the value, and then return it.
+- **Write less, use inline.** You can sneak in `ii()` — `return ii(data)` — and it will print and return the value so you don't need to make a separate variable, print the value, and then return it. Also, if your don't have a shorthand for `console.log`, writing `ii` is faster.
 - **and many more.** Better date/time printing, simpler `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
 
 ## Examples
 
 ### `ii()`
 
-`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library.
+`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can just start using `ii()` instead of `console.log()`.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
@@ -112,6 +112,31 @@ consolePrint(
 ```
 
 ## Docs
+
+## `ii()`
+
+`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can just start using `ii()` instead of `console.log()`.
+
+#### `ii<T>(value: T, ...args: any[]): T`
+
+**Tip:** Use `ii()` inline as it returns what you pass to it:
+```ts
+function getData() {
+    // ii() will return the first parameter, instead of needing to create a variable for it
+    return ii(data)
+}
+```
+
+**Tip:** You can add `ii()` to the global scope so you don't need to import it when you want to log something:
+```ts
+import { ii } from 'console-powers'
+if (import.meta.env.DEV) {
+    global.ii == ii
+} else {
+    // if you leave a ii() call somewhere, just 
+    global.ii = (value) => value
+}
+```
 
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
