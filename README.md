@@ -111,7 +111,7 @@ consolePrint(
 );
 ```
 
-## Docs
+## Usage
 
 ## `ii()`
 
