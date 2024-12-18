@@ -127,17 +127,6 @@ function getData() {
 }
 ```
 
-**Tip:** You can add `ii()` to the global scope so you don't need to import it when you want to log something:
-```ts
-import { ii } from 'console-powers'
-if (import.meta.env.DEV) {
-    global.ii == ii
-} else {
-    // ensure production doesn't break
-    global.ii = (value) => value
-}
-```
-
 **Passing options:**
 ```ts
 // change how ii() works by default
