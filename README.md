@@ -95,7 +95,7 @@ consoleTable([
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/print.png">
   <source media="(prefers-color-scheme: light)" srcset="/img/dark/print.png">
-  <img src="/img/light/print.png" width="320" />
+  <img src="/img/light/print.png" width="240" />
 </picture>
 
 ```ts
@@ -119,7 +119,7 @@ consolePrint(
 
 #### `ii<T>(value: T, ...args: any[]): T`
 
-**Tip:** Use `ii()` inline as it returns what you pass to it:
+**Tip:** Use `ii()` inside expressions – it returns the first argument your pass to it:
 ```ts
 function getData() {
     // ii() will return the first parameter, instead of needing to create a variable for it
@@ -129,7 +129,7 @@ function getData() {
 
 **Passing options:**
 ```ts
-// change how ii() works by default
+// the options ii() passes down to consoleInspect()
 ii.defaults.indent = 2 // default: 4
 ii.defaults.depth = 4 // default: 2
 ii.defaults.wrap = 'multi-line' // default: 'auto'
@@ -143,8 +143,6 @@ ii.k('start', 'end', 'nodes') // or use the shorthand
 
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
-
-Great for debugging. Especially great as a `console.log()` substitute for nested objects/arrays. It's like a more powerful version of `util.inspect()` built for the browser console.
 
 #### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
 
