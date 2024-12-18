@@ -115,7 +115,7 @@ consolePrint(
 
 ### `ii()`
 
-`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can just start using `ii()` instead of `console.log()`.
+`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can start using `ii()` instead of `console.log()`. It uses `consoleInspect()` under the hood.
 
 #### `ii<T>(value: T, ...args: any[]): T`
 
