@@ -16,18 +16,16 @@ interface InspectInspect {
     k: (...keys: string[]) => InspectInspect
 }
 
-function createInspectInspect(
-    options: ConsoleInspectOptions,
-): InspectInspect {
+function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
     const fn = (...args: unknown[]) => {
         return inspectInspect(options, ...args);
     };
-    fn.defaults = options
+    fn.defaults = options;
     fn.depth = (depth: number) => createInspectInspect({ ...options, depth });
     fn.d = fn.depth;
     fn.keys = (...keys: string[]) => createInspectInspect({ ...options, keys });
     fn.k = fn.keys;
-    return fn as InspectInspect
+    return fn as InspectInspect;
 }
 
 function inspectInspect<T>(
@@ -47,24 +45,31 @@ function inspectInspect(
         return undefined;
     }
 
-    if (hasWebContext()) {
-        const spans: ConsoleSpan[] = [];
-        let first = true;
-        for (const value of args) {
-            if (!first) {
-                first = false;
-                spans.push(consoleText(" "));
-            }
-            spans.push(
-                ...consoleInspect(value, {
-                    ...options,
-                    print: false,
-                }),
-            );
-        }
-        consolePrint(spans);
+    const hasPromise = args.some((arg) => arg instanceof Promise);
+    if (hasPromise) {
+        Promise.all(args).then((values) => {
+            return inspectInspect(options, ...values);
+        });
     } else {
-        console.log(...args);
+        if (hasWebContext()) {
+            const spans: ConsoleSpan[] = [];
+            let first = true;
+            for (const value of args) {
+                if (!first) {
+                    first = false;
+                    spans.push(consoleText(" "));
+                }
+                spans.push(
+                    ...consoleInspect(value, {
+                        ...options,
+                        print: false,
+                    }),
+                );
+            }
+            consolePrint(spans);
+        } else {
+            console.log(...args);
+        }
     }
 
     return args[0];
