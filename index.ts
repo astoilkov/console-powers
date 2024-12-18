@@ -1,5 +1,6 @@
 // main
 export { default as ii } from "./src/inspect/ii";
+export type { InspectInspect } from "./src/inspect/ii";
 
 // inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";

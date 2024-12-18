@@ -7,13 +7,13 @@ const ii = createInspectInspect({});
 
 export default ii;
 
-interface InspectInspect {
-    <T>(value: T, ...args: unknown[]): T
-    defaults: ConsoleInspectOptions
-    depth: (depth: number) => InspectInspect
-    d: (depth: number) => InspectInspect
-    keys: (...keys: string[]) => InspectInspect
-    k: (...keys: string[]) => InspectInspect
+export interface InspectInspect {
+    <T>(value: T, ...args: unknown[]): T;
+    defaults: ConsoleInspectOptions;
+    depth: (depth: number) => InspectInspect;
+    d: (depth: number) => InspectInspect;
+    keys: (...keys: string[]) => InspectInspect;
+    k: (...keys: string[]) => InspectInspect;
 }
 
 function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
