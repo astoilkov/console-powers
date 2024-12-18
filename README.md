@@ -30,9 +30,7 @@ npm install console-powers
 
 ## Examples
 
-### `ii()`
-
-`ii()` (inspect-inspect) is an all-in-one utility function encompassing the entire library. It's the easiest and recommended way to use the library. You can just start using `ii()` instead of `console.log()`.
+### Inspect
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/img/light/inspect.png">
@@ -43,6 +41,7 @@ npm install console-powers
 ```ts
 import { ii } from "console-powers";
 
+// inspect-inspect
 ii({
     type: "group",
     priority: 1,
@@ -69,9 +68,10 @@ ii({
 </picture>
 
 ```ts
-import { consoleTable } from "console-powers";
+import { tt } from "console-powers";
 
-consoleTable([
+// table-table
+tt([
     {
         model: 'MacBook Air 13"',
         year: new Date(2020, 10, 23),
