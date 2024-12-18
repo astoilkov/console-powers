@@ -1,9 +1,3 @@
-import type { InspectInspect } from "../inspect/ii";
-import type { TableTable } from "../inspect/tt";
-
-declare const ii: InspectInspect;
-declare const tt: TableTable
-
 export default function addNoopToGlobalScope(): void {
     const ii = <T>(value: T) => value;
     ii.defaults = {};
