@@ -1,6 +1,10 @@
-// main
+// ii
 export { default as ii } from "./src/inspect/ii";
 export type { InspectInspect } from "./src/inspect/ii";
+
+// tt
+export { default as tt } from "./src/inspect/tt";
+export type { TableTable } from "./src/inspect/tt";
 
 // inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
