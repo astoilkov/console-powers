@@ -37,6 +37,8 @@
     "files": [
         "index.js",
         "index.d.ts",
+        "global.js",
+        "global.d.ts",
         "src/**/*.js",
         "src/**/*.d.ts"
     ],
