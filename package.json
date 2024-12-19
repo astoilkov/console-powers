@@ -1,6 +1,6 @@
 {
     "name": "console-powers",
-    "version": "0.11.1",
+    "version": "0.11.2",
     "description": "Craft beautiful browser console messages. Debug & inspect data with elegant outputs. Small & tree-shakable.",
     "license": "MIT",
     "repository": "astoilkov/console-powers",
