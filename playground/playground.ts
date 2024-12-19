@@ -9,6 +9,8 @@ import consoleTable from "../src/extras/consoleTable";
 import slicedownResult from "./fixtures/slicedownResult";
 import consoleOrderedList from "../src/extras/consoleOrderedList";
 import examples from "./examples";
+import ii from "../src/inspect/ii";
+import tt from "../src/inspect/tt";
 
 function inspect(value: unknown, options?: ConsoleInspectOptions): unknown {
     console.log(value);
@@ -373,4 +375,21 @@ examples.make(() => {
     consoleInspect(objCircular, {
         depth: 5,
     });
+});
+
+examples.make(() => {
+    ii("empty strings", "", "  ");
+});
+
+examples.make(() => {
+    tt(
+        [
+            { type: "folder", name: "notes " },
+            { type: "file", name: "todo.md" },
+        ],
+        [
+            { type: "folder", name: "notes " },
+            { type: "file", name: "meditation.md" },
+        ],
+    );
 });
