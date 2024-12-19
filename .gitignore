@@ -6,3 +6,4 @@ yarn.lock
 
 *.js
 *.d.ts
+!typings.d.ts

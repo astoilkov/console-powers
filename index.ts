@@ -6,10 +6,6 @@ export type { InspectInspect } from "./src/inspect/ii";
 export { default as tt } from "./src/inspect/tt";
 export type { TableTable } from "./src/inspect/tt";
 
-// global
-export { default as addToGlobalScope } from "./src/global/addToGlobalScope";
-export { default as addNoopToGlobalScope } from "./src/global/addNoopToGlobalScope";
-
 // inspect
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
 export type { ConsoleInspectOptions } from "./src/inspect/consoleInspect";

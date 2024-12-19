@@ -18,7 +18,11 @@
     "type": "module",
     "exports": {
         "types": "./index.d.ts",
-        "default": "./index.js"
+        "default": "./index.js",
+        "global": {
+            "types": "./global.d.ts",
+            "default": "./global.js"
+        }
     },
     "sideEffects": false,
     "engines": {
