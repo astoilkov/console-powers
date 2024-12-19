@@ -14,6 +14,7 @@ import stringExcerpt from "../utils/stringExcerpt";
 import isPrimitive from "../utils/isPrimitive";
 import consoleApply from "../core/consoleApply";
 import savedAvailableLengthGuess from "../utils/savedAvailableLengthGuess";
+import inspectPrimitive from "./inspectors/inspectPrimitive";
 
 export interface ConsoleInspectOptions {
     indent?: number;
@@ -65,7 +66,9 @@ function inspect(
     options: Required<ConsoleInspectOptions>,
 ): ConsoleSpan[] {
     if (typeof value === "string") {
-        return [consoleText(stringExcerpt(value, 10000))];
+        return value.trim() === ""
+            ? [inspectPrimitive(value, options.theme)]
+            : [consoleText(stringExcerpt(value, 10000))];
     }
 
     const context: ConsoleInspectContext = {
