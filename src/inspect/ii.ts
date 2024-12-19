@@ -56,9 +56,9 @@ function inspectInspect(
             let first = true;
             for (const value of args) {
                 if (!first) {
-                    first = false;
                     spans.push(consoleText(" "));
                 }
+                first = false;
                 spans.push(
                     ...consoleInspect(value, {
                         ...options,
