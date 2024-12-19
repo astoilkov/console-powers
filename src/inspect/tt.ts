@@ -44,9 +44,9 @@ function tableTable(options: ConsoleTableOptions, ...args: unknown[]): unknown {
             let first = true;
             for (const value of args) {
                 if (!first) {
-                    first = false;
-                    spans.push(consoleText(" "));
+                    spans.push(consoleText("\n\n"));
                 }
+                first = false;
                 spans.push(
                     ...consoleTable(
                         isPrimitive(value) ? [value] : (value as {}),
