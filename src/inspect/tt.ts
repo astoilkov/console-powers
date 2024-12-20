@@ -16,19 +16,19 @@ export interface TableTable {
 
 function createTableTable(options: ConsoleTableOptions): TableTable {
     const fn = (...args: unknown[]) => {
-        return tableTable(options, ...args);
+        return tableTable(fn, ...args);
     };
     fn.defaults = options;
     return fn as TableTable;
 }
 
 function tableTable<T>(
-    options: ConsoleTableOptions,
+    self: TableTable,
     value: T,
     ...args: unknown[]
 ): T;
-function tableTable(options: ConsoleTableOptions, ...args: unknown[]): unknown;
-function tableTable(options: ConsoleTableOptions, ...args: unknown[]): unknown {
+function tableTable(self: TableTable, ...args: unknown[]): unknown;
+function tableTable(self: TableTable, ...args: unknown[]): unknown {
     if (args.length === 0) {
         return undefined;
     }
@@ -36,7 +36,7 @@ function tableTable(options: ConsoleTableOptions, ...args: unknown[]): unknown {
     const hasPromise = args.some((arg) => arg instanceof Promise);
     if (hasPromise) {
         Promise.all(args).then((values) => {
-            return tableTable(options, ...values);
+            return tableTable(self, ...values);
         });
     } else {
         if (hasWebContext()) {
@@ -51,7 +51,7 @@ function tableTable(options: ConsoleTableOptions, ...args: unknown[]): unknown {
                     ...consoleTable(
                         isPrimitive(value) ? [value] : (value as {}),
                         {
-                            ...options,
+                            ...self.defaults,
                             print: false,
                         },
                     ),

@@ -18,7 +18,7 @@ export interface InspectInspect {
 
 function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
     const fn = (...args: unknown[]) => {
-        return inspectInspect(options, ...args);
+        return inspectInspect(fn, ...args);
     };
     fn.defaults = options;
     fn.depth = (depth: number) => createInspectInspect({ ...options, depth });
@@ -29,16 +29,16 @@ function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
 }
 
 function inspectInspect<T>(
-    options: ConsoleInspectOptions,
+    self: InspectInspect,
     value: T,
     ...args: unknown[]
 ): T;
 function inspectInspect(
-    options: ConsoleInspectOptions,
+    self: InspectInspect,
     ...args: unknown[]
 ): unknown;
 function inspectInspect(
-    options: ConsoleInspectOptions,
+    self: InspectInspect,
     ...args: unknown[]
 ): unknown {
     if (args.length === 0) {
@@ -48,7 +48,7 @@ function inspectInspect(
     const hasPromise = args.some((arg) => arg instanceof Promise);
     if (hasPromise) {
         Promise.all(args).then((values) => {
-            return inspectInspect(options, ...values);
+            return inspectInspect(self, ...values);
         });
     } else {
         if (hasWebContext()) {
@@ -61,7 +61,7 @@ function inspectInspect(
                 first = false;
                 spans.push(
                     ...consoleInspect(value, {
-                        ...options,
+                        ...self.defaults,
                         print: false,
                     }),
                 );
