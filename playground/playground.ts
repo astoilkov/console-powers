@@ -1,6 +1,4 @@
-import consoleInspect, {
-    type ConsoleInspectOptions,
-} from "../src/inspect/consoleInspect";
+import { type ConsoleInspectOptions } from "../src/inspect/consoleInspect";
 import consolePrint from "../src/core/consolePrint";
 import consoleQuote from "../src/extras/consoleQuote";
 import consoleUnorderedList from "../src/extras/consoleUnorderedList";
@@ -14,7 +12,9 @@ import tt from "../src/inspect/tt";
 
 function inspect(value: unknown, options?: ConsoleInspectOptions): unknown {
     console.log(value);
-    consoleInspect(value, options);
+    ii.defaults = options ?? ii.defaults;
+    ii(value);
+    ii.defaults = {};
     return value;
 }
 
@@ -41,7 +41,7 @@ examples.make(() => {
 
 examples.make(() => {
     // example 2
-    consoleInspect(
+    ii(
         {
             type: "group",
             level: 1,
@@ -161,21 +161,16 @@ examples.make(() => {
 });
 
 examples.make(() => {
-    consoleInspect(slicedownResult);
+    ii(slicedownResult);
 });
 
 examples.make(() => {
     // array of arrays
     const obj1 = { start: 7, end: 23 };
-    consoleInspect(
-        [
-            [obj1, obj1],
-            [obj1, obj1],
-        ],
-        {
-            depth: 2,
-        },
-    );
+    ii([
+        [obj1, obj1],
+        [obj1, obj1],
+    ]);
 });
 
 examples.make(() => {
@@ -197,11 +192,8 @@ examples.make(() => {
         withNewLine: "- 1\n-2",
         onePropertyObject: { value: [] },
     };
-    consoleInspect(nestedObject1);
-    consoleInspect(nestedObject1, {
-        depth: 3,
-        indent: 4,
-    });
+    ii(nestedObject1);
+    ii.depth(3)(nestedObject1);
     consoleTable(nestedObject1);
 });
 
@@ -298,7 +290,7 @@ examples.make(() => {
 
 examples.make(() => {
     // options.keys
-    consoleInspect(
+    ii(
         [
             {
                 model: 'MacBook Air 13"',
@@ -328,12 +320,12 @@ examples.make(() => {
 
 examples.make(() => {
     // Error (inspect)
-    consoleInspect(new Error("Hello world!"));
+    ii(new Error("Hello world!"));
 });
 
 examples.make(() => {
     // long object keys
-    consoleInspect(
+    ii(
         {
             longLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectKeyThatWrapsIfWeDontDoAnything:
                 true,
@@ -347,7 +339,7 @@ examples.make(() => {
 
 examples.make(() => {
     // long object values
-    consoleInspect(
+    ii(
         {
             a: "longLongVeryLongObjectValueThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectValueThatWrapsIfWeDontDoAnythingLongLongVeryLongObjectValueThatWrapsIfWeDontDoAnything",
             b: "2",
@@ -360,9 +352,9 @@ examples.make(() => {
     // array with object keys/properties
     const array = [1, 2, 3];
     (array as any).someObjectKey = "someObjectValue";
-    consoleInspect(array);
+    ii(array);
     (array as any).innerObj = { a: 1 };
-    consoleInspect(array);
+    ii(array);
 });
 
 examples.make(() => {
@@ -372,9 +364,7 @@ examples.make(() => {
     const arrCircular = [1, 2, 3];
     arrCircular.push(arrCircular as any);
     objCircular.c = arrCircular as any;
-    consoleInspect(objCircular, {
-        depth: 5,
-    });
+    ii.depth(5)(objCircular);
 });
 
 examples.make(() => {
