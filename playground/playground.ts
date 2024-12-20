@@ -383,3 +383,23 @@ examples.make(() => {
         ],
     );
 });
+
+// ii → unwrap promise
+examples.make(() => {
+    ii(Promise.resolve("hello"));
+    tt(Promise.resolve(["hello"]));
+});
+
+// options.pre
+examples.make(() => {
+    // ii.defaults.pre = (value) => {
+    //     if (typeof value === "string") {
+    //         return value.toUpperCase();
+    //     }
+    //     return value;
+    // };
+
+    ii("hello", "world", {});
+
+    // ii.defaults.pre = undefined;
+});
