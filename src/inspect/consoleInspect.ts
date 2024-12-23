@@ -36,10 +36,10 @@ export interface ConsoleInspectContext {
 }
 
 export default function consoleInspect(
-    value: unknown,
+    values: unknown[],
     options?: ConsoleInspectOptions,
 ): ConsoleSpan[] {
-    const spans = inspect(value, {
+    const spans = inspect(values, {
         depth: 2,
         indent: 4,
         wrap: "auto",
@@ -50,7 +50,7 @@ export default function consoleInspect(
         keys: [],
         ...options,
     });
-    const withLineHeight = isPrimitive(value)
+    const withLineHeight = isPrimitive(values)
         ? spans
         : consoleApply(spans, { lineHeight: "1.6" });
 
@@ -62,51 +62,74 @@ export default function consoleInspect(
 }
 
 function inspect(
-    value: unknown,
+    values: unknown[],
     options: Required<ConsoleInspectOptions>,
 ): ConsoleSpan[] {
-    if (typeof value === "string") {
-        return value.trim() === ""
-            ? [inspectPrimitive(value, options.theme)]
-            : [consoleText(stringExcerpt(value, 10000))];
-    }
+    const spans: ConsoleSpan[] = [];
 
-    const context: ConsoleInspectContext = {
-        depth: 0,
-        circular: new Set(),
-        keys: new Set(options.keys),
-        wrap:
-            typeof options.wrap === "number"
-                ? options.wrap
-                : options.wrap === "single-line"
-                  ? Number.MAX_SAFE_INTEGER
-                  : savedAvailableLengthGuess(),
-    };
-    const inspection = inspectAny(value, options, context);
+    for (let i = 0; i < values.length; i++) {
+        const value = values[i];
+        if (typeof value === "string") {
+            if (value.trim() === "") {
+                spans.push(inspectPrimitive(value, options.theme));
+            } else {
+                spans.push(consoleText(stringExcerpt(value, 10000)));
+            }
 
-    // special case: top-level grouping of array/object
-    // we otherwise can't use groups because they call `consoleFlush()`
-    if (inspection.type === "inline") {
-        if (Array.isArray(value) || isIterable(value)) {
-            return [
-                consoleGroup({
-                    header: inspection.spans,
-                    body: inspectIterableMultiLine(
-                        makeIterableDetails(value),
-                        options,
-                        context,
-                    ).spans,
-                }),
-            ];
-        } else if (isPlainObject(value)) {
-            return [
-                consoleGroup({
-                    header: inspection.spans,
-                    body: inspectObjectMultiLine(value, options, context).spans,
-                }),
-            ];
+            if (i !== values.length - 1) {
+                spans.push(consoleText(" "));
+            }
+        } else {
+            const context: ConsoleInspectContext = {
+                depth: 0,
+                circular: new Set(),
+                keys: new Set(options.keys),
+                wrap:
+                    typeof options.wrap === "number"
+                        ? options.wrap
+                        : options.wrap === "single-line"
+                          ? Number.MAX_SAFE_INTEGER
+                          : savedAvailableLengthGuess(),
+            };
+            const inspection = inspectAny(value, options, context);
+
+            // special case: top-level grouping of array/object
+            // we otherwise can't use groups because they call `consoleFlush()`
+            if (values.length === 1 && inspection.type === "inline") {
+                if (Array.isArray(value) || isIterable(value)) {
+                    return [
+                        consoleGroup({
+                            header: inspection.spans,
+                            body: inspectIterableMultiLine(
+                                makeIterableDetails(value),
+                                options,
+                                context,
+                            ).spans,
+                        }),
+                    ];
+                } else if (isPlainObject(value)) {
+                    return [
+                        consoleGroup({
+                            header: inspection.spans,
+                            body: inspectObjectMultiLine(
+                                value,
+                                options,
+                                context,
+                            ).spans,
+                        }),
+                    ];
+                }
+            } else {
+                spans.push(...inspection.spans);
+
+                if (i !== values.length - 1) {
+                    spans.push(
+                        consoleText(inspection.type === "block" ? "\n" : " "),
+                    );
+                }
+            }
         }
     }
 
-    return inspection.spans;
+    return spans;
 }

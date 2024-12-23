@@ -1,6 +1,3 @@
-import consolePrint from "../core/consolePrint";
-import type ConsoleSpan from "../core/ConsoleSpan";
-import { consoleText } from "../core/consoleText";
 import consoleInspect, { type ConsoleInspectOptions } from "./consoleInspect";
 
 const ii = createInspectInspect({});
@@ -33,14 +30,8 @@ function inspectInspect<T>(
     value: T,
     ...args: unknown[]
 ): T;
-function inspectInspect(
-    self: InspectInspect,
-    ...args: unknown[]
-): unknown;
-function inspectInspect(
-    self: InspectInspect,
-    ...args: unknown[]
-): unknown {
+function inspectInspect(self: InspectInspect, ...args: unknown[]): unknown;
+function inspectInspect(self: InspectInspect, ...args: unknown[]): unknown {
     if (args.length === 0) {
         return undefined;
     }
@@ -52,21 +43,7 @@ function inspectInspect(
         });
     } else {
         if (hasWebContext()) {
-            const spans: ConsoleSpan[] = [];
-            let first = true;
-            for (const value of args) {
-                if (!first) {
-                    spans.push(consoleText(" "));
-                }
-                first = false;
-                spans.push(
-                    ...consoleInspect(value, {
-                        ...self.defaults,
-                        print: false,
-                    }),
-                );
-            }
-            consolePrint(spans);
+            consoleInspect(args, self.defaults);
         } else {
             console.log(...args);
         }
