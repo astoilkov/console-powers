@@ -11,6 +11,7 @@ export interface InspectInspect {
     d: (depth: number) => InspectInspect;
     keys: (...keys: string[]) => InspectInspect;
     k: (...keys: string[]) => InspectInspect;
+    pre: ((value: unknown) => unknown) | undefined;
 }
 
 function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
@@ -22,6 +23,7 @@ function createInspectInspect(options: ConsoleInspectOptions): InspectInspect {
     fn.d = fn.depth;
     fn.keys = (...keys: string[]) => createInspectInspect({ ...options, keys });
     fn.k = fn.keys;
+    fn.pre = undefined;
     return fn as InspectInspect;
 }
 
@@ -43,7 +45,8 @@ function inspectInspect(self: InspectInspect, ...args: unknown[]): unknown {
         });
     } else {
         if (hasWebContext()) {
-            consoleInspect(args, self.defaults);
+            const values = self.pre === undefined ? args : args.map(self.pre);
+            consoleInspect(values, self.defaults);
         } else {
             console.log(...args);
         }
