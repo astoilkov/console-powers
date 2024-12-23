@@ -372,6 +372,7 @@ examples.make(() => {
 });
 
 examples.make(() => {
+    tt(undefined);
     tt(
         [
             { type: "folder", name: "notes " },
