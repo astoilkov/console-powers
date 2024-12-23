@@ -12,6 +12,7 @@ export default tt;
 export interface TableTable {
     <T>(value: T, ...args: unknown[]): T;
     defaults: ConsoleTableOptions;
+    pre: ((value: unknown) => unknown) | undefined;
 }
 
 function createTableTable(options: ConsoleTableOptions): TableTable {
@@ -19,14 +20,11 @@ function createTableTable(options: ConsoleTableOptions): TableTable {
         return tableTable(fn, ...args);
     };
     fn.defaults = options;
+    fn.pre = undefined;
     return fn as TableTable;
 }
 
-function tableTable<T>(
-    self: TableTable,
-    value: T,
-    ...args: unknown[]
-): T;
+function tableTable<T>(self: TableTable, value: T, ...args: unknown[]): T;
 function tableTable(self: TableTable, ...args: unknown[]): unknown;
 function tableTable(self: TableTable, ...args: unknown[]): unknown {
     if (args.length === 0) {
@@ -42,11 +40,12 @@ function tableTable(self: TableTable, ...args: unknown[]): unknown {
         if (hasWebContext()) {
             const spans: ConsoleSpan[] = [];
             let first = true;
-            for (const value of args) {
+            for (const arg of args) {
                 if (!first) {
                     spans.push(consoleText("\n\n"));
                 }
                 first = false;
+                const value = self.pre === undefined ? arg : self.pre(arg);
                 spans.push(
                     ...consoleTable(
                         isPrimitive(value) ? [value] : (value as {}),
