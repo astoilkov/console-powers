@@ -111,7 +111,7 @@ consolePrint(
 );
 ```
 
-## Usage
+## API
 
 ### `ii()`
 
@@ -144,7 +144,7 @@ ii.k('start', 'end', 'nodes') // or use the shorthand
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
 
-#### `consoleInspect(value: unknown, options?: ConsoleInspectOptions): ConsoleSpan[]`
+#### `consoleInspect(values: any[], options?: ConsoleInspectOptions): ConsoleSpan[]`
 
 ##### `ConsoleInspectOptions.depth`
 
@@ -199,7 +199,7 @@ If set to `false`, the method won't print to the console. In this case, you prob
 
 Great for debugging. Especially great when you have an array of objects that aren't deeply nested.
 
-#### `consoleTable(value: object, options: ConsoleTableOptions): ConsoleSpan[]`
+#### `consoleTable(value: any, options: ConsoleTableOptions): ConsoleSpan[]`
 
 ##### `ConsoleTableOptions.wrap`
 
