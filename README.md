@@ -1,8 +1,6 @@
 # `console-powers`
 
-> Craft beautiful browser console messages.
-> Debug & inspect data with elegant outputs.
-> Small & tree-shakable.
+> Better browser console debugging experience. Ditch `console.log`.
 
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/console-powers)](https://bundlephobia.com/result?p=console-powers)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/console-powers/main.yml?branch=main)](https://github.com/astoilkov/console-powers/actions/workflows/main.yml)
