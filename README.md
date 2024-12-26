@@ -1,6 +1,6 @@
 # `console-powers`
 
-> Better browser console debugging experience. Ditch `console.log`.
+> Better debugging experience in the browser's console. Ditch `console.log`.
 
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/console-powers)](https://bundlephobia.com/result?p=console-powers)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/console-powers/main.yml?branch=main)](https://github.com/astoilkov/console-powers/actions/workflows/main.yml)
@@ -40,7 +40,7 @@ if (import.meta.env.DEV) {
 }
 ```
 
-The library also has additional methods for doing advanced printing in the browser console — see the [API](#api) section if you wanna dive deeper.
+The library also has additional methods for doing advanced printing in the browser console — see the [API section](#api) if you wanna dive deeper.
 
 ## Examples
 
@@ -141,18 +141,79 @@ function getData() {
 }
 ```
 
-**Passing options:**
+##### `ii.defaults`
+
+Type: [`ConsoleInspectOptions`](#console-inspect-options-depth)
+
+The default options passed to `consoleInspect()` (see its docs for a list of all options and what they do).
+
+##### `ii.depth(depth: number): InspectInspect`
+
+Alias: `ii.d(depth: number): InspectInspect`
+
+Changes how many levels of a nested object are expanded by default. Returns itself to allow chaining:
 ```ts
-// the options ii() passes down to consoleInspect()
-ii.defaults.indent = 2 // default: 4
-ii.defaults.depth = 4 // default: 2
-ii.defaults.wrap = 'multi-line' // default: 'auto'
+ii.depth(6)(nestedObject)
+```
 
-ii.depth(6) // for nested objects, expand more levels 
-ii.d(6) // or use the shorthand
+##### `ii.keys(...keys: string[]): InspectInspect`
 
-ii.keys('start', 'end', 'nodes') // whitelist keys that should be included
-ii.k('start', 'end', 'nodes') // or use the shorthand
+Alias: `ii.k(...keys: string[]): InspectInspect`
+
+Whitelist keys to include in the log. For nested object, `keys` work per level — at particular level of nesting if no key matches any of the `keys` the whole level is shown. For nested object, showing a key also shows its children. Returns itself to allow chaining:
+```ts
+ii.keys('start', 'end', 'type')({
+    type: 'paragraph',
+    start: 0,
+    end: 10,
+    nodes: [{
+        ...
+    }]
+})
+```
+
+##### `ii.pre(value: unknown): unknown`
+
+Allows you to manipulate the value before printing it. For example, in Solid.js Signals are functions with no parameters and you can ensure it always prints the value and not the Signal itself:
+```ts
+ii.pre = (value: unknown): unknown => {
+    // is it a Solid.js Signal?
+    return typeof value === 'function' && value.length === 0
+        ? value()
+        : value
+}
+```
+
+### `tt()`
+
+`tt()` (table-table) aims to replace `console.table()` by providing extra features and cleaner design.  It uses `consoleTable()` under the hood.
+
+#### `tt<T>(value: T, ...args: any[]): T`
+
+**Tip:** Use `tt()` inside expressions – it returns the first argument your pass to it:
+```ts
+function getData() {
+    // tt() will return the first parameter, instead of needing to create a variable for it
+    return tt(data)
+}
+```
+
+##### `tt.defaults`
+
+Type: [`ConsoleTableOptions`](#console-table-options-wrap)
+
+The default options passed to `consoleTable()` (see its docs for a list of all options and what they do).
+
+##### `ii.pre(value: unknown): unknown`
+
+Allows you to manipulate the value before printing it. For example, in Solid.js Signals are functions with no parameters and you can ensure it always prints the value and not the Signal itself:
+```ts
+ii.pre = (value: unknown): unknown => {
+    // is it a Solid.js Signal?
+    return typeof value === 'function' && value.length === 0
+        ? value()
+        : value
+}
 ```
 
 <details>
@@ -165,14 +226,14 @@ ii.k('start', 'end', 'nodes') // or use the shorthand
 Type: `number`  
 Default: `2`
 
-How much levels to expand the object. Levels after that will be collapsed.
+For nested objects, how many levels are expanded by default. Levels after that will be collapsed.
 
 ##### `ConsoleInspectOptions.keys`
 
 Type: `string[]`
 Default: `undefined`
 
-Whitelist for keys to include in the log. For nested object, `keys` work per level — at particular level of nesting if no key matches any of the `keys` the whole level is shown. For nested object, showing a key also shows its children.
+Whitelist keys to include in the log. For nested object, `keys` work per level — at particular level of nesting if no key matches any of the `keys` the whole level is shown. For nested object, showing a key also shows its children.
 
 ##### `ConsoleInspectOptions.wrap`
 
