@@ -11,8 +11,8 @@ export { default as consoleInspect } from "./src/inspect/consoleInspect";
 export type { ConsoleInspectOptions } from "./src/inspect/consoleInspect";
 
 // table
-export { default as consoleTable } from "./src/extras/consoleTable";
-export type { ConsoleTableOptions } from "./src/extras/consoleTable";
+export { default as consoleTable } from "./src/table/consoleTable";
+export type { ConsoleTableOptions } from "./src/table/consoleTable";
 
 // extras
 export { default as consoleOrderedList } from "./src/extras/consoleOrderedList";

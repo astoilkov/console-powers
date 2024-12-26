@@ -1,11 +1,11 @@
-import { ConsoleText, consoleText } from "../../core/consoleText";
+import { ConsoleText, consoleText } from "../core/consoleText";
 import consoleTableCell from "./consoleTableCell";
 import createTableCell, { ConsoleTableCell } from "./createTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
-import { ConsoleTableOptions } from "../consoleTable";
+import { ConsoleTableOptions } from "./consoleTable";
 import CellBorder from "./CellBorder";
-import savedAvailableLengthGuess from "../../utils/savedAvailableLengthGuess";
+import savedAvailableLengthGuess from "../utils/savedAvailableLengthGuess";
 
 export default function arrayOfObjectsTable(
     array: object[],

@@ -3,7 +3,7 @@ import consolePrint from "../src/core/consolePrint";
 import consoleQuote from "../src/extras/consoleQuote";
 import consoleUnorderedList from "../src/extras/consoleUnorderedList";
 import { consoleText } from "../src/core/consoleText";
-import consoleTable from "../src/extras/consoleTable";
+import consoleTable from "../src/table/consoleTable";
 import slicedownResult from "./fixtures/slicedownResult";
 import consoleOrderedList from "../src/extras/consoleOrderedList";
 import examples from "./examples";

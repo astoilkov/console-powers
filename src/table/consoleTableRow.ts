@@ -1,6 +1,6 @@
 import createTableCell, { ConsoleTableCell } from "./createTableCell";
-import { consoleText, ConsoleText } from "../../core/consoleText";
-import spansLength from "../../utils/spansLength";
+import { consoleText, ConsoleText } from "../core/consoleText";
+import spansLength from "../utils/spansLength";
 import CellBorder from "./CellBorder";
 
 export default function consoleTableRow(

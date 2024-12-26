@@ -1,8 +1,8 @@
 import consolePrint from "../core/consolePrint";
 import type ConsoleSpan from "../core/ConsoleSpan";
 import { consoleText } from "../core/consoleText";
-import type { ConsoleTableOptions } from "../extras/consoleTable";
-import consoleTable from "../extras/consoleTable";
+import type { ConsoleTableOptions } from "../table/consoleTable";
+import consoleTable from "../table/consoleTable";
 import isPrimitive from "../utils/isPrimitive";
 
 const tt = createTableTable({});

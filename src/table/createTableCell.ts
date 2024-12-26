@@ -1,4 +1,4 @@
-import { ConsoleText } from "../../core/consoleText";
+import { ConsoleText } from "../core/consoleText";
 
 export interface ConsoleTableCell {
     spans: ConsoleText[];

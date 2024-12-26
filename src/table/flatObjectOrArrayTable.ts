@@ -1,12 +1,12 @@
-import { ConsoleTableOptions } from "../consoleTable";
-import { consoleText, ConsoleText } from "../../core/consoleText";
+import { ConsoleTableOptions } from "./consoleTable";
+import { consoleText, ConsoleText } from "../core/consoleText";
 import createTableCell from "./createTableCell";
-import consoleStyles from "../../inspect/utils/consoleStyles";
+import consoleStyles from "../inspect/utils/consoleStyles";
 import consoleTableCell from "./consoleTableCell";
 import calcColumnsSize from "./calcColumnsSize";
 import consoleTableRow from "./consoleTableRow";
 import CellBorder from "./CellBorder";
-import savedAvailableLengthGuess from "../../utils/savedAvailableLengthGuess";
+import savedAvailableLengthGuess from "../utils/savedAvailableLengthGuess";
 
 export default function flatObjectOrArrayTable(
     object: object,

@@ -1,5 +1,5 @@
 import { ConsoleTableCell } from "./createTableCell";
-import spansLength from "../../utils/spansLength";
+import spansLength from "../utils/spansLength";
 
 export default function calcColumnsSize(rows: ConsoleTableCell[][]): number[] {
     const columns: number[] = [];

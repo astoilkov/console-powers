@@ -1,6 +1,6 @@
-import ConsoleStyle from "../../core/ConsoleStyle";
+import ConsoleStyle from "../core/ConsoleStyle";
 import createTableCell, { ConsoleTableCell } from "./createTableCell";
-import consoleApply from "../../core/consoleApply";
+import consoleApply from "../core/consoleApply";
 
 export default class CellBorder {
     #borderStyle: string;

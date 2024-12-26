@@ -1,8 +1,8 @@
-import inspectInline from "../../inspect/inspectors/inspectInline";
-import inspectAny from "../../inspect/inspectors/inspectAny";
-import { ConsoleText, consoleText } from "../../core/consoleText";
+import inspectInline from "../inspect/inspectors/inspectInline";
+import inspectAny from "../inspect/inspectors/inspectAny";
+import { ConsoleText, consoleText } from "../core/consoleText";
 import createTableCell, { ConsoleTableCell } from "./createTableCell";
-import spansLength from "../../utils/spansLength";
+import spansLength from "../utils/spansLength";
 
 export default function consoleTableCell(
     value: unknown,
