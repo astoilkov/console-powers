@@ -143,7 +143,7 @@ function getData() {
 
 ##### `ii.defaults`
 
-Type: [`ConsoleInspectOptions`](#console-inspect-options-depth)
+Type: [`ConsoleInspectOptions`](#consoleinspectoptions-depth)
 
 The default options passed to `consoleInspect()` (see its docs for a list of all options and what they do).
 
@@ -200,7 +200,7 @@ function getData() {
 
 ##### `tt.defaults`
 
-Type: [`ConsoleTableOptions`](#console-table-options-wrap)
+Type: [`ConsoleTableOptions`](#consoletableoptions-wrap)
 
 The default options passed to `consoleTable()` (see its docs for a list of all options and what they do).
 
