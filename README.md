@@ -204,11 +204,11 @@ Type: [`ConsoleTableOptions`](#console-table-options-wrap)
 
 The default options passed to `consoleTable()` (see its docs for a list of all options and what they do).
 
-##### `ii.pre(value: unknown): unknown`
+##### `tt.pre(value: unknown): unknown`
 
 Allows you to manipulate the value before printing it. For example, in Solid.js Signals are functions with no parameters and you can ensure it always prints the value and not the Signal itself:
 ```ts
-ii.pre = (value: unknown): unknown => {
+tt.pre = (value: unknown): unknown => {
     // is it a Solid.js Signal?
     return typeof value === 'function' && value.length === 0
         ? value()
