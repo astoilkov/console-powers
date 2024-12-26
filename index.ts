@@ -10,8 +10,11 @@ export type { TableTable } from "./src/inspect/tt";
 export { default as consoleInspect } from "./src/inspect/consoleInspect";
 export type { ConsoleInspectOptions } from "./src/inspect/consoleInspect";
 
-// extras
+// table
 export { default as consoleTable } from "./src/extras/consoleTable";
+export type { ConsoleTableOptions } from "./src/extras/consoleTable";
+
+// extras
 export { default as consoleOrderedList } from "./src/extras/consoleOrderedList";
 export { default as consoleUnorderedList } from "./src/extras/consoleUnorderedList";
 
