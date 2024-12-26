@@ -143,9 +143,9 @@ function getData() {
 
 ##### `ii.defaults`
 
-Type: [`ConsoleInspectOptions`](#consoleinspectoptions-depth)
+Type: `ConsoleInspectOptions`
 
-The default options passed to `consoleInspect()` (see its docs for a list of all options and what they do).
+The default options passed to `consoleInspect()`. Expand `consoleInspect` docs for list of all options and what they do.
 
 ##### `ii.depth(depth: number): InspectInspect`
 
@@ -200,9 +200,9 @@ function getData() {
 
 ##### `tt.defaults`
 
-Type: [`ConsoleTableOptions`](#consoletableoptions-wrap)
+Type: `ConsoleTableOptions`
 
-The default options passed to `consoleTable()` (see its docs for a list of all options and what they do).
+The default options passed to `consoleTable()`. Expand `consoleTable` docs for list of all options and what they do.
 
 ##### `tt.pre(value: unknown): unknown`
 
