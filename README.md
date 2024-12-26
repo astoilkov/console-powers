@@ -5,13 +5,6 @@
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/console-powers)](https://bundlephobia.com/result?p=console-powers)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/console-powers/main.yml?branch=main)](https://github.com/astoilkov/console-powers/actions/workflows/main.yml)
 
-<!--
-## Why
-## Usage
-## API
-## Alternatives
-## Related
--->
 
 ## Install
 
@@ -26,7 +19,7 @@ npm install console-powers
 - **Write less, use inline.** You can sneak in `ii()` — `return ii(data)` — and it will print and return the value so you don't need to make a separate variable, print the value, and then return it. Also, if your don't have a shorthand for `console.log`, writing `ii` is faster.
 - **And many more.** Better date/time printing, more readable `Map` printing, adaptive string trimming, and many more improvements over default logging methods.
 
-## TL;DR
+## Usage
 
 You can replace `console.log()` with `ii()` & `console.table()` with `tt()` for a better debugging experience. Just add the two methods to the global scope and start experimenting:
 ```ts
