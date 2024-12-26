@@ -1,8 +1,8 @@
 import { ConsoleText } from "../core/consoleText";
 import hasOnlyPrimitives from "../utils/hasOnlyPrimitives";
 import consolePrint from "../core/consolePrint";
-import arrayOfObjectsTable from "./consoleTable/arrayOfObjectsTable";
-import flatObjectOrArrayTable from "./consoleTable/flatObjectOrArrayTable";
+import arrayOfObjectsTable from "./table/arrayOfObjectsTable";
+import flatObjectOrArrayTable from "./table/flatObjectOrArrayTable";
 
 export type ConsoleTableOptions = {
     print?: boolean;
