@@ -21,7 +21,9 @@ npm install console-powers
 
 ## Usage
 
-You can replace `console.log()` with `ii()` & `console.table()` with `tt()` for a better debugging experience. Just add the two methods to the global scope and start experimenting:
+The library can be mentally split in two: **1)** `ii()` that aims to replace `console.log` and `tt()` that aims to replace `console.table`, **2)** the core API that allows doing advanced printing in the browser console. This is a getting started for **1)**. For **2)** see [API section](#api).
+
+Add `ii` and `tt` to the global:
 ```ts
 import { addToGlobalScope, addNoopToGlobalScope } from 'console-powers/global'
 
@@ -33,7 +35,11 @@ if (import.meta.env.DEV) {
 }
 ```
 
-The library also has additional methods for doing advanced printing in the browser console — see the [API section](#api) if you wanna dive deeper.
+Use anywhere instead of `console.log` and `console.table`:
+```ts
+// ii() returns the first parameter you pass to it, so you can use it inline
+const markdownTree = ii(await worker.parseMarkdownTree())
+```
 
 ## Examples
 
