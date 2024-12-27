@@ -215,6 +215,14 @@ tt.pre = (value: unknown): unknown => {
 }
 ```
 
+### `addToGlobalScope()`
+
+Imported from `console-powers/global`. It adds `ii` and `tt` and it's TypeScript types to the global scope so it can be used anywhere without importing it – just like `console.log`.
+
+### `addNoopToGlobalScope()`
+
+Imported from `console-powers/global`. It adds empty/noop functions for `ii` and `tt` so if you accidentally forget a `ii` or `tt` call during development it won't crash in production.
+
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
 
