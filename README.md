@@ -21,7 +21,7 @@ npm install console-powers
 
 ## Usage
 
-The library can be mentally split in two: **1)** `ii()` that aims to replace `console.log` and `tt()` that aims to replace `console.table`, **2)** the core API that allows doing advanced printing in the browser console. This is a getting started for **1)**. For **2)** see [API section](#api).
+The library can be mentally split in two: **1)** `ii()` that aims to replace `console.log` + `tt()` that aims to replace `console.table`, **2)** the core API that allows doing advanced printing in the browser console. This is a getting started for **1)**. For **2)** see [API section](#api).
 
 1. Add `ii` and `tt` to the global scope so you can use it anywhere without importing it – just like `console.log`:
     ```ts
