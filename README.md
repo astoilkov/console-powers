@@ -1,6 +1,6 @@
 # `console-powers`
 
-> Better debugging experience in the browser's console. Ditch `console.log`.
+> New way to debug & inspect in the browser. Ditch `console.log`.
 
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/console-powers)](https://bundlephobia.com/result?p=console-powers)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/astoilkov/console-powers/main.yml?branch=main)](https://github.com/astoilkov/console-powers/actions/workflows/main.yml)
