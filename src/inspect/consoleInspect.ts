@@ -118,6 +118,8 @@ function inspect(
                             ).spans,
                         }),
                     ];
+                } else {
+                    spans.push(...inspection.spans);
                 }
             } else {
                 spans.push(...inspection.spans);

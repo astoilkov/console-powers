@@ -404,3 +404,8 @@ examples.make(() => {
 
     // ii.defaults.pre = undefined;
 });
+
+// 🐛 ii(new URL()) isn't printed at all
+examples.make(() => {
+    ii(new URL("https://example.com"));
+});
