@@ -21,7 +21,7 @@ npm install console-powers
 
 ## Usage
 
-The library can be mentally split in two: **1)** `ii()` that aims to replace `console.log` + `tt()` that aims to replace `console.table`, **2)** the core API that allows doing advanced printing in the browser console. This is a getting started for **1)**. For **2)** see [API section](#api).
+The library can be mentally split in two: *1)* `ii()` that aims to replace `console.log` + `tt()` that aims to replace `console.table`, *2)* the core API that allows doing advanced printing in the browser console. This is a getting started for *1)*. For *2)* see [API section](#api).
 
 1. Add `ii` and `tt` to the global scope so you can use it anywhere without importing it – just like `console.log`:
     ```ts
@@ -36,7 +36,7 @@ The library can be mentally split in two: **1)** `ii()` that aims to replace `co
     ```
 2. Use anywhere instead of `console.log` and `console.table`:
     ```ts
-    // ii() returns the first parameter you pass to it, so you can use it inline
+    // use inline — ii() returns the first arg you pass to it
     const markdownTree = ii(await worker.parseMarkdownTree())
     ```
 
@@ -214,13 +214,18 @@ tt.pre = (value: unknown): unknown => {
 }
 ```
 
-### `addToGlobalScope()`
+<details>
+<summary><h3><code>console-powers/global</code><h3></summary>
+
+#### `addToGlobalScope()`
 
 Imported from `console-powers/global`. It adds `ii` and `tt` and it's TypeScript types to the global scope so you can use it anywhere without importing it – just like `console.log`.
 
-### `addNoopToGlobalScope()`
+#### `addNoopToGlobalScope()`
 
 Imported from `console-powers/global`. It adds empty/noop functions for `ii` and `tt` so if you accidentally forget a `ii` or `tt` call during development it won't crash in production.
+
+</details>
 
 <details>
 <summary><h3><code>consoleInspect()</code><h3></summary>
