@@ -385,27 +385,27 @@ examples.make(() => {
     );
 });
 
-// ii → unwrap promise
-examples.make(() => {
-    ii(Promise.resolve("hello"));
-    tt(Promise.resolve(["hello"]));
-});
-
 // options.pre
 examples.make(() => {
-    // ii.defaults.pre = (value) => {
-    //     if (typeof value === "string") {
-    //         return value.toUpperCase();
-    //     }
-    //     return value;
-    // };
+    ii.pre = (value) => {
+        if (typeof value === "string") {
+            return value.toUpperCase();
+        }
+        return value;
+    };
 
     ii("hello", "world", {});
 
-    // ii.defaults.pre = undefined;
+    ii.pre = undefined;
 });
 
 // 🐛 ii(new URL()) isn't printed at all
 examples.make(() => {
     ii(new URL("https://example.com"));
+});
+
+// ii → unwrap promise
+examples.make(() => {
+    ii(Promise.resolve("hello"));
+    tt(Promise.resolve(["hello"]));
 });
