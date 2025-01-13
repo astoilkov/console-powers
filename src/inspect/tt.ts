@@ -33,8 +33,15 @@ function tableTable(self: TableTable, ...args: unknown[]): unknown {
 
     const hasPromise = args.some((arg) => arg instanceof Promise);
     if (hasPromise) {
-        Promise.all(args).then((values) => {
-            return tableTable(self, ...values);
+        Promise.allSettled(args).then((settledValues) => {
+            return tableTable(
+                self,
+                ...settledValues.map((settled) =>
+                    settled.status === "fulfilled"
+                        ? settled.value
+                        : settled.reason,
+                ),
+            );
         });
     } else {
         if (hasWebContext()) {
