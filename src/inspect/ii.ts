@@ -6,6 +6,7 @@ export default ii;
 
 export interface InspectInspect {
     <T>(value: T, ...args: unknown[]): T;
+    <T>(...args: T[]): T;
     defaults: ConsoleInspectOptions;
     depth: (depth: number) => InspectInspect;
     d: (depth: number) => InspectInspect;

@@ -11,6 +11,7 @@ export default tt;
 
 export interface TableTable {
     <T>(value: T, ...args: unknown[]): T;
+    <T = unknown>(...args: T[]): T;
     defaults: ConsoleTableOptions;
     pre: ((value: unknown) => unknown) | undefined;
 }
