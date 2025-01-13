@@ -129,7 +129,7 @@ export function inspectIterableMultiLine(
         type: "block",
         spans: [
             ...array.flatMap((value, i) => {
-                const indexText = `[${i}]: `;
+                const indexText = `${type ?? ''}[${i}]: `;
                 const inspection =
                     type === "Map"
                         ? inspectEntry(value, options, context)
