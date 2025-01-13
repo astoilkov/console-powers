@@ -99,6 +99,7 @@ function inspect(
                 if (Array.isArray(value) || isIterable(value)) {
                     return [
                         consoleGroup({
+                            expanded: options.depth > 0,
                             header: inspection.spans,
                             body: inspectIterableMultiLine(
                                 makeIterableDetails(value),
@@ -110,6 +111,7 @@ function inspect(
                 } else if (isPlainObject(value)) {
                     return [
                         consoleGroup({
+                            expanded: options.depth > 0,
                             header: inspection.spans,
                             body: inspectObjectMultiLine(
                                 value,
