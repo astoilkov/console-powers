@@ -425,6 +425,28 @@ examples.make(() => {
     inspectMany(...objects);
 });
 
+examples.only(() => {
+    inspect(
+        new Proxy(
+            {
+                type: "markdown",
+                nodes: [
+                    {
+                        type: "paragraph",
+                        start: 0,
+                        end: 12,
+                    },
+                ],
+            },
+            {
+                get(target, prop) {
+                    return target[prop];
+                },
+            },
+        ),
+    );
+});
+
 // ii → unwrap promise
 examples.make(() => {
     ii(Promise.resolve("hello"));
