@@ -18,6 +18,12 @@ function inspect(value: unknown, options?: ConsoleInspectOptions): unknown {
     return value;
 }
 
+function inspectMany(...values: unknown[]): unknown {
+    console.log(...values);
+    ii(...values);
+    return values[0];
+}
+
 examples.make(() => {
     // example 1
     consoleTable([
@@ -402,6 +408,27 @@ examples.make(() => {
 // 🐛 ii(new URL()) isn't printed at all
 examples.make(() => {
     ii(new URL("https://example.com"));
+});
+
+examples.make(() => {
+    const objects = [
+        {
+            type: "paragraph",
+            start: 0,
+            end: 12,
+        },
+        {
+            type: "code",
+            start: 14,
+            end: 64,
+        },
+        {
+            type: "paragraph",
+            start: 16,
+            end: 156,
+        },
+    ];
+    inspectMany(...objects);
 });
 
 // ii → unwrap promise
