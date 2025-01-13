@@ -66,6 +66,9 @@ function inspect(
     options: Required<ConsoleInspectOptions>,
 ): ConsoleSpan[] {
     const spans: ConsoleSpan[] = [];
+    const separator = values.every((value) => isPrimitive(value))
+        ? " "
+        : "\n\n";
 
     for (let i = 0; i < values.length; i++) {
         const value = values[i];
@@ -125,9 +128,7 @@ function inspect(
                 spans.push(...inspection.spans);
 
                 if (i !== values.length - 1) {
-                    spans.push(
-                        consoleText(inspection.type === "block" ? "\n" : " "),
-                    );
+                    spans.push(consoleText(separator));
                 }
             }
         }
