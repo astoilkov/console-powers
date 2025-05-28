@@ -1,6 +1,6 @@
 {
     "name": "console-powers",
-    "version": "0.13.0",
+    "version": "0.14.0",
     "description": "New way to debug & inspect in the browser. Ditch console.log.",
     "license": "MIT",
     "repository": "astoilkov/console-powers",
