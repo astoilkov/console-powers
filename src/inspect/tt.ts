@@ -3,6 +3,7 @@ import type ConsoleSpan from "../core/ConsoleSpan";
 import { consoleText } from "../core/consoleText";
 import type { ConsoleTableOptions } from "../table/consoleTable";
 import consoleTable from "../table/consoleTable";
+import builtInConsole from "../utils/builtInConsole";
 import isPrimitive from "../utils/isPrimitive";
 
 const tt = createTableTable({});
@@ -66,7 +67,7 @@ function tableTable(self: TableTable, ...args: unknown[]): unknown {
             }
             consolePrint(spans);
         } else {
-            console.log(...args);
+            builtInConsole.log(...args);
         }
     }
 
