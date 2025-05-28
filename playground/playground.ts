@@ -365,6 +365,7 @@ examples.make(() => {
     arrCircular.push(arrCircular as any);
     objCircular.c = arrCircular as any;
     ii.depth(5)(objCircular);
+    console.log(objCircular);
 });
 
 examples.make(() => {
