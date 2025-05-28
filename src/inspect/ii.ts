@@ -1,3 +1,4 @@
+import builtInConsole from "../utils/builtInConsole";
 import consoleInspect, { type ConsoleInspectOptions } from "./consoleInspect";
 
 const ii = createInspectInspect({});
@@ -54,7 +55,7 @@ function inspectInspect(self: InspectInspect, ...args: unknown[]): unknown {
             const values = self.pre === undefined ? args : args.map(self.pre);
             consoleInspect(values, self.defaults);
         } else {
-            console.log(...args);
+            builtInConsole.log(...args);
         }
     }
 
