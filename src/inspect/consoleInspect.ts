@@ -15,6 +15,7 @@ import isPrimitive from "../utils/isPrimitive";
 import consoleApply from "../core/consoleApply";
 import savedAvailableLengthGuess from "../utils/savedAvailableLengthGuess";
 import inspectPrimitive from "./inspectors/inspectPrimitive";
+import consoleStyles from "./utils/consoleStyles";
 
 export interface ConsoleInspectOptions {
     indent?: number;
@@ -98,8 +99,9 @@ function inspect(
 
             // special case: top-level grouping of array/object
             // we otherwise can't use groups because they call `consoleFlush()`
-            if (values.length === 1 && inspection.type === "inline") {
-                if (Array.isArray(value) || isIterable(value)) {
+            if (values.length === 1) {
+                if ((Array.isArray(value) || isIterable(value)) && inspection.type === "inline") {
+                    // For iterables with inline inspection, create a group with multi-line body
                     return [
                         consoleGroup({
                             header: inspection.spans,
@@ -110,7 +112,8 @@ function inspect(
                             ).spans,
                         }),
                     ];
-                } else if (isPlainObject(value)) {
+                } else if (isPlainObject(value) && inspection.type === "inline") {
+                    // For plain objects with inline inspection, create a group with multi-line body
                     return [
                         consoleGroup({
                             header: inspection.spans,
@@ -121,7 +124,43 @@ function inspect(
                             ).spans,
                         }),
                     ];
+                } else if ((Array.isArray(value) || isIterable(value)) && inspection.type === "block") {
+                    // For iterables with block inspection, the inspection already contains the full structure
+                    // We need to extract a header and use the block content as the body
+                    // For now, just return the inspection as-is wrapped in a group
+                    // This handles Maps and other iterables that return block inspections
+                    const iterableDetails = makeIterableDetails(value);
+                    const type = iterableDetails.type;
+                    const length = iterableDetails.array.length;
+                    const headerText = type === undefined ? `[…]` : `{…}`;
+                    const countText = ` ${type ?? ""}(${length})`;
+                    
+                    return [
+                        consoleGroup({
+                            header: [
+                                consoleText(headerText),
+                                consoleText(countText, consoleStyles[options.theme].dimmed),
+                            ],
+                            body: inspection.spans,
+                        }),
+                    ];
+                } else if (isPlainObject(value) && inspection.type === "block") {
+                    // For plain objects with block inspection, extract header and body
+                    const keys = Object.keys(value);
+                    const headerText = `{…}`;
+                    const countText = ` (${keys.length})`;
+                    
+                    return [
+                        consoleGroup({
+                            header: [
+                                consoleText(headerText),
+                                consoleText(countText, consoleStyles[options.theme].dimmed),
+                            ],
+                            body: inspection.spans,
+                        }),
+                    ];
                 } else {
+                    // For non-iterable, non-plain-object values (like Date, functions, etc.)
                     spans.push(...inspection.spans);
                 }
             } else {
